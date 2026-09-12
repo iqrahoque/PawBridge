@@ -11,6 +11,7 @@ vendor/
 
 # Build outputs
 .next/
+.next-export/
 out/
 dist/
 build/
@@ -19,6 +20,10 @@ build/
 *.log
 npm-debug.log*
 yarn-error.log*
+
+# Screenshots & temp
+shots/
+tmp/
 
 # OS / editor junk
 .DS_Store

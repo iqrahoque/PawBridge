@@ -3,6 +3,8 @@
 > **Adopt. Donate. Heal.**
 > A database-driven platform that connects adopters, shelters, veterinary clinics and donors — helping dogs & cats in Bangladesh find homes, funds and medical care.
 
+**🌐 Live demo:** https://iqrahoque.github.io/PetCare/
+
 ---
 
 ## 📖 About
@@ -20,40 +22,59 @@ Plus **unique differentiator modules** (see [PROJECT_SPEC.md](docs/PROJECT_SPEC.
 
 ---
 
+## 🌐 Web Version (this repo, root)
+
+A fully working single-page **Next.js 16 + TypeScript + Tailwind + shadcn/ui + Zustand** app that mirrors the database design 1:1. Because GitHub Pages serves static files only, the demo runs the same seed data client-side and persists interactions (applications, donations, karma, matches) to **localStorage** — every workflow of the real schema is simulated, including:
+
+- Adoption application → pet auto-flips to **pending** (like `trg_application_after_insert`)
+- Shelter approval → pet flips to **adopted**, dashboard counters update
+- Donation → campaign `raised_amount` progress rises + karma accrues (1 pt / ৳100)
+- Blood requests → donors matched by species + blood type + 56/28-day eligibility (live version of showcase query Q8)
+- Lost & Found → match suggestion → confirm marks both reports **reunited**
+
+```bash
+npm install        # or: bun install
+npm run dev        # local dev server on :3000
+npm run build      # static export → out/ (basePath /PetCare, ready for GitHub Pages)
+npm run lint       # ESLint
+```
+
+| Path | What it is |
+|---|---|
+| `src/data/seed.ts` | TypeScript port of `database/seed_data.sql` |
+| `src/lib/store.ts` | Zustand store — the client-side "database" with trigger-like behavior |
+| `src/components/petcare/` | All 8 screens (Home, Adopt, Donate, Vets, Blood Bank, Lost & Found, Karma, Dashboard) |
+| `src/components/ui/` | shadcn/ui component library |
+| `next.config.ts` | Dual mode: dev standalone ↔ `EXPORT_MODE=1` static export with `basePath: /PetCare` |
+
+> Deploying: push the contents of `out/` to the `gh-pages` branch (kept in sync by this project). Pages deploys automatically — do not edit `gh-pages` by hand.
+
+---
+
 ## 🗂 Repository Structure
 
 ```
 PetCare/
 ├── README.md                    ← you are here
+├── src/                         # 🌐 web app (Next.js 16, see above)
 ├── docs/
 │   ├── PROJECT_SPEC.md          # Vision, user roles, features, user stories
 │   ├── DATABASE_DESIGN.md       # ER diagram, table docs, normalization, indexes
 │   ├── FIGMA_DESIGN_GUIDE.md    # Design system + all screens to prototype
-│   ├── API_DESIGN.md            # REST API endpoints
+│   ├── API_DESIGN.md            # REST API endpoints (real backend blueprint)
 │   └── ROADMAP.md               # Phased build plan (semester-friendly)
 ├── database/
 │   ├── schema.sql               # Full MySQL 8 DDL — 29 tables, triggers, views
 │   ├── seed_data.sql            # Realistic demo data (Dhaka-flavored 🇧🇩)
 │   └── queries/
-│       └── showcase_queries.sql # 9 impressive SQL queries for demos & viva
+│       └── showcase_queries.sql # 10 impressive SQL queries for demos & viva
+├── package.json                 # web app deps & scripts
 └── .gitignore
 ```
 
 ---
 
-## 🛠 Tech Stack
-
-| Layer | Technology | Why |
-|---|---|---|
-| 🎨 Design | **Figma** | UI/UX prototype, design system, developer handoff |
-| 🖥 Frontend | **Next.js (React) + Tailwind CSS** | Fast to build, SEO-friendly, matches Figma tokens |
-| ⚙️ Backend | **Next.js API Routes / Node.js** | One language across the stack, JWT auth |
-| 🗄 Database | **MySQL 8** | Battle-tested relational DB — ideal for a DB course project |
-| 🔷 ORM | **Prisma** | Type-safe queries, migrations generated from schema |
-
----
-
-## 🚀 Database Quickstart
+## 🗄 Database Quickstart
 
 ```bash
 # 1. Create the database
@@ -79,9 +100,9 @@ mysql -u root -p petcare_db < database/queries/showcase_queries.sql
 |---|---|
 | 0 — Research & Specification | ✅ Done ([spec](docs/PROJECT_SPEC.md)) |
 | 1 — Database Design | ✅ Done ([ERD](docs/DATABASE_DESIGN.md), [SQL](database/schema.sql)) |
-| 2 — Figma Prototype | 🔜 In progress ([design guide](docs/FIGMA_DESIGN_GUIDE.md)) |
-| 3 — Backend & API | 🔜 Next ([API design](docs/API_DESIGN.md)) |
-| 4 — Web Frontend | 🔜 Planned ([roadmap](docs/ROADMAP.md)) |
+| 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — the web app already implements its tokens & screens |
+| 3 — Web App (demo build) | ✅ **Live** on GitHub Pages |
+| 4 — Real backend (API + MySQL) | 🔜 Next ([API design](docs/API_DESIGN.md) ready to implement) |
 
 ---
 

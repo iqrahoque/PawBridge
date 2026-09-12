@@ -138,6 +138,7 @@ INSERT INTO pet_blood_donors (user_id, pet_name, species, breed, blood_type, wei
 (8,  'Bruno', 'dog', 'Deshi mix',  'DEA 1.1-', 28.50, '2026-07-14', TRUE, 1, TRUE),
 (9,  'Milky', 'cat', 'Persian',    'A',         4.50, '2026-08-02', TRUE, 1, TRUE),
 (10, 'Rex',   'dog', 'Labrador',   'DEA 1.1+', 32.00, '2026-09-01', TRUE, 2, TRUE),
+(11, 'Shiro', 'dog', 'Husky mix',  'DEA 1.1-', 30.00, '2026-06-20', TRUE, 1, TRUE),
 (7,  'Coco',  'dog', 'Cocker mix', 'DEA 1.1-', 26.00, '2026-05-20', TRUE, 1, FALSE);  -- moved to Chattogram
 
 INSERT INTO blood_requests (clinic_id, species, blood_type, urgency, units_needed, patient_note, status, deadline) VALUES

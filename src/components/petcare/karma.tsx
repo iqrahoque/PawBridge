@@ -1,0 +1,205 @@
+"use client";
+
+import { Sparkles, Gift, Trophy, History } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { seedKarma, rewards, personaSeedKarma, PERSONA } from "@/data/seed";
+import { usePetCare } from "@/lib/store";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+
+export function KarmaScreen() {
+  const karmaEarned = usePetCare((s) => s.karmaEarned);
+  const karmaLog = usePetCare((s) => s.karmaLog);
+  const spendKarma = usePetCare((s) => s.spendKarma);
+  const { toast } = useToast();
+
+  const myTotal = personaSeedKarma + karmaEarned;
+
+  const leaderboard = (() => {
+    const totals: Record<string, number> = {};
+    for (const k of seedKarma) totals[k.userName] = (totals[k.userName] ?? 0) + k.points;
+    totals[PERSONA] = (totals[PERSONA] ?? 0) + karmaEarned;
+    return Object.entries(totals)
+      .map(([name, pts]) => ({ name, pts }))
+      .sort((a, b) => b.pts - a.pts);
+  })();
+
+  const redeem = (title: string, cost: number) => {
+    if (spendKarma(title, cost)) {
+      toast({
+        title: "Reward redeemed!",
+        description: `${title} — voucher PMC-${Math.random().toString(36).slice(2, 6).toUpperCase()} sent to your email. (-${cost} karma)`,
+      });
+    }
+  };
+
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-8">
+      <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
+        <Sparkles className="h-7 w-7 text-amber-500" /> Karma &amp; impact ledger
+      </h1>
+      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+        Every good deed earns points — donating, adopting, fostering, driving, reporting, reviewing.
+        Redeem them with partner vets and stores, or pay them forward as shelter meals.
+      </p>
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-3">
+        {/* My karma */}
+        <Card className="bg-hero shadow-soft lg:col-span-1">
+          <CardContent className="p-6">
+            <p className="text-sm font-medium text-stone-600">{PERSONA}&apos;s karma balance</p>
+            <p className="mt-2 text-5xl font-extrabold tracking-tight text-primary">{myTotal.toLocaleString("en-IN")}</p>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              <Badge variant="outline" className="border-orange-200 bg-white/70 text-orange-800">
+                Adopter
+              </Badge>
+              <Badge variant="outline" className="border-red-200 bg-white/70 text-red-700">
+                Blood donor family
+              </Badge>
+              <Badge variant="outline" className="border-teal-200 bg-white/70 text-teal-800">
+                Found-reporter
+              </Badge>
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Seeded from the MySQL karma_ledger ({personaSeedKarma} pts) + everything you do in this
+              demo ({karmaEarned} pts this session).
+            </p>
+
+            {karmaLog.length > 0 && (
+              <div className="mt-4 max-h-44 space-y-1.5 overflow-y-auto rounded-xl bg-white/70 p-3 scroll-slim">
+                {karmaLog.map((l, i) => (
+                  <p key={i} className="flex items-center justify-between text-xs">
+                    <span className="text-stone-700">{l.action}</span>
+                    <span className={cn("font-bold", l.points >= 0 ? "text-green-700" : "text-red-600")}>
+                      {l.points >= 0 ? "+" : ""}
+                      {l.points}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Leaderboard */}
+        <Card className="shadow-soft lg:col-span-2">
+          <CardContent className="p-6">
+            <h2 className="flex items-center gap-2 font-bold">
+              <Trophy className="h-5 w-5 text-amber-500" /> Community leaderboard
+            </h2>
+            <div className="mt-4 space-y-2">
+              {leaderboard.map((u, i) => (
+                <div
+                  key={u.name}
+                  className={cn(
+                    "flex items-center justify-between rounded-xl border p-3",
+                    u.name === PERSONA ? "border-orange-300 bg-accent" : "bg-white"
+                  )}
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={cn(
+                        "flex h-7 w-7 items-center justify-center rounded-full text-xs font-extrabold",
+                        i === 0
+                          ? "bg-amber-400 text-white"
+                          : i === 1
+                            ? "bg-stone-300 text-stone-700"
+                            : i === 2
+                              ? "bg-orange-200 text-orange-900"
+                              : "bg-secondary text-secondary-foreground"
+                      )}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="text-sm font-semibold">{u.name}</span>
+                    {u.name === PERSONA && (
+                      <Badge variant="outline" className="border-orange-300 text-orange-800">
+                        you
+                      </Badge>
+                    )}
+                  </div>
+                  <span className="text-sm font-extrabold text-primary">
+                    {u.pts.toLocaleString("en-IN")} pts
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              = SELECT full_name, SUM(points) FROM karma_ledger JOIN users … GROUP BY user_id
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Rewards */}
+      <section className="mt-10 mb-4">
+        <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+          <Gift className="h-5 w-5 text-primary" /> Rewards catalog
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Real perks from partner vets and stores. You have {myTotal.toLocaleString("en-IN")} points.
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {rewards.map((r) => {
+            const affordable = myTotal >= r.cost;
+            return (
+              <Card key={r.id} className="flex flex-col shadow-soft">
+                <CardContent className="flex flex-1 flex-col p-5">
+                  <p className="font-bold leading-snug">{r.title}</p>
+                  <p className="mt-1 flex-1 text-sm text-muted-foreground">{r.description}</p>
+                  <p className="mt-2 text-xs text-stone-500">{r.partner}</p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-lg font-extrabold text-primary">{r.cost} pts</span>
+                    <Button
+                      size="sm"
+                      className="rounded-lg"
+                      disabled={!affordable}
+                      onClick={() => redeem(r.title, r.cost)}
+                    >
+                      {affordable ? "Redeem" : `Need ${r.cost - myTotal} more`}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Full ledger */}
+      <section className="mb-4">
+        <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+          <History className="h-5 w-5 text-teal-700" /> Impact ledger
+        </h2>
+        <Card className="mt-4 shadow-soft">
+          <CardContent className="max-h-80 overflow-y-auto p-0 scroll-slim">
+            <table className="w-full text-sm">
+              <thead className="sticky top-0 bg-secondary/80 backdrop-blur">
+                <tr className="text-left text-xs uppercase tracking-wide text-stone-500">
+                  <th className="px-4 py-2.5 font-semibold">Who</th>
+                  <th className="px-4 py-2.5 font-semibold">Deed</th>
+                  <th className="px-4 py-2.5 text-right font-semibold">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...karmaLog.map((l) => ({ name: PERSONA, action: l.action, points: l.points })),
+                  ...seedKarma].map((k, i) => (
+                  <tr key={i} className="border-t">
+                    <td className="px-4 py-2.5 font-medium">{k.name}</td>
+                    <td className="px-4 py-2.5 text-stone-600">{k.action}</td>
+                    <td className={cn("px-4 py-2.5 text-right font-bold", k.points >= 0 ? "text-green-700" : "text-red-600")}>
+                      {k.points >= 0 ? "+" : ""}
+                      {k.points}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      </section>
+    </div>
+  );
+}
