@@ -57,9 +57,9 @@ Warm, trustworthy, animal-welfare palette. **Sage = normal information · Coral 
 - 💰 **Donations** — Donate button coral `#E58B78`, progress bar sage `#557A63`, milestone highlights ("98% funded") in gold `#D6A85F`.
 - 🏥 **Vet directory** — slightly more clinical: sage + white + medical light blue `#DCEBED` icon chips and accents.
 - 🐾 **Lost & Found** — LOST badge gold `#D6A85F`, FOUND badge sage `#557A63` — recognisable at a glance.
-- **Dark CTA band** — deep forest gradient (`#24362B → #34513F → #41604C`) with a gold glow; hero gradient text runs forest → sage → gold.
+- **Dark CTA band** — flat deep forest `#34513F`; headings stay single-colour (no gradient text).
 
-**Gradients:** hero = soft sage breeze + coral warmth + gold hint over cream · rescue surfaces = pale warm red `#FFF1EF` with faint red radials · CTA band = forest with gold glow. Cards use charcoal-tinted shadows; nav glass is `rgba(255,255,255,0.86)` + blur.
+**Surfaces (v5 — all flat, no decorative gradients, no glass blur):** hero = flat `#F4F0E3` · rescue surfaces = flat pale warm red `#FFF1EF` · CTA band = flat forest `#34513F`. Cards are white with charcoal-tinted soft shadows; the nav is solid white with a bottom border.
 
 <details>
 <summary>Legacy v3 palette (cat-colours "Pawfect": ginger / paw-pink) — deprecated</summary>
