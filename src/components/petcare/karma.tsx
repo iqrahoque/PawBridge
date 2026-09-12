@@ -52,13 +52,13 @@ export function KarmaScreen() {
             <p className="text-sm font-medium text-stone-600">{PERSONA}&apos;s karma balance</p>
             <p className="mt-2 text-5xl font-extrabold tracking-tight gradient-text">{myTotal.toLocaleString("en-IN")}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
-              <Badge variant="outline" className="border-violet-200 bg-white/70 text-violet-800">
+              <Badge variant="outline" className="border-ginger-200 bg-white/70 text-ginger-800">
                 Adopter
               </Badge>
               <Badge variant="outline" className="border-rose-200 bg-white/70 text-rose-700">
                 Blood donor family
               </Badge>
-              <Badge variant="outline" className="border-sky-200 bg-white/70 text-sky-800">
+              <Badge variant="outline" className="border-greyfur-200 bg-white/70 text-greyfur-800">
                 Found-reporter
               </Badge>
             </div>
@@ -107,7 +107,7 @@ export function KarmaScreen() {
                           : i === 1
                             ? "bg-stone-300 text-stone-700"
                             : i === 2
-                              ? "bg-violet-200 text-violet-900"
+                              ? "bg-ginger-200 text-ginger-900"
                               : "bg-secondary text-secondary-foreground"
                       )}
                     >
@@ -115,7 +115,7 @@ export function KarmaScreen() {
                     </span>
                     <span className="text-sm font-semibold">{u.name}</span>
                     {u.name === PERSONA && (
-                      <Badge variant="outline" className="border-violet-300 text-violet-800">
+                      <Badge variant="outline" className="border-ginger-300 text-ginger-800">
                         you
                       </Badge>
                     )}

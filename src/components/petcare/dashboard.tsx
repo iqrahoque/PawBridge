@@ -118,7 +118,7 @@ export function DashboardScreen() {
                         </p>
                         <AppStatusBadge status={a.status} />
                       </div>
-                      {a.note && <p className="mt-1.5 text-xs text-violet-800">{a.note}</p>}
+                      {a.note && <p className="mt-1.5 text-xs text-ginger-800">{a.note}</p>}
                       {a.status === "submitted" && (
                         <p className="mt-1.5 text-xs text-muted-foreground">
                           Shelter has 7 days to respond — you&apos;ll get a notification.
@@ -313,10 +313,10 @@ export function DashboardScreen() {
           </Card>
 
           {/* Admin / safe haven */}
-          <Card className="border-violet-200 shadow-soft">
+          <Card className="border-ginger-200 shadow-soft">
             <CardContent className="p-5">
               <h2 className="flex items-center gap-2 font-bold">
-                <ShieldAlert className="h-4 w-4 text-violet-700" /> Admin — Safe Haven caseload
+                <ShieldAlert className="h-4 w-4 text-ginger-700" /> Admin — Safe Haven caseload
               </h2>
               <p className="text-xs text-muted-foreground">
                 Restricted view: case managers only. Requester identities are never stored.
@@ -325,14 +325,14 @@ export function DashboardScreen() {
                 {safeHavenRequests.map((r) => (
                   <div key={r.code} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 text-sm">
                     <p>
-                      <span className="font-mono font-semibold text-violet-700">{r.code}</span> · {r.petName} (
+                      <span className="font-mono font-semibold text-ginger-700">{r.code}</span> · {r.petName} (
                       {r.species}) — {r.crisisType}
                     </p>
                     <Badge
                       variant="outline"
                       className={cn(
                         r.status === "in_care"
-                          ? "border-sky-200 bg-sky-50 text-sky-800"
+                          ? "border-greyfur-200 bg-greyfur-50 text-greyfur-800"
                           : "border-amber-200 bg-amber-50 text-amber-800"
                       )}
                     >
@@ -377,7 +377,7 @@ function StatTile({
 function AppStatusBadge({ status }: { status: string }) {
   const map: Record<string, string> = {
     submitted: "border-amber-200 bg-amber-50 text-amber-800",
-    under_review: "border-sky-200 bg-sky-50 text-sky-800",
+    under_review: "border-greyfur-200 bg-greyfur-50 text-greyfur-800",
     approved: "border-green-200 bg-green-50 text-green-800",
     rejected: "border-red-200 bg-red-50 text-red-700",
   };

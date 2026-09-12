@@ -56,7 +56,7 @@ export function LostFoundScreen() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
-            <SearchCheck className="h-7 w-7 text-sky-700" /> Lost &amp; Found
+            <SearchCheck className="h-7 w-7 text-greyfur-700" /> Lost &amp; Found
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
             File a report; the matching engine compares species, color and area against the other
@@ -179,7 +179,7 @@ export function LostFoundScreen() {
                       variant="outline"
                       className={cn(
                         r.status === "with_finder"
-                          ? "border-sky-200 bg-sky-50 text-sky-800"
+                          ? "border-greyfur-200 bg-greyfur-50 text-greyfur-800"
                           : "border-green-200 bg-green-50 text-green-800"
                       )}
                     >

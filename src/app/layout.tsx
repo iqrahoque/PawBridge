@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 const PAW_ICON =
   "data:image/svg+xml," +
   encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#7C3AED"/><g fill="#fff"><ellipse cx="22" cy="22" rx="6" ry="8"/><ellipse cx="42" cy="22" rx="6" ry="8"/><ellipse cx="12" cy="34" rx="5" ry="7"/><ellipse cx="52" cy="34" rx="5" ry="7"/><path d="M32 30c8 0 14 6.5 14 13.5S40 54 32 54s-14-3.5-14-10.5S24 30 32 30z"/></g></svg>`
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#D67D28"/><g fill="#fff"><ellipse cx="22" cy="22" rx="6" ry="8"/><ellipse cx="42" cy="22" rx="6" ry="8"/><ellipse cx="12" cy="34" rx="5" ry="7"/><ellipse cx="52" cy="34" rx="5" ry="7"/><path d="M32 30c8 0 14 6.5 14 13.5S40 54 32 54s-14-3.5-14-10.5S24 30 32 30z"/></g></svg>`
   );
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7C3AED",
+  themeColor: "#D67D28",
   width: "device-width",
   initialScale: 1,
 };

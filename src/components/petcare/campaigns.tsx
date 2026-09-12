@@ -160,7 +160,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
           <CardContent className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="font-bold">{transportMission.title}</p>
-              <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
+              <Badge variant="outline" className="border-ginger-200 bg-ginger-50 text-ginger-800">
                 <Clock className="mr-1 h-3 w-3" /> Departs {fmtDate(transportMission.neededOn)}
               </Badge>
             </div>
@@ -170,7 +170,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
                   key={l.leg}
                   className={cn(
                     "flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 transition-colors",
-                    l.status === "claimed" ? "border-violet-200 bg-violet-50/60" : "bg-white"
+                    l.status === "claimed" ? "border-ginger-200 bg-ginger-50/60" : "bg-white"
                   )}
                 >
                   <p className="flex items-center gap-2 text-sm font-medium">
@@ -179,7 +179,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
                     <span className="text-xs text-muted-foreground">({l.km} km)</span>
                   </p>
                   {l.status === "claimed" ? (
-                    <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
+                    <Badge variant="outline" className="border-ginger-200 bg-ginger-50 text-ginger-800">
                       Driver: {l.driver}
                     </Badge>
                   ) : (

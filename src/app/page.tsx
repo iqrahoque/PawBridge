@@ -53,7 +53,7 @@ export default function Page() {
         <div className="h-16 border-b bg-white/60" />
         <main className="flex flex-1 items-center justify-center">
           <div className="flex flex-col items-center gap-3 text-primary/60">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600" />
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-ginger-200 border-t-ginger-600" />
             <p className="text-sm font-medium">Loading PetCare…</p>
           </div>
         </main>

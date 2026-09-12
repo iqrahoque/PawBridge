@@ -26,8 +26,8 @@ const STATUS_META: Record<PetStatus, { label: string; cls: string }> = {
   available: { label: "Available", cls: "bg-green-100 text-green-800 border-green-200" },
   pending: { label: "Pending", cls: "bg-amber-100 text-amber-800 border-amber-200" },
   adopted: { label: "Adopted", cls: "bg-stone-200 text-stone-700 border-stone-300" },
-  medical_hold: { label: "Medical hold", cls: "bg-sky-100 text-sky-800 border-sky-200" },
-  fostered: { label: "Fostered", cls: "bg-violet-100 text-violet-800 border-violet-200" },
+  medical_hold: { label: "Medical hold", cls: "bg-greyfur-100 text-greyfur-800 border-greyfur-200" },
+  fostered: { label: "Fostered", cls: "bg-ginger-100 text-ginger-800 border-ginger-200" },
 };
 
 export function StatusBadge({ status }: { status: PetStatus }) {
@@ -56,7 +56,7 @@ export function PetArt({
     <div
       className={cn("relative flex items-center justify-center overflow-hidden", className)}
       style={{
-        background: `linear-gradient(135deg, hsl(${pet.hue} 78% 86%), hsl(${(pet.hue + 45) % 360} 70% 74%))`,
+        background: `linear-gradient(135deg, hsl(${pet.hue} 78% 86%), hsl(${(pet.hue + 20) % 360} 70% 76%))`,
       }}
       aria-label={`Photo placeholder of ${pet.name}`}
       role="img"
@@ -198,7 +198,7 @@ export function CampaignCard({
               Goal reached
             </Badge>
           ) : (
-            <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
+            <Badge variant="outline" className="border-ginger-200 bg-ginger-50 text-ginger-800">
               Active
             </Badge>
           )}

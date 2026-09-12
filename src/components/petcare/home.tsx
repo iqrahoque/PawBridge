@@ -117,7 +117,7 @@ export function HomeScreen({
                   {["🐱", "🐶", "🩺", "🩸"].map((e, i) => (
                     <span
                       key={i}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-violet-100 to-fuchsia-100 text-base shadow-soft"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-ginger-100 to-pawpink-100 text-base shadow-soft"
                     >
                       {e}
                     </span>
@@ -155,7 +155,7 @@ export function HomeScreen({
                 <p className="text-xs font-bold text-red-700">{openAlerts} rescues need help now</p>
               </div>
               {/* decorative blobs */}
-              <div className="pointer-events-none absolute -right-10 top-1/3 h-40 w-40 rounded-full bg-fuchsia-200/40 blur-2xl" />
+              <div className="pointer-events-none absolute -right-10 top-1/3 h-40 w-40 rounded-full bg-pawpink-200/40 blur-2xl" />
               <div className="pointer-events-none absolute -left-6 bottom-0 h-36 w-36 rounded-full bg-amber-200/40 blur-2xl" />
             </div>
           </div>
@@ -276,7 +276,7 @@ export function HomeScreen({
           />
           <ModuleCard
             icon={SearchCheck}
-            tone="sky"
+            tone="greyfur"
             title="Lost & Found"
             text="Reports auto-match on species, color and area — reunite pets with their humans."
             action={() => onNavigate("lostfound")}
@@ -290,7 +290,7 @@ export function HomeScreen({
           />
           <ModuleCard
             icon={HeartHandshake}
-            tone="violet"
+            tone="ginger"
             title="Safe Haven"
             text="Confidential temporary fostering for pets of people in crisis — privacy-first."
             action={() => onNavigate("dashboard")}
@@ -332,7 +332,7 @@ export function HomeScreen({
                   <span className="absolute -right-2 -top-3 select-none text-7xl font-black text-primary/5">
                     {n}
                   </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-fuchsia-600 text-white shadow-soft">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-pawpink-500 text-white shadow-soft">
                     <Icon className="h-5 w-5" />
                   </span>
                   <p className="mt-3.5 font-bold">{title}</p>
@@ -357,7 +357,7 @@ export function HomeScreen({
             <Button size="lg" className="rounded-xl bg-white text-primary hover:bg-white/90" onClick={() => onNavigate("pets")}>
               <Dog className="h-4 w-4" /> Adopt a pet
             </Button>
-            <Button size="lg" variant="outline" className="rounded-xl border-white/40 text-white hover:bg-white/10" onClick={() => onNavigate("campaigns")}>
+            <Button size="lg" variant="outline" className="rounded-xl border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white" onClick={() => onNavigate("campaigns")}>
               <Cat className="h-4 w-4" /> Fund a campaign
             </Button>
             <Button size="lg" variant="ghost" className="rounded-xl text-amber-300 hover:bg-white/10 hover:text-amber-200" onClick={() => onNavigate("rescue")}>
@@ -435,7 +435,7 @@ function ModuleCard({
   action,
 }: {
   icon: React.ComponentType<{ className?: string }>;
-  tone: "red" | "rose" | "sky" | "amber" | "violet";
+  tone: "red" | "rose" | "greyfur" | "amber" | "ginger";
   title: string;
   text: string;
   action: () => void;
@@ -443,9 +443,9 @@ function ModuleCard({
   const tones = {
     red: "bg-red-50 text-red-700",
     rose: "bg-rose-50 text-rose-700",
-    sky: "bg-sky-50 text-sky-700",
+    greyfur: "bg-greyfur-50 text-greyfur-700",
     amber: "bg-amber-50 text-amber-700",
-    violet: "bg-violet-50 text-violet-700",
+    ginger: "bg-ginger-50 text-ginger-700",
   };
   return (
     <button onClick={action} className="cursor-pointer text-left">

@@ -209,7 +209,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
 
       {/* Safe haven teaser (U7) */}
       <section className="mt-10 mb-4">
-        <Card className="border-violet-200 bg-violet-50/50 shadow-soft">
+        <Card className="border-ginger-200 bg-ginger-50/50 shadow-soft">
           <CardContent className="p-5">
             <p className="font-bold">Emergency Safe Haven Network</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -223,7 +223,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                 { code: "SH-2026-0044", pet: "Laddu (dog)", status: "Awaiting crisis foster match" },
               ].map((s) => (
                 <div key={s.code} className="rounded-xl border bg-white px-3 py-2 text-xs">
-                  <span className="font-mono font-semibold text-violet-700">{s.code}</span> · {s.pet} —{" "}
+                  <span className="font-mono font-semibold text-ginger-700">{s.code}</span> · {s.pet} —{" "}
                   <span className="text-muted-foreground">{s.status}</span>
                 </div>
               ))}

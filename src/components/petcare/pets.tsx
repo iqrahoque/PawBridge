@@ -243,7 +243,7 @@ function PetDetail({
               <Scissors className="h-3.5 w-3.5" /> {pet.neutered ? "Neutered" : "Not neutered"}
             </span>
             {pet.goodWith.kids && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-100 px-3 py-1 text-violet-800">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-ginger-100 px-3 py-1 text-ginger-800">
                 <Users className="h-3.5 w-3.5" /> Good with kids
               </span>
             )}
@@ -278,11 +278,11 @@ function PetDetail({
             <Button
               variant="outline"
               size="icon"
-              className={cn("rounded-full", fav && "border-violet-300 bg-violet-50")}
+              className={cn("rounded-full", fav && "border-pawpink-300 bg-pawpink-50")}
               onClick={() => toggleFavorite(pet.id)}
               aria-label={fav ? "Remove from favorites" : "Add to favorites"}
             >
-              <Heart className={cn("h-4 w-4", fav && "fill-primary text-primary")} />
+              <Heart className={cn("h-4 w-4", fav && "fill-pawpink-500 text-pawpink-500")} />
             </Button>
           </div>
 

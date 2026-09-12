@@ -53,7 +53,7 @@ export function Nav({
           className="flex items-center gap-2 cursor-pointer group"
           aria-label="PetCare home"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-fuchsia-600 shadow-soft transition-transform group-hover:scale-105">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-pawpink-500 shadow-soft transition-transform group-hover:scale-105">
             <PawPrint className="h-5 w-5 text-white" />
           </span>
           <span className="text-lg font-extrabold tracking-tight">
@@ -104,7 +104,7 @@ export function Nav({
             </SheetTrigger>
             <SheetContent side="right" className="w-72 overflow-y-auto">
               <SheetTitle className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-fuchsia-600">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-pawpink-500">
                   <PawPrint className="h-4 w-4 text-white" />
                 </span>
                 PetCare
@@ -142,7 +142,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-fuchsia-600">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-pawpink-500">
                 <PawPrint className="h-5 w-5 text-white" />
               </span>
               <p className="font-extrabold tracking-tight">

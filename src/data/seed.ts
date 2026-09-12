@@ -52,13 +52,13 @@ export const SITUATION_META: Record<RescueSituation, { label: string; icon: stri
 export const RESCUE_URGENCY_META: Record<RescueUrgency, { label: string; cls: string; dot: string }> = {
   critical: { label: "Critical — life at risk", cls: "border-red-200 bg-red-50 text-red-800", dot: "bg-red-500" },
   urgent: { label: "Urgent — act today", cls: "border-amber-200 bg-amber-50 text-amber-800", dot: "bg-amber-500" },
-  standard: { label: "Standard — this week", cls: "border-sky-200 bg-sky-50 text-sky-800", dot: "bg-sky-500" },
+  standard: { label: "Standard — this week", cls: "border-greyfur-200 bg-greyfur-50 text-greyfur-800", dot: "bg-greyfur-500" },
 };
 
 export const RESCUE_STATUS_META: Record<RescueStatus, { label: string; cls: string }> = {
   reported: { label: "Reported — needs responders", cls: "border-red-200 bg-red-50 text-red-700" },
   responding: { label: "Responders on the way", cls: "border-amber-200 bg-amber-50 text-amber-800" },
-  rescued: { label: "Animal secured", cls: "border-violet-200 bg-violet-50 text-violet-800" },
+  rescued: { label: "Animal secured", cls: "border-ginger-200 bg-ginger-50 text-ginger-800" },
   closed: { label: "Safe — case closed", cls: "border-green-200 bg-green-50 text-green-800" },
 };
 
@@ -90,7 +90,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     reportedAt: "2026-09-12T09:42:00",
     status: "responding",
     responders: ["Rashed Karim", "Nafis Rahman"],
-    hue: 200,
+    hue: 350,
   },
   {
     id: 2,
@@ -104,7 +104,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     reportedAt: "2026-09-11T18:20:00",
     status: "reported",
     responders: [],
-    hue: 280,
+    hue: 20,
   },
   {
     id: 3,
@@ -134,7 +134,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     responders: ["Mitu Akter", "Lubna Mariam"],
     resolution:
       "All 4 kittens hand-fed by volunteers and moved to Pawfect Haven's neonatal unit. One already has an adopter lined up!",
-    hue: 150,
+    hue: 45,
   },
 ];
 
@@ -319,7 +319,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-11-02",
     tags: ["playful", "affectionate", "loyal"],
-    hue: 24,
+    hue: 38,
   },
   {
     id: 2,
@@ -340,7 +340,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-02-14",
     tags: ["shy", "gentle", "quiet"],
-    hue: 330,
+    hue: 340,
   },
   {
     id: 3,
@@ -402,7 +402,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-07-10",
     tags: ["playful", "curious"],
-    hue: 280,
+    hue: 355,
   },
   {
     id: 6,
@@ -423,7 +423,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-06-15",
     tags: ["gentle", "street-smart", "affectionate"],
-    hue: 0,
+    hue: 8,
   },
   {
     id: 7,
@@ -444,7 +444,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-12-05",
     tags: ["independent", "calm", "philosophical"],
-    hue: 200,
+    hue: 30,
   },
   {
     id: 8,
@@ -465,7 +465,7 @@ export const pets: Pet[] = [
     status: "medical_hold",
     admissionDate: "2026-02-01",
     tags: ["chatty", "resilient", "affectionate"],
-    hue: 175,
+    hue: 45,
   },
   {
     id: 9,
@@ -487,7 +487,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-09-30",
     tags: ["calm", "gentle", "senior-friendly", "house-trained"],
-    hue: 260,
+    hue: 25,
   },
   {
     id: 10,
@@ -508,7 +508,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-08-12",
     tags: ["playful", "travel-ready"],
-    hue: 215,
+    hue: 20,
   },
 ];
 

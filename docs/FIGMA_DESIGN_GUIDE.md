@@ -13,25 +13,41 @@ Everything you need to build the prototype in Figma: design tokens, component in
 
 ## 2. Design Tokens
 
-### Color Palette — v2 "Twilight Rescue" (current web theme)
+### Color Palette — v3 "Pawfect" (current web theme)
+
+Every hue comes straight off a cat: ginger fur, paw-pink beans, white-cat cream, grey-fur neutrals, tuxedo black.
 
 | Token | Hex | Usage |
 |---|---|---|
-| `primary/600` | `#7C3AED` | Primary CTAs: Adopt Me, Donate, Apply, active nav |
-| `primary/500` | `#8B5CF6` | Hover, brand moments |
-| `primary/50` | `#F5F3FF` | Soft section backgrounds, highlighted cards |
-| `accent-fuchsia/500` | `#D946EF` | Gradient pair with primary (logo, hero text) |
+| `ginger/600` | `#BC6517` | Primary CTAs: Adopt Me, Donate, Apply, active nav |
+| `ginger/500` | `#D67D28` | Hover, brand moments, logo paw |
+| `ginger/50` | `#FDF6EC` | Soft section backgrounds, highlighted cards |
+| `pawpink/500` | `#D85479` | Gradient pair with primary (logo, hero text), favourites |
+| `pawpink/50` | `#FDF3F6` | Rescue surfaces, pink-paw accents |
 | `rescue/600` | `#E11D48` | Rescue network, emergency badges, blood bank |
-| `warmth/500` | `#F59E0B` | Karma points, badges, awards |
-| `sky/700` | `#0369A1` | Lost & Found, info surfaces |
+| `warmth/500` | `#F59E0B` | Karma points (cat-eye gold), badges, awards |
+| `greyfur/700` | `#585250` | Lost & Found, info surfaces, neutral chips |
 | `emerald/600` | `#059669` | Verified badges, low-cost, success |
-| `ink/900` | `#2A2438` | Primary text (indigo-tinted dark) |
-| `ink/500` | `#6B6580` | Secondary text, captions |
+| `ink/900` | `#241E1A` | Tuxedo black — primary text, CTA band, footer |
+| `ink/500` | `#8A827A` | Secondary text, captions (greyfur/500) |
 | `surface` | `#FFFFFF` | Cards, sheets |
-| `canvas` | `#FBFAFF` | Page background (lavender-white) |
+| `canvas` | `#FFFBF4` | Page background (white-cat cream) |
 | `success` | `#16A34A` | Approved, goal reached |
+| `warning` | `#F59E0B` | Pending, near-capacity |
+| `error` | `#DC2626` | Rejected, critical urgency |
 
-**Gradients:** hero = violet → fuchsia → peach mesh on lavender canvas · rescue band = indigo → rose · CTA band = deep indigo → violet. Cards use soft indigo-tinted shadows and glass (`rgba(255,255,255,0.72)` + blur) on the nav.
+**Gradients:** hero = ginger blush → paw-pink glow → peach over cream canvas · rescue band = deep paw-pink → warm red · CTA band = tuxedo black with ginger glow. Cards use warm grey-fur shadows and glass (`rgba(255,255,255,0.72)` + blur) on the nav.
+
+<details>
+<summary>Legacy v2 palette (violet "Twilight Rescue") — deprecated</summary>
+
+| Token | Hex |
+|---|---|
+| `primary/600` | `#7C3AED` |
+| `accent-fuchsia/500` | `#D946EF` |
+| `canvas` | `#FBFAFF` |
+
+</details>
 
 <details>
 <summary>Legacy v1 palette (orange/stone) — deprecated</summary>
@@ -43,10 +59,6 @@ Everything you need to build the prototype in Figma: design tokens, component in
 | `canvas` | `#FAFAF9` |
 
 </details>
-
-| `warning` | `#F59E0B` | Pending, near-capacity |
-| `error` | `#DC2626` | Rejected, critical urgency |
-| `info` | `#0EA5E9` | Medical hold, informational |
 
 ### Typography
 

@@ -45,44 +45,86 @@
 }
 
 /*
- * PetCare design tokens v2 — "Twilight Rescue"
- * primary: electric violet (#7C3AED family) · canvas: soft lavender (#FBFAFF)
- * fuchsia/amber warmth for donations & karma, rose for rescue urgency,
- * emerald for success. Gradients + glass everywhere for a premium feel.
+ * Cat-colour palette — every hue comes straight off a cat:
+ * ginger fur (primary), paw-pink beans (secondary/rescue), white-cat cream
+ * canvas, grey-fur neutrals and tuxedo-black ink & CTA band.
+ * Amber (cat-eye gold) keeps karma, green = adoptable, red = critical.
  */
+@theme {
+  /* Ginger fur */
+  --color-ginger-50: #fdf6ec;
+  --color-ginger-100: #fae8d0;
+  --color-ginger-200: #f4cfa4;
+  --color-ginger-300: #ecb16c;
+  --color-ginger-400: #e29342;
+  --color-ginger-500: #d67d28;
+  --color-ginger-600: #bc6517;
+  --color-ginger-700: #964e13;
+  --color-ginger-800: #7a3f15;
+  --color-ginger-900: #663515;
+
+  /* Paw-pink beans */
+  --color-pawpink-50: #fdf3f6;
+  --color-pawpink-100: #fbe5ec;
+  --color-pawpink-200: #f6c7d6;
+  --color-pawpink-300: #ef9db6;
+  --color-pawpink-400: #e57295;
+  --color-pawpink-500: #d85479;
+  --color-pawpink-600: #ba3d62;
+  --color-pawpink-700: #96304e;
+  --color-pawpink-800: #7b2a43;
+  --color-pawpink-900: #67263c;
+
+  /* Grey fur (British Shorthair neutrals) */
+  --color-greyfur-50: #f8f7f6;
+  --color-greyfur-100: #f0eeec;
+  --color-greyfur-200: #e2dfdc;
+  --color-greyfur-300: #cbc6c1;
+  --color-greyfur-400: #a9a29b;
+  --color-greyfur-500: #8a827a;
+  --color-greyfur-600: #6e6760;
+  --color-greyfur-700: #585250;
+  --color-greyfur-800: #423d3b;
+  --color-greyfur-900: #2c2927;
+
+  /* White-cat cream canvas + tuxedo black */
+  --color-cream: #fffbf4;
+  --color-tuxedo: #241e1a;
+}
+
 :root {
   --radius: 1rem;
-  --background: oklch(0.988 0.005 300);
-  --foreground: oklch(0.245 0.05 285);
+  --background: oklch(0.985 0.012 85);
+  --foreground: oklch(0.3 0.025 60);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.245 0.05 285);
+  --card-foreground: oklch(0.3 0.025 60);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.245 0.05 285);
-  --primary: oklch(0.541 0.247 293.009);
-  --primary-foreground: oklch(0.985 0.002 300);
-  --secondary: oklch(0.962 0.015 295);
-  --secondary-foreground: oklch(0.36 0.07 288);
-  --muted: oklch(0.962 0.012 295);
-  --muted-foreground: oklch(0.525 0.035 290);
-  --accent: oklch(0.945 0.035 292);
-  --accent-foreground: oklch(0.45 0.19 293);
+  --popover-foreground: oklch(0.3 0.025 60);
+  --primary: oklch(0.615 0.135 55);
+  --primary-foreground: oklch(0.985 0.005 85);
+  --secondary: oklch(0.955 0.014 75);
+  --secondary-foreground: oklch(0.42 0.06 50);
+  --muted: oklch(0.955 0.01 80);
+  --muted-foreground: oklch(0.5 0.022 70);
+  --accent: oklch(0.945 0.028 60);
+  --accent-foreground: oklch(0.47 0.11 50);
   --destructive: oklch(0.586 0.222 17.5);
-  --border: oklch(0.923 0.014 295);
-  --input: oklch(0.923 0.014 295);
-  --ring: oklch(0.709 0.159 293);
-  --chart-1: oklch(0.541 0.247 293.009);
-  --chart-2: oklch(0.606 0.234 328.163);
-  --chart-3: oklch(0.795 0.184 86.047);
-  --chart-4: oklch(0.627 0.194 149.214);
-  --chart-5: oklch(0.685 0.169 237.323);
-  --sidebar: oklch(0.988 0.005 300);
-  --sidebar-foreground: oklch(0.245 0.05 285);
-  --sidebar-primary: oklch(0.541 0.247 293.009);
-  --sidebar-primary-foreground: oklch(0.985 0.002 300);
-  --sidebar-accent: oklch(0.945 0.035 292);
-  --sidebar-accent-foreground: oklch(0.45 0.19 293);
-  --sidebar-border: oklch(0.923 0.014 295);
-  --sidebar-ring: oklch(0.709 0.159 293);
+  --border: oklch(0.912 0.012 75);
+  --input: oklch(0.912 0.012 75);
+  --ring: oklch(0.7 0.13 55);
+  --chart-1: oklch(0.665 0.145 55);
+  --chart-2: oklch(0.635 0.17 5);
+  --chart-3: oklch(0.795 0.155 75);
+  --chart-4: oklch(0.627 0.155 155);
+  --chart-5: oklch(0.55 0.02 70);
+  --sidebar: oklch(0.985 0.012 85);
+  --sidebar-foreground: oklch(0.3 0.025 60);
+  --sidebar-primary: oklch(0.615 0.135 55);
+  --sidebar-primary-foreground: oklch(0.985 0.005 85);
+  --sidebar-accent: oklch(0.945 0.028 60);
+  --sidebar-accent-foreground: oklch(0.47 0.11 50);
+  --sidebar-border: oklch(0.912 0.012 75);
+  --sidebar-ring: oklch(0.7 0.13 55);
 }
 
 @layer base {
@@ -98,37 +140,37 @@
 }
 
 @layer utilities {
-  /* Hero — layered violet/fuchsia/peach mesh over lavender */
+  /* Hero — ginger blush + paw-pink glow + peach over cream */
   .bg-hero {
     background:
-      radial-gradient(1100px 480px at 12% -12%, oklch(0.87 0.11 300 / 0.55), transparent 58%),
-      radial-gradient(900px 460px at 88% -6%, oklch(0.89 0.09 340 / 0.5), transparent 55%),
-      radial-gradient(760px 420px at 55% 18%, oklch(0.93 0.07 84 / 0.35), transparent 60%),
-      linear-gradient(180deg, oklch(0.972 0.02 295) 0%, var(--background) 100%);
+      radial-gradient(1100px 480px at 12% -12%, oklch(0.9 0.075 70 / 0.55), transparent 58%),
+      radial-gradient(900px 460px at 88% -6%, oklch(0.9 0.065 5 / 0.45), transparent 55%),
+      radial-gradient(760px 420px at 55% 18%, oklch(0.95 0.045 85 / 0.5), transparent 60%),
+      linear-gradient(180deg, oklch(0.975 0.018 80) 0%, var(--background) 100%);
   }
-  /* Emergency rescue band */
+  /* Emergency rescue band — deep paw-pink to warm red */
   .bg-rescue {
     background:
-      radial-gradient(700px 320px at 8% -20%, oklch(0.72 0.2 20 / 0.5), transparent 60%),
-      radial-gradient(600px 300px at 95% 0%, oklch(0.66 0.22 350 / 0.45), transparent 55%),
-      linear-gradient(135deg, oklch(0.512 0.211 264.052) 0%, oklch(0.482 0.157 20) 100%);
+      radial-gradient(700px 320px at 8% -20%, oklch(0.72 0.19 20 / 0.4), transparent 60%),
+      radial-gradient(600px 300px at 95% 0%, oklch(0.68 0.17 350 / 0.35), transparent 55%),
+      linear-gradient(135deg, oklch(0.5 0.145 356) 0%, oklch(0.53 0.175 15) 100%);
   }
-  /* Dark CTA band */
+  /* Dark CTA band — tuxedo black with ginger glow */
   .bg-cta {
     background:
-      radial-gradient(700px 300px at 15% -30%, oklch(0.646 0.222 41.116 / 0.0), transparent 60%),
-      radial-gradient(800px 340px at 85% -20%, oklch(0.606 0.25 292.7 / 0.6), transparent 60%),
-      linear-gradient(135deg, oklch(0.257 0.09 281.288) 0%, oklch(0.358 0.135 292.5) 55%, oklch(0.45 0.19 298) 100%);
+      radial-gradient(800px 340px at 85% -20%, oklch(0.62 0.13 55 / 0.5), transparent 60%),
+      radial-gradient(600px 300px at 8% -30%, oklch(0.63 0.15 10 / 0.22), transparent 55%),
+      linear-gradient(135deg, oklch(0.255 0.02 60) 0%, oklch(0.33 0.035 55) 55%, oklch(0.42 0.075 50) 100%);
   }
   .bg-paw-pattern {
-    background-image: radial-gradient(oklch(0.541 0.247 293.009 / 0.08) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(oklch(0.615 0.135 55 / 0.09) 1.5px, transparent 1.5px);
     background-size: 22px 22px;
   }
   .shadow-soft {
-    box-shadow: 0 2px 10px oklch(0.257 0.09 281.288 / 0.07), 0 1px 2px oklch(0.257 0.09 281.288 / 0.05);
+    box-shadow: 0 2px 10px oklch(0.3 0.025 60 / 0.07), 0 1px 2px oklch(0.3 0.025 60 / 0.05);
   }
   .shadow-lift {
-    box-shadow: 0 12px 32px oklch(0.257 0.09 281.288 / 0.14), 0 2px 6px oklch(0.257 0.09 281.288 / 0.08);
+    box-shadow: 0 12px 32px oklch(0.3 0.025 60 / 0.14), 0 2px 6px oklch(0.3 0.025 60 / 0.08);
   }
   .glass {
     background: oklch(1 0 0 / 0.72);
@@ -136,7 +178,7 @@
     -webkit-backdrop-filter: blur(14px);
   }
   .gradient-text {
-    background: linear-gradient(92deg, oklch(0.541 0.247 293.009), oklch(0.606 0.234 328.163) 55%, oklch(0.646 0.222 41.116));
+    background: linear-gradient(92deg, oklch(0.615 0.135 55), oklch(0.62 0.16 5) 55%, oklch(0.72 0.13 70));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -150,7 +192,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    background: linear-gradient(135deg, oklch(0.709 0.159 293 / 0.9), oklch(0.709 0.159 328 / 0.55), oklch(0.795 0.184 86 / 0.7));
+    background: linear-gradient(135deg, oklch(0.7 0.13 55 / 0.9), oklch(0.72 0.13 5 / 0.55), oklch(0.795 0.155 75 / 0.7));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -176,7 +218,7 @@
     height: 6px;
   }
   .scroll-slim::-webkit-scrollbar-thumb {
-    background: oklch(0.87 0.02 295);
+    background: oklch(0.86 0.012 75);
     border-radius: 9999px;
   }
   .scroll-slim::-webkit-scrollbar-track {
