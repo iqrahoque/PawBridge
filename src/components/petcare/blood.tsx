@@ -46,9 +46,8 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
         <Droplets className="h-7 w-7 text-emred-600" /> Pet blood bank
       </h1>
       <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        The only registry of its kind for Dhaka: clinics post urgent transfusion requests, and we
-        match them to eligible donor pets by species, blood type and donation-history window.
-        (Dogs: 8-week gap · Cats: 4-week gap.)
+        Clinics post urgent transfusion requests; donors are matched by species, blood type and
+        donation window (dogs: 8-week gap · cats: 4-week gap).
       </p>
 
       {/* Open requests */}
@@ -58,7 +57,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
           <Card className="mt-4">
             <CardContent className="flex items-center gap-3 p-5 text-sm text-muted-foreground">
               <CheckCircle2 className="h-5 w-5 text-sage-600" />
-              No open requests right now — the map is quiet.
+              No open requests right now.
             </CardContent>
           </Card>
         ) : (

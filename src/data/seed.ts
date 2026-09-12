@@ -39,14 +39,14 @@ export type RescueSituation =
   | "abuse_neglect"
   | "other";
 
-export const SITUATION_META: Record<RescueSituation, { label: string; icon: string }> = {
-  stuck_trapped: { label: "Stuck / trapped", icon: "🪤" },
-  injured: { label: "Injured / sick", icon: "🩹" },
-  road_accident: { label: "Road accident", icon: "🚗" },
-  drowning_risk: { label: "Drowning risk", icon: "🌊" },
-  abandoned: { label: "Abandoned litter", icon: "📦" },
-  abuse_neglect: { label: "Abuse / neglect", icon: "⚠️" },
-  other: { label: "Other danger", icon: "❓" },
+export const SITUATION_META: Record<RescueSituation, { label: string }> = {
+  stuck_trapped: { label: "Stuck / trapped" },
+  injured: { label: "Injured / sick" },
+  road_accident: { label: "Road accident" },
+  drowning_risk: { label: "Drowning risk" },
+  abandoned: { label: "Abandoned litter" },
+  abuse_neglect: { label: "Abuse / neglect" },
+  other: { label: "Other danger" },
 };
 
 export const RESCUE_URGENCY_META: Record<RescueUrgency, { label: string; cls: string; dot: string }> = {

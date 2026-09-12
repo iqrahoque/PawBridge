@@ -11,6 +11,8 @@ import {
   PhoneCall,
   Stethoscope,
   PawPrint,
+  Dog,
+  Cat,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -70,6 +72,8 @@ export function RescueScreen() {
   const resolved = alerts.filter((a) => a.status === "rescued" || a.status === "closed");
   const shown = tab === "active" ? active : resolved;
   const needsResponders = alerts.filter((a) => a.status === "reported").length;
+  const rescuedCount = alerts.filter((a) => a.status === "rescued").length;
+  const closedCount = alerts.filter((a) => a.status === "closed").length;
 
   return (
     <div className="pb-4">
@@ -78,43 +82,39 @@ export function RescueScreen() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14 text-charcoal">
           <div className="grid items-center gap-8 lg:grid-cols-5">
             <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emred-200 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-emred-700">
-                <Siren className="h-3.5 w-3.5 animate-pulse" /> Community rescue network
-              </span>
-              <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
                 See an animal in danger?
               </h1>
               <p className="mt-3 max-w-xl text-base text-sagegray-600 sm:text-lg">
-                A cat stuck on a ledge, a kitten in a storm drain, a dog hit by a car —
-                post it here. Verified shelters and trained volunteers near you get alerted
-                instantly and respond together.
+                If an animal is injured, stuck, or abandoned, post an alert with the location.
+                Shelters and volunteers near the area are notified and can claim the case.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Button
                   size="lg"
                   onClick={() => setDialogOpen(true)}
-                  className="rounded-xl bg-emred-500 text-white hover:bg-emred-600 shadow-lift"
+                  className="rounded-xl bg-emred-500 text-white hover:bg-emred-600"
                 >
                   <Siren className="h-4 w-4" /> Post a rescue alert
                 </Button>
                 <a
                   href="#rescue-guide"
-                  className="inline-flex items-center gap-2 rounded-xl border border-emred-300 bg-white/60 px-4 py-2.5 text-sm font-semibold text-emred-700 transition-colors hover:bg-white"
+                  className="inline-flex items-center gap-2 rounded-xl border border-emred-300 bg-white px-4 py-2.5 text-sm font-semibold text-emred-700 transition-colors hover:bg-white"
                 >
                   <ShieldCheck className="h-4 w-4" /> How to help safely
                 </a>
               </div>
             </div>
 
-            {/* Live stat cards */}
+            {/* Stat cards (computed from the data below) */}
             <div className="grid grid-cols-2 gap-3 lg:col-span-2">
               {[
-                { label: "Active alerts", value: String(active.length), sub: needsResponders > 0 ? `${needsResponders} waiting for responders` : "all covered" },
-                { label: "Rescue volunteers", value: "120+", sub: "across 18 Dhaka zones" },
-                { label: "Closed this month", value: "18", sub: "safe endings" },
-                { label: "Avg. response", value: "35 min", sub: "report → responder on site" },
+                { label: "Open cases", value: String(active.length), sub: "reported or responding" },
+                { label: "Waiting for responder", value: String(needsResponders), sub: "not claimed yet" },
+                { label: "Rescued", value: String(rescuedCount), sub: "animal secured" },
+                { label: "Cases closed", value: String(closedCount), sub: "outcome recorded" },
               ].map((s) => (
-                <div key={s.label} className="rounded-2xl border border-emred-200 bg-white/80 p-4 shadow-soft backdrop-blur">
+                <div key={s.label} className="rounded-2xl border border-emred-200 bg-white p-4 shadow-soft">
                   <p className="text-2xl font-extrabold tracking-tight text-charcoal sm:text-3xl">{s.value}</p>
                   <p className="text-xs font-semibold text-sagegray-700">{s.label}</p>
                   <p className="mt-0.5 text-[11px] text-sagegray-500">{s.sub}</p>
@@ -130,9 +130,9 @@ export function RescueScreen() {
         <Tabs value={tab} onValueChange={setTab}>
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-extrabold tracking-tight">Live rescue feed</h2>
+              <h2 className="text-2xl font-extrabold tracking-tight">Rescue feed</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Critical alerts sort first. Claim a case to coordinate in the alert thread.
+                Critical alerts first. Claim a case to coordinate.
               </p>
             </div>
             <TabsList className="rounded-xl bg-secondary">
@@ -153,7 +153,7 @@ export function RescueScreen() {
                   <p className="font-bold">Nothing here right now</p>
                   <p className="text-sm text-muted-foreground">
                     {tab === "active"
-                      ? "No active alerts — a quiet day is a good day."
+                      ? "No active alerts right now."
                       : "Rescued cases will show up here with their outcomes."}
                   </p>
                 </CardContent>
@@ -168,19 +168,22 @@ export function RescueScreen() {
               return (
                 <Card
                   key={`${mine ? "m" : "s"}-${a.id}`}
-                  className={cn(
-                    "shadow-soft transition-shadow hover:shadow-lift",
-                    a.status === "closed" && "opacity-80"
-                  )}
+                  className={cn("shadow-soft", a.status === "closed" && "opacity-80")}
                 >
                   <CardContent className="p-5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <span
-                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-xl"
-                          style={{ background: `hsl(${a.hue} 70% 90%)` }}
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-white"
+                          style={{ background: `hsl(${a.hue} 30% 55%)` }}
                         >
-                          {a.species === "dog" ? "🐶" : a.species === "cat" ? "🐱" : "🐾"}
+                          {a.species === "dog" ? (
+                            <Dog className="h-5 w-5" />
+                          ) : a.species === "cat" ? (
+                            <Cat className="h-5 w-5" />
+                          ) : (
+                            <PawPrint className="h-5 w-5" />
+                          )}
                         </span>
                         <div>
                           <p className="font-bold leading-tight">
@@ -237,7 +240,7 @@ export function RescueScreen() {
                             disabled={a.responders.includes("Sara Chowdhury")}
                           >
                             {a.responders.includes("Sara Chowdhury")
-                              ? "You're responding ✓"
+                              ? "You're responding"
                               : "I can help respond (+40 karma)"}
                           </Button>
                           {a.status === "responding" && (
@@ -335,17 +338,14 @@ export function RescueScreen() {
               </div>
               <div className="mt-4 border-t pt-4">
                 <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  <Users className="h-3.5 w-3.5" /> Your zone&apos;s responder network
+                  <Users className="h-3.5 w-3.5" /> Responders
                 </p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {networkVolunteers.slice(0, 6).map((v) => (
+                  {networkVolunteers.map((v) => (
                     <span key={v} className="rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground">
                       {v}
                     </span>
                   ))}
-                  <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary">
-                    +112 more
-                  </span>
                 </div>
               </div>
             </CardContent>
@@ -357,10 +357,10 @@ export function RescueScreen() {
           <h3 className="text-lg font-extrabold tracking-tight">How a rescue works</h3>
           <div className="mt-4 grid gap-3 sm:grid-cols-4">
             {[
-              { n: "1", t: "You post", d: "Species, what happened, where exactly. 60 seconds." },
-              { n: "2", t: "Volunteers ping", d: "Nearby responders get the alert and claim the case." },
+              { n: "1", t: "You post", d: "Species, what happened, and the exact location." },
+              { n: "2", t: "A volunteer claims it", d: "Responders near the area pick up the case." },
               { n: "3", t: "On-site help", d: "They secure the animal and call the nearest vet if needed." },
-              { n: "4", t: "Safe ending", d: "Case closes with an outcome note — clinic, shelter or reunion." },
+              { n: "4", t: "Case closed", d: "The case closes with an outcome note: clinic, shelter or reunion." },
             ].map((s) => (
               <div key={s.n} className="rounded-2xl border bg-white p-4 shadow-soft">
                 <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary font-extrabold text-white">

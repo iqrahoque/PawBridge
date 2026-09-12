@@ -77,7 +77,7 @@ export default function Page() {
             onNavigate={navigate}
           />
         )}
-        {screen === "campaigns" && <CampaignsScreen onNavigate={navigate} />}
+        {screen === "campaigns" && <CampaignsScreen />}
         {screen === "vets" && <VetsScreen onNavigate={navigate} />}
         {screen === "blood" && <BloodScreen onNavigate={navigate} />}
         {screen === "rescue" && <RescueScreen />}

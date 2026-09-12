@@ -11,7 +11,7 @@ import {
   Droplets,
   Siren,
   Search,
-  Sparkles,
+  Coins,
   LayoutDashboard,
   Github,
   ArrowUpRight,
@@ -29,7 +29,7 @@ const LINKS: { screen: Screen; label: string; icon: React.ComponentType<{ classN
   { screen: "blood", label: "Blood Bank", icon: Droplets },
   { screen: "rescue", label: "Rescue", icon: Siren, alert: true },
   { screen: "lostfound", label: "Lost & Found", icon: Search },
-  { screen: "karma", label: "Karma", icon: Sparkles },
+  { screen: "karma", label: "Karma", icon: Coins },
 ];
 
 export function Nav({
@@ -46,19 +46,17 @@ export function Nav({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-primary/10 glass">
+    <header className="sticky top-0 z-40 w-full border-b border-primary/10 bg-white">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
         <button
           onClick={() => go("home")}
-          className="flex items-center gap-2 cursor-pointer group"
+          className="flex items-center gap-2 cursor-pointer"
           aria-label="PetCare home"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-coral-500 shadow-soft transition-transform group-hover:scale-105">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
             <PawPrint className="h-5 w-5 text-white" />
           </span>
-          <span className="text-lg font-extrabold tracking-tight text-forest">
-            Pet<span className="gradient-text">Care</span>
-          </span>
+          <span className="text-lg font-extrabold tracking-tight text-forest">PetCare</span>
         </button>
 
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
@@ -77,10 +75,7 @@ export function Nav({
               <Icon className="h-4 w-4" />
               {label}
               {alert && screen !== s && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emred-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emred-500" />
-                </span>
+                <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-emred-500" />
               )}
             </button>
           ))}
@@ -104,7 +99,7 @@ export function Nav({
             </SheetTrigger>
             <SheetContent side="right" className="w-72 overflow-y-auto">
               <SheetTitle className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-coral-500">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                   <PawPrint className="h-4 w-4 text-white" />
                 </span>
                 PetCare
@@ -142,16 +137,14 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-coral-500">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
                 <PawPrint className="h-5 w-5 text-white" />
               </span>
-              <p className="font-extrabold tracking-tight text-forest">
-                Pet<span className="gradient-text">Care</span>
-              </p>
+              <p className="font-extrabold tracking-tight text-forest">PetCare</p>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              Adopt. Donate. Heal. A database-driven welfare hub connecting shelters, vets,
-              donors and rescuers across Dhaka.
+              A pet welfare platform for Dhaka — adoption listings from verified shelters,
+              campaign fundraising, a vet directory and an emergency rescue network.
             </p>
             <a
               href="https://github.com/iqrahoque/PetCare"
@@ -192,10 +185,7 @@ export function Footer() {
         </div>
         <div className="mt-8 flex flex-col items-start justify-between gap-2 border-t pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <p>© 2026 PetCare — university database project demo by Iqra Hoque.</p>
-          <p className="flex items-center gap-1.5">
-            <span className="inline-block h-2 w-2 rounded-full bg-sage-500" />
-            All demo systems operational
-          </p>
+          <p>Demo data mirrors the MySQL seed in the repository.</p>
         </div>
       </div>
     </footer>

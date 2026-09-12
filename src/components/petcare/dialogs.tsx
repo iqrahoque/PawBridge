@@ -570,14 +570,14 @@ export function ReportDialog({
 /* Rescue alert (U9 — Community Rescue Network)                        */
 /* ------------------------------------------------------------------ */
 
-const RESCUE_SITUATIONS: { v: RescueSituation; label: string; icon: string }[] = [
-  { v: "stuck_trapped", label: "Stuck / trapped", icon: "🪤" },
-  { v: "injured", label: "Injured / sick", icon: "🩹" },
-  { v: "road_accident", label: "Road accident", icon: "🚗" },
-  { v: "drowning_risk", label: "Drowning risk", icon: "🌊" },
-  { v: "abandoned", label: "Abandoned litter", icon: "📦" },
-  { v: "abuse_neglect", label: "Abuse / neglect", icon: "⚠️" },
-  { v: "other", label: "Other", icon: "❓" },
+const RESCUE_SITUATIONS: { v: RescueSituation; label: string }[] = [
+  { v: "stuck_trapped", label: "Stuck / trapped" },
+  { v: "injured", label: "Injured / sick" },
+  { v: "road_accident", label: "Road accident" },
+  { v: "drowning_risk", label: "Drowning risk" },
+  { v: "abandoned", label: "Abandoned litter" },
+  { v: "abuse_neglect", label: "Abuse / neglect" },
+  { v: "other", label: "Other" },
 ];
 
 export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -606,9 +606,9 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
       description: description.trim(),
     });
     toast({
-      title: "Rescue alert posted 🚨",
+      title: "Rescue alert posted",
       description:
-        "Volunteers near you have been notified. You'll get karma as the case progresses. Stay nearby if you can — you're the best landmark.",
+        "Volunteers near the area have been notified. You'll get karma as the case progresses.",
     });
     setArea("");
     setDescription("");
@@ -643,7 +643,7 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
                   checked={species === s}
                   onChange={() => setSpecies(s)}
                 />
-                {s === "cat" ? "🐱 Cat" : s === "dog" ? "🐶 Dog" : "🐾 Other"}
+                {s === "cat" ? "Cat" : s === "dog" ? "Dog" : "Other"}
               </Label>
             ))}
           </div>
@@ -665,7 +665,7 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
                     checked={situation === s.v}
                     onChange={() => setSituation(s.v)}
                   />
-                  <span>{s.icon}</span> {s.label}
+                  {s.label}
                 </Label>
               ))}
             </div>

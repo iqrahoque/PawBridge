@@ -84,7 +84,7 @@ export function DashboardScreen() {
           <div className="grid gap-4 sm:grid-cols-3">
             <StatTile icon={ClipboardList} label="My applications" value={String(myApplications.length + 1)} hint="incl. Mishti (approved)" />
             <StatTile icon={HandCoins} label="My donations" value={bdt(myDonations.reduce((s, d) => s + d.amount, 0))} hint="this demo session" />
-            <StatTile icon={SparkleIcon} label="Karma balance" value={String(personaSeedKarma + usePetCare.getState().karmaEarned)} hint="+25 per application, +1/৳100" />
+            <StatTile icon={TrendingUp} label="Karma balance" value={String(personaSeedKarma + usePetCare.getState().karmaEarned)} hint="+25 per application, +1/৳100" />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
@@ -285,7 +285,7 @@ export function DashboardScreen() {
               <h2 className="font-bold">My pets ({pets.length})</h2>
               <div className="mt-3 max-h-96 overflow-y-auto rounded-xl border scroll-slim">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-secondary/90 backdrop-blur">
+                  <thead className="sticky top-0 bg-secondary">
                     <tr className="text-left text-xs uppercase tracking-wide text-sagegray-500">
                       <th className="px-4 py-2.5 font-semibold">Pet</th>
                       <th className="px-4 py-2.5 font-semibold">Shelter</th>
@@ -386,8 +386,4 @@ function AppStatusBadge({ status }: { status: string }) {
       {status.replace("_", " ")}
     </Badge>
   );
-}
-
-function SparkleIcon({ className }: { className?: string }) {
-  return <TrendingUp className={className} />;
 }

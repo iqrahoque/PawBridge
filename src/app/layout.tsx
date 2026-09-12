@@ -9,14 +9,14 @@ const PAW_ICON =
   );
 
 export const metadata: Metadata = {
-  title: "PetCare — Adopt. Donate. Heal.",
+  title: "PetCare — pet adoption, donations and vet care in Dhaka",
   description:
     "A database-driven platform connecting adopters, shelters, vets and donors — helping dogs & cats find homes, funds and medical care.",
   keywords: ["pet adoption", "donations", "veterinary", "animal welfare", "Dhaka", "database project"],
   authors: [{ name: "Iqra Hoque" }],
   icons: { icon: PAW_ICON },
   openGraph: {
-    title: "PetCare — Adopt. Donate. Heal.",
+    title: "PetCare — pet adoption, donations and vet care in Dhaka",
     description: "Connect adopters, shelters, vets and donors. Help dogs & cats find homes, funds and care.",
     type: "website",
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { PawPrint, Dog, Cat, MapPin, Heart, Users, AlertTriangle, Sparkles } from "lucide-react";
+import { PawPrint, Dog, Cat, MapPin, Heart, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -56,34 +56,19 @@ export function PetArt({
     <div
       className={cn("relative flex items-center justify-center overflow-hidden", className)}
       style={{
-        background: `linear-gradient(135deg, hsl(${pet.hue} 78% 86%), hsl(${(pet.hue + 20) % 360} 70% 76%))`,
+        background: `linear-gradient(135deg, hsl(${pet.hue} 45% 82%), hsl(${(pet.hue + 20) % 360} 40% 72%))`,
       }}
       aria-label={`Photo placeholder of ${pet.name}`}
       role="img"
     >
-      <div
-        className="absolute rounded-full bg-white/35 blur-[2px]"
-        style={{ width: "48%", paddingBottom: "48%", left: "-9%", top: "-14%" }}
-      />
-      <div
-        className="absolute rounded-full bg-white/20 blur-[1px]"
-        style={{ width: "36%", paddingBottom: "36%", right: "-7%", bottom: "-11%" }}
-      />
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1.5px, transparent 1.5px)",
-          backgroundSize: "18px 18px",
-        }}
-      />
       {pet.species === "dog" ? (
-        <Dog className={cn("text-white/80 drop-shadow-sm", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
+        <Dog className={cn("text-white/85", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
       ) : (
-        <Cat className={cn("text-white/80 drop-shadow-sm", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
+        <Cat className={cn("text-white/85", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
       )}
       <span
         className={cn(
-          "absolute bottom-2 right-3 font-bold text-white/90 tracking-tight drop-shadow",
+          "absolute bottom-2 right-3 font-bold text-white/90 tracking-tight",
           big ? "text-3xl" : "text-lg"
         )}
       >
@@ -109,7 +94,7 @@ export function PetCard({
   onFavorite: () => void;
 }) {
   return (
-    <Card className="group overflow-hidden pt-0 gap-0 shadow-soft hover:shadow-lift transition-all duration-300 hover:-translate-y-0.5">
+    <Card className="group overflow-hidden pt-0 gap-0 shadow-soft">
       <button onClick={onOpen} className="text-left w-full cursor-pointer" aria-label={`Open ${pet.name}'s profile`}>
         <div className="relative">
           <PetArt pet={pet} className="h-44 w-full" />
@@ -142,7 +127,7 @@ export function PetCard({
           e.stopPropagation();
           onFavorite();
         }}
-        className="absolute top-3 right-3 rounded-full bg-white/90 p-2 shadow-sm hover:scale-110 transition-transform cursor-pointer"
+        className="absolute top-3 right-3 rounded-full bg-white/90 p-2 shadow-sm cursor-pointer hover:bg-white"
         aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
       >
         <Heart
@@ -211,10 +196,7 @@ export function CampaignCard({
             <span className="text-muted-foreground">
               of {bdt(campaign.goal)} ·{" "}
               {pct >= 85 ? (
-                <span className="inline-flex items-center gap-1 font-bold text-gold-600">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {pct}% funded
-                </span>
+                <span className="font-bold text-gold-600">{pct}% funded</span>
               ) : (
                 `${pct}%`
               )}

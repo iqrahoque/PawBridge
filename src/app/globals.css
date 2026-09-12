@@ -180,75 +180,24 @@
 }
 
 @layer utilities {
-  /* Hero — soft sage breeze + coral warmth + gold hint over warm cream */
+  /* Flat section bands — no decorative gradients */
   .bg-hero {
-    background:
-      radial-gradient(1100px 480px at 12% -12%, rgb(85 122 99 / 0.15), transparent 58%),
-      radial-gradient(900px 460px at 88% -6%, rgb(229 139 120 / 0.16), transparent 55%),
-      radial-gradient(760px 420px at 55% 20%, rgb(214 168 95 / 0.13), transparent 60%),
-      linear-gradient(180deg, #f3f0e3 0%, #f9f6ef 100%);
+    background: #f4f0e3;
   }
-  /* Emergency strip — very pale warm red, urgency without aggression */
   .bg-rescue {
-    background:
-      radial-gradient(700px 320px at 8% -20%, rgb(217 83 79 / 0.12), transparent 60%),
-      radial-gradient(600px 300px at 95% 0%, rgb(217 83 79 / 0.08), transparent 55%),
-      linear-gradient(180deg, #fff1ef 0%, #fcf3f0 100%);
+    background: #fff1ef;
   }
-  /* Dark CTA band — deep forest with gold glow */
   .bg-cta {
-    background:
-      radial-gradient(800px 340px at 85% -20%, rgb(214 168 95 / 0.30), transparent 60%),
-      radial-gradient(600px 300px at 8% -30%, rgb(229 139 120 / 0.16), transparent 55%),
-      linear-gradient(135deg, #24362b 0%, #34513f 55%, #41604c 100%);
-  }
-  .bg-paw-pattern {
-    background-image: radial-gradient(rgb(85 122 99 / 0.12) 1.5px, transparent 1.5px);
-    background-size: 22px 22px;
+    background: #34513f;
   }
   .shadow-soft {
     box-shadow: 0 2px 10px rgb(38 51 43 / 0.06), 0 1px 2px rgb(38 51 43 / 0.05);
   }
-  .shadow-lift {
-    box-shadow: 0 12px 32px rgb(38 51 43 / 0.13), 0 2px 6px rgb(38 51 43 / 0.08);
-  }
-  .glass {
-    background: rgb(255 255 255 / 0.86);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-  .gradient-text {
-    background: linear-gradient(92deg, #34513f 0%, #557a63 48%, #c6934a 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .ring-gradient {
-    position: relative;
-  }
-  .ring-gradient::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(135deg, rgb(85 122 99 / 0.75), rgb(229 139 120 / 0.55), rgb(214 168 95 / 0.7));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
   .animate-fade-up {
     animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .animate-float {
-    animation: float 7s ease-in-out infinite;
-  }
-  .animate-float-late {
-    animation: float 8.5s ease-in-out 1.2s infinite;
-  }
   @media (prefers-reduced-motion: reduce) {
-    .animate-fade-up, .animate-float, .animate-float-late {
+    .animate-fade-up {
       animation: none;
     }
   }
@@ -274,14 +223,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }

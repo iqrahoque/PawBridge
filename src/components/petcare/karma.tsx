@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Gift, Trophy, History } from "lucide-react";
+import { Coins, Gift, Trophy, History } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,42 +37,42 @@ export function KarmaScreen() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
-        <Sparkles className="h-7 w-7 text-gold-500" /> Karma &amp; impact ledger
+      <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-forest">
+        <Coins className="h-7 w-7 text-gold-500" /> Karma &amp; impact ledger
       </h1>
       <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        Every good deed earns points — donating, adopting, fostering, driving, reporting, reviewing.
-        Redeem them with partner vets and stores, or pay them forward as shelter meals.
+        Donations, adoptions, fostering, transport legs and rescue cases all earn points.
+        Redeem them with partner vets and stores, or convert them into shelter meals.
       </p>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {/* My karma */}
-        <Card className="bg-hero shadow-soft ring-gradient lg:col-span-1">
+        <Card className="bg-forest shadow-soft lg:col-span-1">
           <CardContent className="p-6">
-            <p className="text-sm font-medium text-sagegray-600">{PERSONA}&apos;s karma balance</p>
-            <p className="mt-2 text-5xl font-extrabold tracking-tight gradient-text">{myTotal.toLocaleString("en-IN")}</p>
+            <p className="text-sm font-medium text-white/70">{PERSONA}&apos;s karma balance</p>
+            <p className="mt-2 text-5xl font-extrabold tracking-tight text-white">{myTotal.toLocaleString("en-IN")}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
-              <Badge variant="outline" className="border-sage-200 bg-white/70 text-sage-800">
+              <Badge variant="outline" className="border-white/30 bg-white/10 text-white">
                 Adopter
               </Badge>
-              <Badge variant="outline" className="border-emred-200 bg-white/70 text-emred-700">
+              <Badge variant="outline" className="border-white/30 bg-white/10 text-white">
                 Blood donor family
               </Badge>
-              <Badge variant="outline" className="border-sagegray-200 bg-white/70 text-sagegray-800">
+              <Badge variant="outline" className="border-white/30 bg-white/10 text-white">
                 Found-reporter
               </Badge>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
+            <p className="mt-4 text-xs text-white/60">
               Seeded from the MySQL karma_ledger ({personaSeedKarma} pts) + everything you do in this
               demo ({karmaEarned} pts this session).
             </p>
 
             {karmaLog.length > 0 && (
-              <div className="mt-4 max-h-44 space-y-1.5 overflow-y-auto rounded-xl bg-white/70 p-3 scroll-slim">
+              <div className="mt-4 max-h-44 space-y-1.5 overflow-y-auto rounded-xl bg-white/10 p-3 scroll-slim">
                 {karmaLog.map((l, i) => (
                   <p key={i} className="flex items-center justify-between text-xs">
-                    <span className="text-sagegray-700">{l.action}</span>
-                    <span className={cn("font-bold", l.points >= 0 ? "text-sage-700" : "text-emred-600")}>
+                    <span className="text-white/80">{l.action}</span>
+                    <span className={cn("font-bold", l.points >= 0 ? "text-gold-300" : "text-emred-300")}>
                       {l.points >= 0 ? "+" : ""}
                       {l.points}
                     </span>
@@ -176,7 +176,7 @@ export function KarmaScreen() {
         <Card className="mt-4 shadow-soft">
           <CardContent className="max-h-80 overflow-y-auto p-0 scroll-slim">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-secondary/80 backdrop-blur">
+              <thead className="sticky top-0 bg-secondary">
                 <tr className="text-left text-xs uppercase tracking-wide text-sagegray-500">
                   <th className="px-4 py-2.5 font-semibold">Who</th>
                   <th className="px-4 py-2.5 font-semibold">Deed</th>

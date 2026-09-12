@@ -95,9 +95,9 @@ function PetList({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-3xl font-extrabold tracking-tight">Adopt a friend</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight">Adopt a pet</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        {filtered.length} pets shown · longest waiters first, because everyone deserves a chance.
+        {filtered.length} pets shown · sorted by time waiting
       </p>
 
       {/* Filters */}
@@ -301,7 +301,7 @@ function PetDetail({
           </Accordion>
 
           {/* Sticky-ish action bar */}
-          <div className="sticky bottom-4 flex items-center gap-3 rounded-2xl border bg-white/95 p-3 shadow-lift backdrop-blur">
+          <div className="sticky bottom-4 flex items-center gap-3 rounded-2xl border bg-white p-3 shadow-soft">
             <div className="flex-1 pl-1">
               <p className="text-sm font-semibold">Ready to meet {pet.name}?</p>
               <p className="text-xs text-muted-foreground">Applications go straight to the shelter.</p>

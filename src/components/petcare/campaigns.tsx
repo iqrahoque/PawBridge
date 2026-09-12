@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Truck, Package, MapPin, Route, Clock, HandCoins, Heart, Users } from "lucide-react";
+import { Truck, Package, MapPin, Route, Clock, PawPrint, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { campaigns, wishItems, shelterName, transportMission, bdt, fmtDate, seedDonations, type Screen } from "@/data/seed";
+import { campaigns, wishItems, shelterName, transportMission, bdt, fmtDate, seedDonations } from "@/data/seed";
 import { usePetCare } from "@/lib/store";
 import { CampaignCard } from "./cards";
 import { DonateDialog } from "./dialogs";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
+export function CampaignsScreen() {
   const myDonations = usePetCare((s) => s.donations);
   const [donateFor, setDonateFor] = useState<number | null>(null);
 
@@ -26,25 +26,24 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
   return (
     <div className="pb-4">
       {/* Header band */}
-      <section className="bg-hero bg-paw-pattern border-b">
+      <section className="bg-hero border-b">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Transparent fundraising</p>
-              <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">
-                Small gifts. <span className="gradient-text">Big rescues.</span>
+              <h1 className="text-3xl font-extrabold tracking-tight text-forest sm:text-4xl">
+                Fund a treatment
               </h1>
               <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-                Fund a pet&apos;s surgery, stock a shelter&apos;s wish list, or fuel a rescue transport.
-                Most of our donors give ৳100–৳1,000 — small amounts, stacked into surgeries.
+                Cover a pet&apos;s surgery, stock a shelter&apos;s wish list, or fund a rescue
+                transport. Most gifts are ৳100–৳1,000.
               </p>
             </div>
             <div className="flex gap-3">
-              <div className="rounded-2xl border bg-white/85 px-5 py-3 text-center shadow-soft backdrop-blur">
-                <p className="text-xl font-extrabold gradient-text">{bdt(totalRaised)}</p>
+              <div className="rounded-2xl border bg-white px-5 py-3 text-center shadow-soft">
+                <p className="text-xl font-extrabold text-forest">{bdt(totalRaised)}</p>
                 <p className="text-[11px] font-medium text-muted-foreground">raised by {allDonations.length} donors</p>
               </div>
-              <div className="rounded-2xl border bg-white/85 px-5 py-3 text-center shadow-soft backdrop-blur">
+              <div className="rounded-2xl border bg-white px-5 py-3 text-center shadow-soft">
                 <p className="text-xl font-extrabold text-primary">{bdt(Math.round(totalRaised / allDonations.length))}</p>
                 <p className="text-[11px] font-medium text-muted-foreground">average gift</p>
               </div>
@@ -69,10 +68,10 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
       {/* Donor wall */}
       <section className="mt-12">
         <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
-          <Users className="h-5 w-5 text-primary" /> Donor wall — latest gifts
+          <Users className="h-5 w-5 text-primary" /> Latest donations
         </h2>
         <p className="text-sm text-muted-foreground">
-          Real people, real amounts. ৳100 from a student matters as much as ৳5,000 from a well-wisher.
+          Newest first. Names are hidden for anonymous gifts.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {recent.map((d, i) => (
@@ -154,7 +153,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
           <Truck className="h-5 w-5 text-primary" /> Rescue transport relay
         </h2>
         <p className="text-sm text-muted-foreground">
-          Volunteers each drive one leg of a long journey — like a relay race to a forever home.
+          For long-distance transfers, volunteers each drive one leg of the route.
         </p>
         <Card className="mt-4 shadow-soft">
           <CardContent className="p-5">
@@ -217,10 +216,10 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
               <Card key={petId} className="shadow-soft">
                 <CardContent className="flex items-center gap-4 p-4">
                   <div
-                    className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl text-2xl"
-                    style={{ background: `hsl(${pet.hue} 70% 88%)` }}
+                    className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
+                    style={{ background: `hsl(${pet.hue} 30% 88%)` }}
                   >
-                    🐾
+                    <PawPrint className="h-7 w-7 text-sagegray-600" />
                   </div>
                   <div className="flex-1">
                     <p className="font-bold">{pet.name}</p>
@@ -245,9 +244,6 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
       </div>
 
       <DonateDialog campaignId={donateFor ?? 1} open={donateFor !== null} onClose={() => setDonateFor(null)} />
-      {/* keep onNavigate referenced for future deep links */}
-      <span className="hidden">{typeof onNavigate}</span>
-      <span className="hidden"><MapPin className="h-3 w-3" /></span>
     </div>
   );
 }

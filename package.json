@@ -2,7 +2,7 @@
   "name": "petcare-web",
   "version": "1.0.0",
   "private": true,
-  "description": "PetCare — Adopt. Donate. Heal. Static web demo (GitHub Pages ready)",
+  "description": "PetCare static web demo (GitHub Pages ready)",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "EXPORT_MODE=1 next build",
