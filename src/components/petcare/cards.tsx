@@ -1,6 +1,6 @@
 "use client";
 
-import { PawPrint, Dog, Cat, MapPin, Heart, Users, AlertTriangle } from "lucide-react";
+import { PawPrint, Dog, Cat, MapPin, Heart, Users, AlertTriangle, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -23,11 +23,11 @@ import type { MyDonation } from "@/lib/store";
 /* ------------------------------------------------------------------ */
 
 const STATUS_META: Record<PetStatus, { label: string; cls: string }> = {
-  available: { label: "Available", cls: "bg-green-100 text-green-800 border-green-200" },
-  pending: { label: "Pending", cls: "bg-amber-100 text-amber-800 border-amber-200" },
-  adopted: { label: "Adopted", cls: "bg-stone-200 text-stone-700 border-stone-300" },
-  medical_hold: { label: "Medical hold", cls: "bg-greyfur-100 text-greyfur-800 border-greyfur-200" },
-  fostered: { label: "Fostered", cls: "bg-ginger-100 text-ginger-800 border-ginger-200" },
+  available: { label: "Available", cls: "bg-sage-100 text-sage-800 border-sage-200" },
+  pending: { label: "Pending", cls: "bg-gold-100 text-gold-800 border-gold-200" },
+  adopted: { label: "Adopted", cls: "bg-sagegray-200 text-sagegray-700 border-sagegray-300" },
+  medical_hold: { label: "Medical hold", cls: "bg-medical-100 text-medical-800 border-medical-200" },
+  fostered: { label: "Fostered", cls: "bg-coral-100 text-coral-800 border-coral-200" },
 };
 
 export function StatusBadge({ status }: { status: PetStatus }) {
@@ -146,7 +146,7 @@ export function PetCard({
         aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
       >
         <Heart
-          className={cn("h-4 w-4 transition-colors", isFavorite ? "fill-primary text-primary" : "text-stone-500")}
+          className={cn("h-4 w-4 transition-colors", isFavorite ? "fill-coral-500 text-coral-500" : "text-sagegray-500")}
         />
       </button>
     </Card>
@@ -194,11 +194,11 @@ export function CampaignCard({
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-bold leading-snug">{campaign.title}</h3>
           {done ? (
-            <Badge className="bg-green-100 text-green-800 border-green-200" variant="outline">
+            <Badge className="bg-sage-100 text-sage-800 border-sage-200" variant="outline">
               Goal reached
             </Badge>
           ) : (
-            <Badge variant="outline" className="border-ginger-200 bg-ginger-50 text-ginger-800">
+            <Badge variant="outline" className="border-sage-200 bg-sage-50 text-sage-800">
               Active
             </Badge>
           )}
@@ -209,7 +209,15 @@ export function CampaignCard({
           <div className="flex items-center justify-between text-sm">
             <span className="font-semibold">{bdt(raised)}</span>
             <span className="text-muted-foreground">
-              of {bdt(campaign.goal)} · {pct}%
+              of {bdt(campaign.goal)} ·{" "}
+              {pct >= 85 ? (
+                <span className="inline-flex items-center gap-1 font-bold text-gold-600">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {pct}% funded
+                </span>
+              ) : (
+                `${pct}%`
+              )}
             </span>
           </div>
           <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -225,7 +233,7 @@ export function CampaignCard({
               "w-full rounded-xl py-2 text-sm font-semibold transition-colors cursor-pointer",
               done
                 ? "bg-secondary text-secondary-foreground cursor-default"
-                : "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "bg-coral-500 text-white hover:bg-coral-600"
             )}
           >
             {done ? "Fully funded" : "Donate now"}
@@ -246,7 +254,7 @@ export function Stars({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={cn("h-3.5 w-3.5", i <= rating ? "fill-amber-400 text-amber-400" : "text-stone-300")}
+          className={cn("h-3.5 w-3.5", i <= rating ? "fill-gold-400 text-gold-400" : "text-sagegray-300")}
         />
       ))}
     </span>
@@ -255,9 +263,9 @@ export function Stars({ rating }: { rating: number }) {
 
 export function UrgencyBadge({ urgency }: { urgency: "critical" | "urgent" | "scheduled" }) {
   const map = {
-    critical: "bg-red-100 text-red-800 border-red-200",
-    urgent: "bg-amber-100 text-amber-800 border-amber-200",
-    scheduled: "bg-stone-100 text-stone-700 border-stone-200",
+    critical: "bg-emred-100 text-emred-800 border-emred-200",
+    urgent: "bg-gold-100 text-gold-800 border-gold-200",
+    scheduled: "bg-sagegray-100 text-sagegray-700 border-sagegray-200",
   } as const;
   return (
     <Badge variant="outline" className={cn("gap-1", map[urgency])}>

@@ -43,7 +43,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
-        <Droplets className="h-7 w-7 text-red-600" /> Pet blood bank
+        <Droplets className="h-7 w-7 text-emred-600" /> Pet blood bank
       </h1>
       <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
         The only registry of its kind for Dhaka: clinics post urgent transfusion requests, and we
@@ -57,7 +57,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
         {openRequests.length === 0 ? (
           <Card className="mt-4">
             <CardContent className="flex items-center gap-3 p-5 text-sm text-muted-foreground">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
+              <CheckCircle2 className="h-5 w-5 text-sage-600" />
               No open requests right now — the map is quiet.
             </CardContent>
           </Card>
@@ -70,7 +70,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
               .sort((a, b) => (a.eligible === b.eligible ? 0 : a.eligible === "eligible" ? -1 : 1));
 
             return (
-              <Card key={r.id} className="mt-4 border-red-200 shadow-soft">
+              <Card key={r.id} className="mt-4 border-emred-200 shadow-soft">
                 <CardContent className="p-5">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex flex-wrap items-center gap-2">
@@ -80,11 +80,11 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                       </Badge>
                       <Badge variant="outline">{r.units} unit{r.units > 1 ? "s" : ""}</Badge>
                     </div>
-                    <span className="flex items-center gap-1 text-xs font-medium text-red-700">
+                    <span className="flex items-center gap-1 text-xs font-medium text-emred-700">
                       <Siren className="h-3.5 w-3.5" /> Needed by {fmtDate(r.deadline)}
                     </span>
                   </div>
-                  <p className="mt-3 text-sm text-stone-700">{r.note}</p>
+                  <p className="mt-3 text-sm text-sagegray-700">{r.note}</p>
                   <p className="mt-1 text-xs text-muted-foreground">
                     Posted by {clinic.name} · {clinic.area} · <Phone className="inline h-3 w-3" /> {clinic.phone}
                   </p>
@@ -97,7 +97,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                           key={d.id}
                           className={cn(
                             "flex flex-wrap items-center justify-between gap-2 rounded-lg border p-3",
-                            d.eligible === "eligible" ? "border-green-200 bg-green-50/50" : "bg-stone-50"
+                            d.eligible === "eligible" ? "border-sage-200 bg-sage-50/50" : "bg-sagegray-50"
                           )}
                         >
                           <div className="text-sm">
@@ -113,11 +113,11 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                           </div>
                           <div className="flex items-center gap-2">
                             {d.eligible === "eligible" ? (
-                              <Badge className="bg-green-100 text-green-800 border-green-200" variant="outline">
+                              <Badge className="bg-sage-100 text-sage-800 border-sage-200" variant="outline">
                                 <CheckCircle2 className="mr-1 h-3 w-3" /> Eligible now
                               </Badge>
                             ) : (
-                              <Badge variant="outline" className="border-stone-200 text-stone-500">
+                              <Badge variant="outline" className="border-sagegray-200 text-sagegray-500">
                                 <Clock className="mr-1 h-3 w-3" /> Recently donated
                               </Badge>
                             )}
@@ -175,7 +175,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <p className="font-bold">{d.petName}</p>
-                    <Badge variant="outline" className="border-red-200 bg-red-50 font-mono text-red-700">
+                    <Badge variant="outline" className="border-emred-200 bg-emred-50 font-mono text-emred-700">
                       {d.bloodType}
                     </Badge>
                   </div>
@@ -193,8 +193,8 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                         className={cn(
                           "mt-2",
                           el === "eligible"
-                            ? "border-green-200 bg-green-50 text-green-800"
-                            : "border-stone-200 text-stone-500"
+                            ? "border-sage-200 bg-sage-50 text-sage-800"
+                            : "border-sagegray-200 text-sagegray-500"
                         )}
                       >
                         {el === "eligible" ? "Eligible now" : "Resting — not yet 8 weeks"}
@@ -209,7 +209,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
 
       {/* Safe haven teaser (U7) */}
       <section className="mt-10 mb-4">
-        <Card className="border-ginger-200 bg-ginger-50/50 shadow-soft">
+        <Card className="border-sage-200 bg-sage-50/50 shadow-soft">
           <CardContent className="p-5">
             <p className="font-bold">Emergency Safe Haven Network</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -223,7 +223,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                 { code: "SH-2026-0044", pet: "Laddu (dog)", status: "Awaiting crisis foster match" },
               ].map((s) => (
                 <div key={s.code} className="rounded-xl border bg-white px-3 py-2 text-xs">
-                  <span className="font-mono font-semibold text-ginger-700">{s.code}</span> · {s.pet} —{" "}
+                  <span className="font-mono font-semibold text-sage-700">{s.code}</span> · {s.pet} —{" "}
                   <span className="text-muted-foreground">{s.status}</span>
                 </div>
               ))}

@@ -13,30 +13,64 @@ Everything you need to build the prototype in Figma: design tokens, component in
 
 ## 2. Design Tokens
 
-### Color Palette — v3 "Pawfect" (current web theme)
+### Color Palette — v4 "Sage + Cream + Coral" (current web theme)
 
-Every hue comes straight off a cat: ginger fur, paw-pink beans, white-cat cream, grey-fur neutrals, tuxedo black.
+Warm, trustworthy, animal-welfare palette. **Sage = normal information · Coral = emotional/action elements · Red breaks the pattern only for emergencies · Gold = little highlights.**
 
-| Token | Hex | Usage |
+#### Brand
+| Role | Token | Hex |
 |---|---|---|
-| `ginger/600` | `#BC6517` | Primary CTAs: Adopt Me, Donate, Apply, active nav |
-| `ginger/500` | `#D67D28` | Hover, brand moments, logo paw |
-| `ginger/50` | `#FDF6EC` | Soft section backgrounds, highlighted cards |
-| `pawpink/500` | `#D85479` | Gradient pair with primary (logo, hero text), favourites |
-| `pawpink/50` | `#FDF3F6` | Rescue surfaces, pink-paw accents |
-| `rescue/600` | `#E11D48` | Rescue network, emergency badges, blood bank |
-| `warmth/500` | `#F59E0B` | Karma points (cat-eye gold), badges, awards |
-| `greyfur/700` | `#585250` | Lost & Found, info surfaces, neutral chips |
-| `emerald/600` | `#059669` | Verified badges, low-cost, success |
-| `ink/900` | `#241E1A` | Tuxedo black — primary text, CTA band, footer |
-| `ink/500` | `#8A827A` | Secondary text, captions (greyfur/500) |
-| `surface` | `#FFFFFF` | Cards, sheets |
-| `canvas` | `#FFFBF4` | Page background (white-cat cream) |
-| `success` | `#16A34A` | Approved, goal reached |
-| `warning` | `#F59E0B` | Pending, near-capacity |
-| `error` | `#DC2626` | Rejected, critical urgency |
+| Primary / Sage | `sage/500` | `#557A63` |
+| Primary Dark / Forest | `sage/700` | `#34513F` |
 
-**Gradients:** hero = ginger blush → paw-pink glow → peach over cream canvas · rescue band = deep paw-pink → warm red · CTA band = tuxedo black with ginger glow. Cards use warm grey-fur shadows and glass (`rgba(255,255,255,0.72)` + blur) on the nav.
+#### Warmth
+| Role | Token | Hex |
+|---|---|---|
+| Coral (emotional/action) | `coral/500` | `#E58B78` |
+| Gold (highlights, LOST badges, karma) | `gold/400` | `#D6A85F` |
+
+#### Background
+| Role | Token | Hex |
+|---|---|---|
+| Cream canvas | `cream` | `#F9F6EF` |
+| Card surface | `card` | `#FFFFFF` |
+
+#### Text
+| Role | Token | Hex |
+|---|---|---|
+| Primary text / Charcoal | `charcoal` | `#26332B` |
+| Secondary text / Sage Gray | `sagegray/500` | `#718078` |
+
+#### Functional
+| Role | Token | Hex |
+|---|---|---|
+| Success (= sage) | `sage/500` | `#557A63` |
+| Warning (= gold) | `gold/400` | `#D6A85F` |
+| Emergency red | `emred/500` | `#D9534F` |
+| Medical accent | `medical/200` | `#DCEBED` |
+
+**Where each colour is used**
+
+- 🏠 **Homepage** — background cream `#F9F6EF`, navbar white, logo forest `#34513F`. Primary CTA "Find Your Companion" in sage `#557A63`; secondary CTA "Help an Animal" in coral `#E58B78`.
+- 🐕 **Adoption cards** — mostly white; sage for normal info (status chips, meta), coral for emotional/action (favourite heart). Status badges: Available = sage, Pending = gold, Fostered = coral, Medical hold = medical blue, Adopted = sage gray.
+- 🆘 **Emergency (Rescue)** — the pattern-break surface: very pale warm red `#FFF1EF` background, emergency button `#D9534F` (emred/500). Urgency reads instantly without making the whole site aggressive.
+- 💰 **Donations** — Donate button coral `#E58B78`, progress bar sage `#557A63`, milestone highlights ("98% funded") in gold `#D6A85F`.
+- 🏥 **Vet directory** — slightly more clinical: sage + white + medical light blue `#DCEBED` icon chips and accents.
+- 🐾 **Lost & Found** — LOST badge gold `#D6A85F`, FOUND badge sage `#557A63` — recognisable at a glance.
+- **Dark CTA band** — deep forest gradient (`#24362B → #34513F → #41604C`) with a gold glow; hero gradient text runs forest → sage → gold.
+
+**Gradients:** hero = soft sage breeze + coral warmth + gold hint over cream · rescue surfaces = pale warm red `#FFF1EF` with faint red radials · CTA band = forest with gold glow. Cards use charcoal-tinted shadows; nav glass is `rgba(255,255,255,0.86)` + blur.
+
+<details>
+<summary>Legacy v3 palette (cat-colours "Pawfect": ginger / paw-pink) — deprecated</summary>
+
+| Token | Hex |
+|---|---|
+| `ginger/600` | `#BC6517` |
+| `pawpink/500` | `#D85479` |
+| `canvas` | `#FFFBF4` |
+
+</details>
 
 <details>
 <summary>Legacy v2 palette (violet "Twilight Rescue") — deprecated</summary>

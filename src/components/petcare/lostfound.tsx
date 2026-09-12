@@ -56,7 +56,7 @@ export function LostFoundScreen() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
-            <SearchCheck className="h-7 w-7 text-greyfur-700" /> Lost &amp; Found
+            <SearchCheck className="h-7 w-7 text-gold-600" /> Lost &amp; Found
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
             File a report; the matching engine compares species, color and area against the other
@@ -75,13 +75,13 @@ export function LostFoundScreen() {
 
       {/* Match suggestions */}
       {suggested.length > 0 && !confirmedMatch && (
-        <Card className="mt-6 border-amber-300 bg-amber-50/70 shadow-soft">
+        <Card className="mt-6 border-gold-300 bg-gold-50/70 shadow-soft">
           <CardContent className="p-5">
             <p className="flex items-center gap-2 font-bold">
-              <SearchCheck className="h-5 w-5 text-amber-600" /> Possible match found — {suggested[0].score}%
+              <SearchCheck className="h-5 w-5 text-gold-600" /> Possible match found — {suggested[0].score}%
               confidence
             </p>
-            <p className="mt-1 text-sm text-stone-700">
+            <p className="mt-1 text-sm text-sagegray-700">
               Lost report <strong>Simba</strong> (orange tabby, Dhanmondi Lake) looks a lot like the
               found orange tabby from <strong>Dhanmondi 27, near lake gate</strong>. Same color,
               same area, 2 days apart. Is this Simba?
@@ -108,12 +108,12 @@ export function LostFoundScreen() {
       )}
 
       {confirmedMatch && (
-        <Card className="mt-6 border-green-300 bg-green-50/70 shadow-soft">
+        <Card className="mt-6 border-sage-300 bg-sage-50/70 shadow-soft">
           <CardContent className="flex items-center gap-3 p-5">
-            <PartyPopper className="h-8 w-8 text-green-700" />
+            <PartyPopper className="h-8 w-8 text-sage-700" />
             <div>
-              <p className="font-bold text-green-900">Reunited! Simba is going home.</p>
-              <p className="text-sm text-green-800">
+              <p className="font-bold text-sage-900">Reunited! Simba is going home.</p>
+              <p className="text-sm text-sage-800">
                 Both reports are marked <strong>reunited</strong> and Jenny (the finder) has been
                 notified to arrange the handover. +150 karma for confirming.
               </p>
@@ -145,8 +145,8 @@ export function LostFoundScreen() {
                       variant="outline"
                       className={cn(
                         r.status === "searching"
-                          ? "border-amber-200 bg-amber-50 text-amber-800"
-                          : "border-green-200 bg-green-50 text-green-800"
+                          ? "border-gold-200 bg-gold-50 text-gold-800"
+                          : "border-sage-200 bg-sage-50 text-sage-800"
                       )}
                     >
                       {r.status === "searching" ? "Searching" : "Reunited"}
@@ -179,8 +179,8 @@ export function LostFoundScreen() {
                       variant="outline"
                       className={cn(
                         r.status === "with_finder"
-                          ? "border-greyfur-200 bg-greyfur-50 text-greyfur-800"
-                          : "border-green-200 bg-green-50 text-green-800"
+                          ? "border-sage-200 bg-sage-50 text-sage-800"
+                          : "border-sage-300 bg-sage-200 text-sage-900"
                       )}
                     >
                       {r.status === "with_finder" ? "With finder" : "Reunited"}

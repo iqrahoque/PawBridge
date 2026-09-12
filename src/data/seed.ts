@@ -50,16 +50,16 @@ export const SITUATION_META: Record<RescueSituation, { label: string; icon: stri
 };
 
 export const RESCUE_URGENCY_META: Record<RescueUrgency, { label: string; cls: string; dot: string }> = {
-  critical: { label: "Critical — life at risk", cls: "border-red-200 bg-red-50 text-red-800", dot: "bg-red-500" },
-  urgent: { label: "Urgent — act today", cls: "border-amber-200 bg-amber-50 text-amber-800", dot: "bg-amber-500" },
-  standard: { label: "Standard — this week", cls: "border-greyfur-200 bg-greyfur-50 text-greyfur-800", dot: "bg-greyfur-500" },
+  critical: { label: "Critical — life at risk", cls: "border-emred-200 bg-emred-50 text-emred-800", dot: "bg-emred-500" },
+  urgent: { label: "Urgent — act today", cls: "border-gold-200 bg-gold-50 text-gold-800", dot: "bg-gold-500" },
+  standard: { label: "Standard — this week", cls: "border-sagegray-200 bg-sagegray-50 text-sagegray-800", dot: "bg-sagegray-500" },
 };
 
 export const RESCUE_STATUS_META: Record<RescueStatus, { label: string; cls: string }> = {
-  reported: { label: "Reported — needs responders", cls: "border-red-200 bg-red-50 text-red-700" },
-  responding: { label: "Responders on the way", cls: "border-amber-200 bg-amber-50 text-amber-800" },
-  rescued: { label: "Animal secured", cls: "border-ginger-200 bg-ginger-50 text-ginger-800" },
-  closed: { label: "Safe — case closed", cls: "border-green-200 bg-green-50 text-green-800" },
+  reported: { label: "Reported — needs responders", cls: "border-emred-200 bg-emred-50 text-emred-700" },
+  responding: { label: "Responders on the way", cls: "border-gold-200 bg-gold-50 text-gold-800" },
+  rescued: { label: "Animal secured", cls: "border-sage-200 bg-sage-50 text-sage-800" },
+  closed: { label: "Safe — case closed", cls: "border-sage-200 bg-sage-50 text-sage-800" },
 };
 
 export interface RescueAlert {
@@ -90,7 +90,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     reportedAt: "2026-09-12T09:42:00",
     status: "responding",
     responders: ["Rashed Karim", "Nafis Rahman"],
-    hue: 350,
+    hue: 348,
   },
   {
     id: 2,
@@ -104,7 +104,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     reportedAt: "2026-09-11T18:20:00",
     status: "reported",
     responders: [],
-    hue: 20,
+    hue: 14,
   },
   {
     id: 3,
@@ -118,7 +118,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     reportedAt: "2026-09-10T14:05:00",
     status: "rescued",
     responders: ["Tanvir Ahmed", "Nusrat Jahan", "Sajid Bappi"],
-    hue: 20,
+    hue: 14,
   },
   {
     id: 4,
@@ -134,7 +134,7 @@ export const seedRescueAlerts: RescueAlert[] = [
     responders: ["Mitu Akter", "Lubna Mariam"],
     resolution:
       "All 4 kittens hand-fed by volunteers and moved to Pawfect Haven's neonatal unit. One already has an adopter lined up!",
-    hue: 45,
+    hue: 42,
   },
 ];
 
@@ -319,7 +319,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-11-02",
     tags: ["playful", "affectionate", "loyal"],
-    hue: 38,
+    hue: 145,
   },
   {
     id: 2,
@@ -340,7 +340,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-02-14",
     tags: ["shy", "gentle", "quiet"],
-    hue: 340,
+    hue: 15,
   },
   {
     id: 3,
@@ -361,7 +361,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-03-01",
     tags: ["energetic", "playful", "trained"],
-    hue: 40,
+    hue: 42,
   },
   {
     id: 4,
@@ -382,7 +382,7 @@ export const pets: Pet[] = [
     status: "pending",
     admissionDate: "2026-01-20",
     tags: ["protective", "smart", "loyal"],
-    hue: 15,
+    hue: 185,
   },
   {
     id: 5,
@@ -402,7 +402,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-07-10",
     tags: ["playful", "curious"],
-    hue: 355,
+    hue: 350,
   },
   {
     id: 6,
@@ -423,7 +423,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-06-15",
     tags: ["gentle", "street-smart", "affectionate"],
-    hue: 8,
+    hue: 130,
   },
   {
     id: 7,
@@ -444,7 +444,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-12-05",
     tags: ["independent", "calm", "philosophical"],
-    hue: 30,
+    hue: 32,
   },
   {
     id: 8,
@@ -465,7 +465,7 @@ export const pets: Pet[] = [
     status: "medical_hold",
     admissionDate: "2026-02-01",
     tags: ["chatty", "resilient", "affectionate"],
-    hue: 45,
+    hue: 12,
   },
   {
     id: 9,
@@ -487,7 +487,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-09-30",
     tags: ["calm", "gentle", "senior-friendly", "house-trained"],
-    hue: 25,
+    hue: 205,
   },
   {
     id: 10,
@@ -508,7 +508,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-08-12",
     tags: ["playful", "travel-ready"],
-    hue: 20,
+    hue: 190,
   },
 ];
 
@@ -877,7 +877,7 @@ export const seedLostReports: LostReport[] = [
     description: "Very friendly orange tabby with a notch on the left ear. Answers to Simba, loves chipped rice.",
     lostOn: "2026-08-28",
     status: "searching",
-    hue: 30,
+    hue: 145,
   },
 ];
 
@@ -891,7 +891,7 @@ export const seedFoundReports: FoundReport[] = [
     description: "Sweet orange tabby found limping slightly. Possible notch on left ear. Very hungry, very cuddly.",
     foundOn: "2026-08-30",
     status: "with_finder",
-    hue: 30,
+    hue: 185,
   },
 ];
 

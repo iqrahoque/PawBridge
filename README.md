@@ -100,7 +100,7 @@ mysql -u root -p petcare_db < database/queries/showcase_queries.sql
 |---|---|
 | 0 — Research & Specification | ✅ Done ([spec](docs/PROJECT_SPEC.md)) |
 | 1 — Database Design | ✅ Done — 31 tables incl. Rescue Network ([ERD](docs/DATABASE_DESIGN.md), [SQL](database/schema.sql)) |
-| 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — v3 "Pawfect" palette (ginger / paw-pink / cream / grey-fur / tuxedo) |
+| 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — v4 "Sage + Cream + Coral" palette (#557A63 sage / #F9F6EF cream / #E58B78 coral) |
 | 3 — Web App (demo build) | ✅ **Live** on GitHub Pages — 9 screens incl. Community Rescue Network, 162-donor realistic dataset |
 | 4 — Real backend (API + MySQL) | 🔜 Next ([API design](docs/API_DESIGN.md) ready to implement) |
 

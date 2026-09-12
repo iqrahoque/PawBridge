@@ -104,7 +104,7 @@ function PetList({
       <div className="mt-6 space-y-3">
         <div className="relative max-w-md">
           {/* search field */}
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-sagegray-400" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -127,13 +127,13 @@ function PetList({
               <Cat className="h-4 w-4" /> Cats
             </span>
           </FilterChip>
-          <span className="mx-1 hidden h-5 w-px bg-stone-300 sm:block" />
+          <span className="mx-1 hidden h-5 w-px bg-sagegray-300 sm:block" />
           {(["low", "medium", "high"] as Energy[]).map((e) => (
             <FilterChip key={e} active={energy === e} onClick={() => setEnergy(energy === e ? "all" : e)}>
               {e} energy
             </FilterChip>
           ))}
-          <span className="mx-1 hidden h-5 w-px bg-stone-300 sm:block" />
+          <span className="mx-1 hidden h-5 w-px bg-sagegray-300 sm:block" />
           <FilterChip active={kidsOnly} onClick={() => setKidsOnly(!kidsOnly)}>
             Good with kids
           </FilterChip>
@@ -143,7 +143,7 @@ function PetList({
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="mt-16 flex flex-col items-center gap-3 text-center">
-          <PawPrint className="h-12 w-12 text-stone-300" />
+          <PawPrint className="h-12 w-12 text-sagegray-300" />
           <p className="font-semibold">No pets match those filters</p>
           <p className="text-sm text-muted-foreground">Try clearing a filter or two.</p>
         </div>
@@ -174,7 +174,7 @@ function FilterChip({
         "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer",
         active
           ? "border-primary bg-primary text-primary-foreground"
-          : "bg-white text-stone-600 hover:border-stone-400"
+          : "bg-white text-sagegray-600 hover:border-sagegray-400"
       )}
       aria-pressed={active}
     >
@@ -217,7 +217,7 @@ function PetDetail({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
-      <Button variant="ghost" onClick={onBack} className="mb-4 -ml-2 text-stone-600">
+      <Button variant="ghost" onClick={onBack} className="mb-4 -ml-2 text-sagegray-600">
         <ArrowLeft className="h-4 w-4" /> All pets
       </Button>
 
@@ -236,26 +236,26 @@ function PetDetail({
             <Fact label="Admitted" value={pet.admissionDate} />
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.vaccinated ? "bg-green-100 text-green-800" : "bg-stone-100 text-stone-600")}>
+            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.vaccinated ? "bg-sage-100 text-sage-800" : "bg-sagegray-100 text-sagegray-600")}>
               <Syringe className="h-3.5 w-3.5" /> {pet.vaccinated ? "Vaccinated" : "Vaccines pending"}
             </span>
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.neutered ? "bg-emerald-100 text-emerald-800" : "bg-stone-100 text-stone-600")}>
+            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.neutered ? "bg-sage-100 text-sage-800" : "bg-sagegray-100 text-sagegray-600")}>
               <Scissors className="h-3.5 w-3.5" /> {pet.neutered ? "Neutered" : "Not neutered"}
             </span>
             {pet.goodWith.kids && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-ginger-100 px-3 py-1 text-ginger-800">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-3 py-1 text-sage-800">
                 <Users className="h-3.5 w-3.5" /> Good with kids
               </span>
             )}
           </div>
           <div className="rounded-2xl border bg-white p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-stone-400">Shelter</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-sagegray-400">Shelter</p>
             <p className="mt-1 font-bold">{shelterName(pet.shelterId)}</p>
             <p className="mt-0.5 text-sm text-muted-foreground flex items-center gap-1.5">
               <MapPin className="h-3.5 w-3.5" /> {shelter?.area}, {shelter?.city}
             </p>
             {shelter?.verified && (
-              <Badge variant="outline" className="mt-2 border-emerald-200 bg-emerald-50 text-emerald-800">
+              <Badge variant="outline" className="mt-2 border-sage-200 bg-sage-50 text-sage-800">
                 License verified · {shelter.license}
               </Badge>
             )}
@@ -278,11 +278,11 @@ function PetDetail({
             <Button
               variant="outline"
               size="icon"
-              className={cn("rounded-full", fav && "border-pawpink-300 bg-pawpink-50")}
+              className={cn("rounded-full", fav && "border-coral-300 bg-coral-50")}
               onClick={() => toggleFavorite(pet.id)}
               aria-label={fav ? "Remove from favorites" : "Add to favorites"}
             >
-              <Heart className={cn("h-4 w-4", fav && "fill-pawpink-500 text-pawpink-500")} />
+              <Heart className={cn("h-4 w-4", fav && "fill-coral-500 text-coral-500")} />
             </Button>
           </div>
 
@@ -290,13 +290,13 @@ function PetDetail({
             <h2 className="flex items-center gap-2 font-bold">
               <PawPrint className="h-4 w-4 text-primary" /> {pet.name}&apos;s story
             </h2>
-            <p className="mt-2 leading-relaxed text-stone-700">{pet.story}</p>
+            <p className="mt-2 leading-relaxed text-sagegray-700">{pet.story}</p>
           </div>
 
           <Accordion type="single" collapsible className="rounded-2xl border bg-white px-5">
             <AccordionItem value="medical" className="border-none">
               <AccordionTrigger className="text-sm font-bold">Medical history</AccordionTrigger>
-              <AccordionContent className="text-sm text-stone-600">{pet.medicalHistory}</AccordionContent>
+              <AccordionContent className="text-sm text-sagegray-600">{pet.medicalHistory}</AccordionContent>
             </AccordionItem>
           </Accordion>
 
@@ -333,7 +333,7 @@ function PetDetail({
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border bg-white p-3">
-      <p className="text-[11px] uppercase tracking-wide text-stone-400">{label}</p>
+      <p className="text-[11px] uppercase tracking-wide text-sagegray-400">{label}</p>
       <p className="font-semibold capitalize">{value}</p>
     </div>
   );

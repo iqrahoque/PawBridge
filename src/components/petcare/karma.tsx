@@ -38,7 +38,7 @@ export function KarmaScreen() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
-        <Sparkles className="h-7 w-7 text-amber-500" /> Karma &amp; impact ledger
+        <Sparkles className="h-7 w-7 text-gold-500" /> Karma &amp; impact ledger
       </h1>
       <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
         Every good deed earns points — donating, adopting, fostering, driving, reporting, reviewing.
@@ -49,16 +49,16 @@ export function KarmaScreen() {
         {/* My karma */}
         <Card className="bg-hero shadow-soft ring-gradient lg:col-span-1">
           <CardContent className="p-6">
-            <p className="text-sm font-medium text-stone-600">{PERSONA}&apos;s karma balance</p>
+            <p className="text-sm font-medium text-sagegray-600">{PERSONA}&apos;s karma balance</p>
             <p className="mt-2 text-5xl font-extrabold tracking-tight gradient-text">{myTotal.toLocaleString("en-IN")}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
-              <Badge variant="outline" className="border-ginger-200 bg-white/70 text-ginger-800">
+              <Badge variant="outline" className="border-sage-200 bg-white/70 text-sage-800">
                 Adopter
               </Badge>
-              <Badge variant="outline" className="border-rose-200 bg-white/70 text-rose-700">
+              <Badge variant="outline" className="border-emred-200 bg-white/70 text-emred-700">
                 Blood donor family
               </Badge>
-              <Badge variant="outline" className="border-greyfur-200 bg-white/70 text-greyfur-800">
+              <Badge variant="outline" className="border-sagegray-200 bg-white/70 text-sagegray-800">
                 Found-reporter
               </Badge>
             </div>
@@ -71,8 +71,8 @@ export function KarmaScreen() {
               <div className="mt-4 max-h-44 space-y-1.5 overflow-y-auto rounded-xl bg-white/70 p-3 scroll-slim">
                 {karmaLog.map((l, i) => (
                   <p key={i} className="flex items-center justify-between text-xs">
-                    <span className="text-stone-700">{l.action}</span>
-                    <span className={cn("font-bold", l.points >= 0 ? "text-green-700" : "text-red-600")}>
+                    <span className="text-sagegray-700">{l.action}</span>
+                    <span className={cn("font-bold", l.points >= 0 ? "text-sage-700" : "text-emred-600")}>
                       {l.points >= 0 ? "+" : ""}
                       {l.points}
                     </span>
@@ -87,7 +87,7 @@ export function KarmaScreen() {
         <Card className="shadow-soft lg:col-span-2">
           <CardContent className="p-6">
             <h2 className="flex items-center gap-2 font-bold">
-              <Trophy className="h-5 w-5 text-amber-500" /> Community leaderboard
+              <Trophy className="h-5 w-5 text-gold-500" /> Community leaderboard
             </h2>
             <div className="mt-4 space-y-2">
               {leaderboard.map((u, i) => (
@@ -103,11 +103,11 @@ export function KarmaScreen() {
                       className={cn(
                         "flex h-7 w-7 items-center justify-center rounded-full text-xs font-extrabold",
                         i === 0
-                          ? "bg-amber-400 text-white"
+                          ? "bg-gold-400 text-white"
                           : i === 1
-                            ? "bg-stone-300 text-stone-700"
+                            ? "bg-sagegray-300 text-sagegray-700"
                             : i === 2
-                              ? "bg-ginger-200 text-ginger-900"
+                              ? "bg-sage-200 text-sage-900"
                               : "bg-secondary text-secondary-foreground"
                       )}
                     >
@@ -115,7 +115,7 @@ export function KarmaScreen() {
                     </span>
                     <span className="text-sm font-semibold">{u.name}</span>
                     {u.name === PERSONA && (
-                      <Badge variant="outline" className="border-ginger-300 text-ginger-800">
+                      <Badge variant="outline" className="border-sage-300 text-sage-800">
                         you
                       </Badge>
                     )}
@@ -149,7 +149,7 @@ export function KarmaScreen() {
                 <CardContent className="flex flex-1 flex-col p-5">
                   <p className="font-bold leading-snug">{r.title}</p>
                   <p className="mt-1 flex-1 text-sm text-muted-foreground">{r.description}</p>
-                  <p className="mt-2 text-xs text-stone-500">{r.partner}</p>
+                  <p className="mt-2 text-xs text-sagegray-500">{r.partner}</p>
                   <div className="mt-3 flex items-center justify-between">
                     <span className="text-lg font-extrabold text-primary">{r.cost} pts</span>
                     <Button
@@ -177,7 +177,7 @@ export function KarmaScreen() {
           <CardContent className="max-h-80 overflow-y-auto p-0 scroll-slim">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-secondary/80 backdrop-blur">
-                <tr className="text-left text-xs uppercase tracking-wide text-stone-500">
+                <tr className="text-left text-xs uppercase tracking-wide text-sagegray-500">
                   <th className="px-4 py-2.5 font-semibold">Who</th>
                   <th className="px-4 py-2.5 font-semibold">Deed</th>
                   <th className="px-4 py-2.5 text-right font-semibold">Points</th>
@@ -188,8 +188,8 @@ export function KarmaScreen() {
                   ...seedKarma.map((k) => ({ name: k.userName, action: k.action, points: k.points }))].map((k, i) => (
                   <tr key={i} className="border-t">
                     <td className="px-4 py-2.5 font-medium">{k.name}</td>
-                    <td className="px-4 py-2.5 text-stone-600">{k.action}</td>
-                    <td className={cn("px-4 py-2.5 text-right font-bold", k.points >= 0 ? "text-green-700" : "text-red-600")}>
+                    <td className="px-4 py-2.5 text-sagegray-600">{k.action}</td>
+                    <td className={cn("px-4 py-2.5 text-right font-bold", k.points >= 0 ? "text-sage-700" : "text-emred-600")}>
                       {k.points >= 0 ? "+" : ""}
                       {k.points}
                     </td>

@@ -74,17 +74,17 @@ export function RescueScreen() {
   return (
     <div className="pb-4">
       {/* Emergency hero */}
-      <section className="bg-rescue border-b border-red-900/20">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14 text-white">
+      <section className="bg-rescue border-b border-emred-200">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14 text-charcoal">
           <div className="grid items-center gap-8 lg:grid-cols-5">
             <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-wider backdrop-blur">
+              <span className="inline-flex items-center gap-2 rounded-full border border-emred-200 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-emred-700">
                 <Siren className="h-3.5 w-3.5 animate-pulse" /> Community rescue network
               </span>
               <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
                 See an animal in danger?
               </h1>
-              <p className="mt-3 max-w-xl text-base text-white/85 sm:text-lg">
+              <p className="mt-3 max-w-xl text-base text-sagegray-600 sm:text-lg">
                 A cat stuck on a ledge, a kitten in a storm drain, a dog hit by a car —
                 post it here. Verified shelters and trained volunteers near you get alerted
                 instantly and respond together.
@@ -93,13 +93,13 @@ export function RescueScreen() {
                 <Button
                   size="lg"
                   onClick={() => setDialogOpen(true)}
-                  className="rounded-xl bg-white text-red-700 hover:bg-red-50 shadow-lift"
+                  className="rounded-xl bg-emred-500 text-white hover:bg-emred-600 shadow-lift"
                 >
                   <Siren className="h-4 w-4" /> Post a rescue alert
                 </Button>
                 <a
                   href="#rescue-guide"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/40 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                  className="inline-flex items-center gap-2 rounded-xl border border-emred-300 bg-white/60 px-4 py-2.5 text-sm font-semibold text-emred-700 transition-colors hover:bg-white"
                 >
                   <ShieldCheck className="h-4 w-4" /> How to help safely
                 </a>
@@ -114,10 +114,10 @@ export function RescueScreen() {
                 { label: "Closed this month", value: "18", sub: "safe endings" },
                 { label: "Avg. response", value: "35 min", sub: "report → responder on site" },
               ].map((s) => (
-                <div key={s.label} className="rounded-2xl border border-white/25 bg-white/10 p-4 backdrop-blur">
-                  <p className="text-2xl font-extrabold tracking-tight sm:text-3xl">{s.value}</p>
-                  <p className="text-xs font-semibold text-white/90">{s.label}</p>
-                  <p className="mt-0.5 text-[11px] text-white/60">{s.sub}</p>
+                <div key={s.label} className="rounded-2xl border border-emred-200 bg-white/80 p-4 shadow-soft backdrop-blur">
+                  <p className="text-2xl font-extrabold tracking-tight text-charcoal sm:text-3xl">{s.value}</p>
+                  <p className="text-xs font-semibold text-sagegray-700">{s.label}</p>
+                  <p className="mt-0.5 text-[11px] text-sagegray-500">{s.sub}</p>
                 </div>
               ))}
             </div>
@@ -197,7 +197,7 @@ export function RescueScreen() {
                       </Badge>
                     </div>
 
-                    <p className="mt-3 text-sm leading-relaxed text-stone-700">{a.description}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-sagegray-700">{a.description}</p>
 
                     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
@@ -215,11 +215,11 @@ export function RescueScreen() {
                     </div>
 
                     {a.resolution && (
-                      <div className="mt-3 rounded-xl border border-green-200 bg-green-50/70 p-3 text-sm text-green-900">
+                      <div className="mt-3 rounded-xl border border-sage-200 bg-sage-50/70 p-3 text-sm text-sage-900">
                         <p className="flex items-center gap-1.5 font-semibold">
-                          <ShieldCheck className="h-4 w-4 text-green-700" /> Outcome
+                          <ShieldCheck className="h-4 w-4 text-sage-700" /> Outcome
                         </p>
-                        <p className="mt-1 text-green-800">{a.resolution}</p>
+                        <p className="mt-1 text-sage-800">{a.resolution}</p>
                       </div>
                     )}
 
@@ -278,21 +278,21 @@ export function RescueScreen() {
               </h3>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-green-700">Do</p>
-                  <ul className="mt-2 space-y-2 text-sm text-stone-700">
-                    <li className="flex gap-2"><span className="text-green-600">✓</span> Keep a safe distance — scared animals bite or scratch out of fear.</li>
-                    <li className="flex gap-2"><span className="text-green-600">✓</span> Offer water in a shallow bowl; never force-feed an injured animal.</li>
-                    <li className="flex gap-2"><span className="text-green-600">✓</span> Place a towel/box over a storm drain opening if the animal may fall deeper.</li>
-                    <li className="flex gap-2"><span className="text-green-600">✓</span> Photograph the spot and share landmarks in your alert.</li>
+                  <p className="text-xs font-bold uppercase tracking-wider text-sage-700">Do</p>
+                  <ul className="mt-2 space-y-2 text-sm text-sagegray-700">
+                    <li className="flex gap-2"><span className="text-sage-600">✓</span> Keep a safe distance — scared animals bite or scratch out of fear.</li>
+                    <li className="flex gap-2"><span className="text-sage-600">✓</span> Offer water in a shallow bowl; never force-feed an injured animal.</li>
+                    <li className="flex gap-2"><span className="text-sage-600">✓</span> Place a towel/box over a storm drain opening if the animal may fall deeper.</li>
+                    <li className="flex gap-2"><span className="text-sage-600">✓</span> Photograph the spot and share landmarks in your alert.</li>
                   </ul>
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-red-700">Don&apos;t</p>
-                  <ul className="mt-2 space-y-2 text-sm text-stone-700">
-                    <li className="flex gap-2"><span className="text-red-500">✕</span> Don&apos;t chase a road-accident animal — internal injuries worsen with stress.</li>
-                    <li className="flex gap-2"><span className="text-red-500">✕</span> Don&apos;t move a suspected spinal injury without a flat board.</li>
-                    <li className="flex gap-2"><span className="text-red-500">✕</span> Don&apos;t enter a confined drain or well alone — alert 2+ responders.</li>
-                    <li className="flex gap-2"><span className="text-red-500">✕</span> Don&apos;t give human painkillers — many are toxic to cats.</li>
+                  <p className="text-xs font-bold uppercase tracking-wider text-emred-700">Don&apos;t</p>
+                  <ul className="mt-2 space-y-2 text-sm text-sagegray-700">
+                    <li className="flex gap-2"><span className="text-emred-500">✕</span> Don&apos;t chase a road-accident animal — internal injuries worsen with stress.</li>
+                    <li className="flex gap-2"><span className="text-emred-500">✕</span> Don&apos;t move a suspected spinal injury without a flat board.</li>
+                    <li className="flex gap-2"><span className="text-emred-500">✕</span> Don&apos;t enter a confined drain or well alone — alert 2+ responders.</li>
+                    <li className="flex gap-2"><span className="text-emred-500">✕</span> Don&apos;t give human painkillers — many are toxic to cats.</li>
                   </ul>
                 </div>
               </div>
@@ -306,7 +306,7 @@ export function RescueScreen() {
           <Card className="shadow-soft lg:col-span-2">
             <CardContent className="p-6">
               <h3 className="flex items-center gap-2 text-lg font-extrabold tracking-tight">
-                <PhoneCall className="h-5 w-5 text-red-600" /> Emergency vet lines
+                <PhoneCall className="h-5 w-5 text-emred-600" /> Emergency vet lines
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 For life-threatening cases, call while you post.
@@ -326,7 +326,7 @@ export function RescueScreen() {
                     </div>
                     <a
                       href={`tel:${c.phone.replace(/\s/g, "")}`}
-                      className="shrink-0 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-red-700"
+                      className="shrink-0 rounded-lg bg-emred-600 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-emred-700"
                     >
                       Call
                     </a>

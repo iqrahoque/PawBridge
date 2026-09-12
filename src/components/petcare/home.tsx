@@ -77,19 +77,19 @@ export function HomeScreen({
                 Find your best friend.{" "}
                 <span className="gradient-text">Change a life.</span>
               </h1>
-              <p className="mx-auto mt-5 max-w-lg text-base text-stone-600 sm:text-lg lg:mx-0">
+              <p className="mx-auto mt-5 max-w-lg text-base text-sagegray-600 sm:text-lg lg:mx-0">
                 Adopt a dog or cat, fund urgent medical care, and rescue animals in danger —
                 one platform connecting shelters, clinics and the people who care.
               </p>
 
               <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-2xl border bg-white/90 p-2 shadow-lift backdrop-blur lg:mx-0">
-                <Search className="ml-2 h-5 w-5 shrink-0 text-stone-400" />
+                <Search className="ml-2 h-5 w-5 shrink-0 text-sagegray-400" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && search()}
                   placeholder="Try “Mishti”, “deshi”, or “cat”…"
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-stone-400"
+                  className="w-full bg-transparent text-sm outline-none placeholder:text-sagegray-400"
                   aria-label="Search pets"
                 />
                 <Button onClick={search} className="shrink-0 rounded-xl">
@@ -99,17 +99,29 @@ export function HomeScreen({
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                 <Button size="lg" className="rounded-xl shadow-soft" onClick={() => onNavigate("pets")}>
-                  Meet the pets <ArrowRight className="h-4 w-4" />
+                  Find Your Companion <ArrowRight className="h-4 w-4" />
                 </Button>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="rounded-xl border-primary/30 text-primary hover:bg-accent"
+                  className="rounded-xl bg-coral-500 text-white shadow-soft hover:bg-coral-600"
                   onClick={() => onNavigate("campaigns")}
                 >
-                  <HandCoins className="h-4 w-4" /> Donate
+                  <HandCoins className="h-4 w-4" /> Help an Animal
                 </Button>
               </div>
+
+              {/* Live rescue status — clickable chip (moved out of the hero collage) */}
+              <button
+                onClick={() => onNavigate("rescue")}
+                className="group mx-auto mt-4 flex cursor-pointer items-center gap-2 rounded-full border border-emred-200 bg-white py-1.5 pl-2.5 pr-3.5 shadow-soft transition-colors hover:border-emred-400 lg:mx-0"
+              >
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emred-400 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emred-500" />
+                </span>
+                <p className="text-xs font-bold text-emred-700">{openAlerts} rescues need help now</p>
+                <ArrowRight className="h-3.5 w-3.5 text-emred-500 transition-transform group-hover:translate-x-0.5" />
+              </button>
 
               {/* trust row */}
               <div className="mt-7 flex items-center justify-center gap-3 lg:justify-start">
@@ -117,14 +129,14 @@ export function HomeScreen({
                   {["🐱", "🐶", "🩺", "🩸"].map((e, i) => (
                     <span
                       key={i}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-ginger-100 to-pawpink-100 text-base shadow-soft"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-sage-100 to-coral-100 text-base shadow-soft"
                     >
                       {e}
                     </span>
                   ))}
                 </div>
-                <p className="text-sm text-stone-600">
-                  <strong>162 donors</strong> · <strong>120+ rescuers</strong> · 2 verified shelters
+                <p className="text-sm text-sagegray-600">
+                  <strong>162 donors</strong> · <strong>120+ rescuers</strong> · 2 verified shelters{" "}
                   <br className="hidden sm:block" />
                   <span className="text-xs text-muted-foreground">already making a difference</span>
                 </p>
@@ -147,16 +159,9 @@ export function HomeScreen({
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Raised for care</p>
                 <p className="text-xl font-extrabold gradient-text">{bdt(totalRaised)}</p>
               </div>
-              <div className="absolute left-4 bottom-28 flex items-center gap-2 rounded-full border border-red-200 bg-white/90 py-1.5 pl-1.5 pr-3 shadow-lift backdrop-blur">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
-                </span>
-                <p className="text-xs font-bold text-red-700">{openAlerts} rescues need help now</p>
-              </div>
               {/* decorative blobs */}
-              <div className="pointer-events-none absolute -right-10 top-1/3 h-40 w-40 rounded-full bg-pawpink-200/40 blur-2xl" />
-              <div className="pointer-events-none absolute -left-6 bottom-0 h-36 w-36 rounded-full bg-amber-200/40 blur-2xl" />
+              <div className="pointer-events-none absolute -right-10 top-1/3 h-40 w-40 rounded-full bg-coral-200/40 blur-2xl" />
+              <div className="pointer-events-none absolute -left-6 bottom-0 h-36 w-36 rounded-full bg-gold-200/40 blur-2xl" />
             </div>
           </div>
 
@@ -188,21 +193,21 @@ export function HomeScreen({
       <section className="mx-auto max-w-6xl px-4 -mt-7 sm:-mt-8">
         <button
           onClick={() => onNavigate("rescue")}
-          className="group bg-rescue ring-gradient flex w-full items-center gap-4 rounded-3xl p-5 text-left text-white shadow-lift transition-transform hover:-translate-y-0.5 cursor-pointer sm:p-6"
+          className="group bg-rescue flex w-full cursor-pointer items-center gap-4 rounded-3xl border border-emred-200 p-5 text-left shadow-lift transition-transform hover:-translate-y-0.5 sm:p-6"
         >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emred-500 text-white shadow-soft">
             <Siren className="h-6 w-6 animate-pulse" />
           </span>
           <span className="flex-1">
-            <span className="block font-extrabold tracking-tight sm:text-lg">
+            <span className="block font-extrabold tracking-tight text-charcoal sm:text-lg">
               A cat stuck on a ledge. A kitten in a storm drain. You can help.
             </span>
-            <span className="mt-0.5 block text-sm text-white/80">
+            <span className="mt-0.5 block text-sm text-sagegray-600">
               Post an animal in danger — trained volunteers near you respond within minutes.
             </span>
           </span>
-          <span className="hidden shrink-0 items-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-red-700 transition-transform group-hover:scale-105 sm:inline-flex">
-            Open Rescue Network <ArrowRight className="h-4 w-4" />
+          <span className="hidden shrink-0 items-center gap-1.5 rounded-xl bg-emred-500 px-4 py-2.5 text-sm font-bold text-white transition-all group-hover:scale-105 group-hover:bg-emred-600 sm:inline-flex">
+            Get help now <ArrowRight className="h-4 w-4" />
           </span>
         </button>
       </section>
@@ -276,21 +281,21 @@ export function HomeScreen({
           />
           <ModuleCard
             icon={SearchCheck}
-            tone="greyfur"
+            tone="gold"
             title="Lost & Found"
             text="Reports auto-match on species, color and area — reunite pets with their humans."
             action={() => onNavigate("lostfound")}
           />
           <ModuleCard
             icon={Sparkles}
-            tone="amber"
+            tone="coral"
             title="Karma Ledger"
             text="Every good deed earns points. Redeem for vet checkups or donate meals."
             action={() => onNavigate("karma")}
           />
           <ModuleCard
             icon={HeartHandshake}
-            tone="ginger"
+            tone="sage"
             title="Safe Haven"
             text="Confidential temporary fostering for pets of people in crisis — privacy-first."
             action={() => onNavigate("dashboard")}
@@ -332,7 +337,7 @@ export function HomeScreen({
                   <span className="absolute -right-2 -top-3 select-none text-7xl font-black text-primary/5">
                     {n}
                   </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-pawpink-500 text-white shadow-soft">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-coral-500 text-white shadow-soft">
                     <Icon className="h-5 w-5" />
                   </span>
                   <p className="mt-3.5 font-bold">{title}</p>
@@ -346,21 +351,21 @@ export function HomeScreen({
 
       {/* CTA band */}
       <section className="px-4 pb-14 pt-14">
-        <div className="bg-cta mx-auto max-w-6xl rounded-3xl px-6 py-12 text-center text-white shadow-lift sm:px-12">
-          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold tracking-tight sm:text-4xl text-balance">
-            Every paw deserves a chance. <span className="text-amber-300">Yours can give it.</span>
+        <div className="bg-cta relative mx-auto max-w-6xl overflow-hidden rounded-3xl px-6 py-16 text-center text-white shadow-lift sm:px-12 sm:py-20">
+          <h2 className="mx-auto max-w-2xl text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
+            Every paw deserves a chance. <span className="text-gold-300">Yours can give it.</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-white/75">
             Adopt, donate five minutes or five taka — the ledger remembers every kind act.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" className="rounded-xl bg-white text-primary hover:bg-white/90" onClick={() => onNavigate("pets")}>
+            <Button size="lg" className="rounded-xl bg-white text-forest hover:bg-white/90" onClick={() => onNavigate("pets")}>
               <Dog className="h-4 w-4" /> Adopt a pet
             </Button>
             <Button size="lg" variant="outline" className="rounded-xl border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white" onClick={() => onNavigate("campaigns")}>
               <Cat className="h-4 w-4" /> Fund a campaign
             </Button>
-            <Button size="lg" variant="ghost" className="rounded-xl text-amber-300 hover:bg-white/10 hover:text-amber-200" onClick={() => onNavigate("rescue")}>
+            <Button size="lg" variant="ghost" className="rounded-xl text-gold-300 hover:bg-white/10 hover:text-gold-200" onClick={() => onNavigate("rescue")}>
               <ShieldCheck className="h-4 w-4" /> Join the rescue network
             </Button>
           </div>
@@ -435,17 +440,17 @@ function ModuleCard({
   action,
 }: {
   icon: React.ComponentType<{ className?: string }>;
-  tone: "red" | "rose" | "greyfur" | "amber" | "ginger";
+  tone: "red" | "rose" | "gold" | "coral" | "sage";
   title: string;
   text: string;
   action: () => void;
 }) {
   const tones = {
-    red: "bg-red-50 text-red-700",
-    rose: "bg-rose-50 text-rose-700",
-    greyfur: "bg-greyfur-50 text-greyfur-700",
-    amber: "bg-amber-50 text-amber-700",
-    ginger: "bg-ginger-50 text-ginger-700",
+    red: "bg-emred-50 text-emred-700",
+    rose: "bg-medical-100 text-medical-700",
+    gold: "bg-gold-50 text-gold-700",
+    coral: "bg-coral-50 text-coral-700",
+    sage: "bg-sage-50 text-sage-700",
   };
   return (
     <button onClick={action} className="cursor-pointer text-left">

@@ -45,86 +45,126 @@
 }
 
 /*
- * Cat-colour palette — every hue comes straight off a cat:
- * ginger fur (primary), paw-pink beans (secondary/rescue), white-cat cream
- * canvas, grey-fur neutrals and tuxedo-black ink & CTA band.
- * Amber (cat-eye gold) keeps karma, green = adoptable, red = critical.
+ * PetCare design system v4 — "Sage + Cream + Coral"
+ * Warm, trustworthy, animal-welfare palette (user-specified tokens):
+ *   sage #557A63 primary · forest #34513F dark · cream #F9F6EF canvas
+ *   coral #E58B78 emotional/actions · gold #D6A85F highlights & LOST badges
+ *   emred #D9534F emergency only · medical #DCEBED vet accent
+ *   charcoal #26332B text · sagegray #718078 muted
+ * Sage = normal info · coral = emotional/action · red breaks pattern for urgency.
  */
 @theme {
-  /* Ginger fur */
-  --color-ginger-50: #fdf6ec;
-  --color-ginger-100: #fae8d0;
-  --color-ginger-200: #f4cfa4;
-  --color-ginger-300: #ecb16c;
-  --color-ginger-400: #e29342;
-  --color-ginger-500: #d67d28;
-  --color-ginger-600: #bc6517;
-  --color-ginger-700: #964e13;
-  --color-ginger-800: #7a3f15;
-  --color-ginger-900: #663515;
+  /* Deep sage (primary brand) */
+  --color-sage-50: #f2f6f1;
+  --color-sage-100: #e3ede2;
+  --color-sage-200: #c7dbc7;
+  --color-sage-300: #a3c4a7;
+  --color-sage-400: #7da184;
+  --color-sage-500: #557a63;
+  --color-sage-600: #486854;
+  --color-sage-700: #34513f;
+  --color-sage-800: #2b4335;
+  --color-sage-900: #24382c;
 
-  /* Paw-pink beans */
-  --color-pawpink-50: #fdf3f6;
-  --color-pawpink-100: #fbe5ec;
-  --color-pawpink-200: #f6c7d6;
-  --color-pawpink-300: #ef9db6;
-  --color-pawpink-400: #e57295;
-  --color-pawpink-500: #d85479;
-  --color-pawpink-600: #ba3d62;
-  --color-pawpink-700: #96304e;
-  --color-pawpink-800: #7b2a43;
-  --color-pawpink-900: #67263c;
+  /* Soft coral (emotional / action accent) */
+  --color-coral-50: #fcf3f0;
+  --color-coral-100: #f9e4dc;
+  --color-coral-200: #f2c8bb;
+  --color-coral-300: #ebab98;
+  --color-coral-400: #e89b85;
+  --color-coral-500: #e58b78;
+  --color-coral-600: #c86f5c;
+  --color-coral-700: #a65848;
+  --color-coral-800: #88483b;
+  --color-coral-900: #713c32;
 
-  /* Grey fur (British Shorthair neutrals) */
-  --color-greyfur-50: #f8f7f6;
-  --color-greyfur-100: #f0eeec;
-  --color-greyfur-200: #e2dfdc;
-  --color-greyfur-300: #cbc6c1;
-  --color-greyfur-400: #a9a29b;
-  --color-greyfur-500: #8a827a;
-  --color-greyfur-600: #6e6760;
-  --color-greyfur-700: #585250;
-  --color-greyfur-800: #423d3b;
-  --color-greyfur-900: #2c2927;
+  /* Warm gold (highlights, LOST badges, karma) */
+  --color-gold-50: #fbf6e8;
+  --color-gold-100: #f6eccf;
+  --color-gold-200: #edd9a4;
+  --color-gold-300: #e2c47c;
+  --color-gold-400: #d6a85f;
+  --color-gold-500: #c6934a;
+  --color-gold-600: #a97a3d;
+  --color-gold-700: #89622f;
+  --color-gold-800: #6f4f26;
+  --color-gold-900: #5c4120;
 
-  /* White-cat cream canvas + tuxedo black */
-  --color-cream: #fffbf4;
-  --color-tuxedo: #241e1a;
+  /* Emergency red — reserved for rescue & urgent care */
+  --color-emred-50: #fcf2f1;
+  --color-emred-100: #fae1df;
+  --color-emred-200: #f3c4c1;
+  --color-emred-300: #e99c97;
+  --color-emred-400: #e06e68;
+  --color-emred-500: #d9534f;
+  --color-emred-600: #c24240;
+  --color-emred-700: #a33633;
+  --color-emred-800: #872f2c;
+  --color-emred-900: #712927;
+
+  /* Medical light blue (vet directory accent) */
+  --color-medical-50: #f5fafa;
+  --color-medical-100: #eaf4f5;
+  --color-medical-200: #dcebed;
+  --color-medical-300: #c0dbdd;
+  --color-medical-400: #9cc5c8;
+  --color-medical-500: #7aaab1;
+  --color-medical-600: #5f8f96;
+  --color-medical-700: #4d747b;
+  --color-medical-800: #405f65;
+  --color-medical-900: #375055;
+
+  /* Sage gray (muted neutrals) */
+  --color-sagegray-50: #f5f6f4;
+  --color-sagegray-100: #eaebe8;
+  --color-sagegray-200: #d6d9d3;
+  --color-sagegray-300: #b7bdb3;
+  --color-sagegray-400: #949c91;
+  --color-sagegray-500: #718078;
+  --color-sagegray-600: #5c6962;
+  --color-sagegray-700: #4b554f;
+  --color-sagegray-800: #3c443f;
+  --color-sagegray-900: #2c332f;
+
+  /* Named anchors */
+  --color-cream: #f9f6ef;
+  --color-forest: #34513f;
+  --color-charcoal: #26332b;
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.985 0.012 85);
-  --foreground: oklch(0.3 0.025 60);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.3 0.025 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3 0.025 60);
-  --primary: oklch(0.615 0.135 55);
-  --primary-foreground: oklch(0.985 0.005 85);
-  --secondary: oklch(0.955 0.014 75);
-  --secondary-foreground: oklch(0.42 0.06 50);
-  --muted: oklch(0.955 0.01 80);
-  --muted-foreground: oklch(0.5 0.022 70);
-  --accent: oklch(0.945 0.028 60);
-  --accent-foreground: oklch(0.47 0.11 50);
-  --destructive: oklch(0.586 0.222 17.5);
-  --border: oklch(0.912 0.012 75);
-  --input: oklch(0.912 0.012 75);
-  --ring: oklch(0.7 0.13 55);
-  --chart-1: oklch(0.665 0.145 55);
-  --chart-2: oklch(0.635 0.17 5);
-  --chart-3: oklch(0.795 0.155 75);
-  --chart-4: oklch(0.627 0.155 155);
-  --chart-5: oklch(0.55 0.02 70);
-  --sidebar: oklch(0.985 0.012 85);
-  --sidebar-foreground: oklch(0.3 0.025 60);
-  --sidebar-primary: oklch(0.615 0.135 55);
-  --sidebar-primary-foreground: oklch(0.985 0.005 85);
-  --sidebar-accent: oklch(0.945 0.028 60);
-  --sidebar-accent-foreground: oklch(0.47 0.11 50);
-  --sidebar-border: oklch(0.912 0.012 75);
-  --sidebar-ring: oklch(0.7 0.13 55);
+  --background: #f9f6ef;
+  --foreground: #26332b;
+  --card: #ffffff;
+  --card-foreground: #26332b;
+  --popover: #ffffff;
+  --popover-foreground: #26332b;
+  --primary: #557a63;
+  --primary-foreground: #f9f6ef;
+  --secondary: #edf1e8;
+  --secondary-foreground: #34513f;
+  --muted: #f1f0e9;
+  --muted-foreground: #718078;
+  --accent: #e9f0e5;
+  --accent-foreground: #34513f;
+  --destructive: #d9534f;
+  --border: #e6e2d6;
+  --input: #e6e2d6;
+  --ring: #557a63;
+  --chart-1: #557a63;
+  --chart-2: #e58b78;
+  --chart-3: #d6a85f;
+  --chart-4: #7aaab1;
+  --chart-5: #718078;
+  --sidebar: #f9f6ef;
+  --sidebar-foreground: #26332b;
+  --sidebar-primary: #557a63;
+  --sidebar-primary-foreground: #f9f6ef;
+  --sidebar-accent: #e9f0e5;
+  --sidebar-accent-foreground: #34513f;
+  --sidebar-border: #e6e2d6;
+  --sidebar-ring: #557a63;
 }
 
 @layer base {
@@ -140,45 +180,45 @@
 }
 
 @layer utilities {
-  /* Hero — ginger blush + paw-pink glow + peach over cream */
+  /* Hero — soft sage breeze + coral warmth + gold hint over warm cream */
   .bg-hero {
     background:
-      radial-gradient(1100px 480px at 12% -12%, oklch(0.9 0.075 70 / 0.55), transparent 58%),
-      radial-gradient(900px 460px at 88% -6%, oklch(0.9 0.065 5 / 0.45), transparent 55%),
-      radial-gradient(760px 420px at 55% 18%, oklch(0.95 0.045 85 / 0.5), transparent 60%),
-      linear-gradient(180deg, oklch(0.975 0.018 80) 0%, var(--background) 100%);
+      radial-gradient(1100px 480px at 12% -12%, rgb(85 122 99 / 0.15), transparent 58%),
+      radial-gradient(900px 460px at 88% -6%, rgb(229 139 120 / 0.16), transparent 55%),
+      radial-gradient(760px 420px at 55% 20%, rgb(214 168 95 / 0.13), transparent 60%),
+      linear-gradient(180deg, #f3f0e3 0%, #f9f6ef 100%);
   }
-  /* Emergency rescue band — deep paw-pink to warm red */
+  /* Emergency strip — very pale warm red, urgency without aggression */
   .bg-rescue {
     background:
-      radial-gradient(700px 320px at 8% -20%, oklch(0.72 0.19 20 / 0.4), transparent 60%),
-      radial-gradient(600px 300px at 95% 0%, oklch(0.68 0.17 350 / 0.35), transparent 55%),
-      linear-gradient(135deg, oklch(0.5 0.145 356) 0%, oklch(0.53 0.175 15) 100%);
+      radial-gradient(700px 320px at 8% -20%, rgb(217 83 79 / 0.12), transparent 60%),
+      radial-gradient(600px 300px at 95% 0%, rgb(217 83 79 / 0.08), transparent 55%),
+      linear-gradient(180deg, #fff1ef 0%, #fcf3f0 100%);
   }
-  /* Dark CTA band — tuxedo black with ginger glow */
+  /* Dark CTA band — deep forest with gold glow */
   .bg-cta {
     background:
-      radial-gradient(800px 340px at 85% -20%, oklch(0.62 0.13 55 / 0.5), transparent 60%),
-      radial-gradient(600px 300px at 8% -30%, oklch(0.63 0.15 10 / 0.22), transparent 55%),
-      linear-gradient(135deg, oklch(0.255 0.02 60) 0%, oklch(0.33 0.035 55) 55%, oklch(0.42 0.075 50) 100%);
+      radial-gradient(800px 340px at 85% -20%, rgb(214 168 95 / 0.30), transparent 60%),
+      radial-gradient(600px 300px at 8% -30%, rgb(229 139 120 / 0.16), transparent 55%),
+      linear-gradient(135deg, #24362b 0%, #34513f 55%, #41604c 100%);
   }
   .bg-paw-pattern {
-    background-image: radial-gradient(oklch(0.615 0.135 55 / 0.09) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(rgb(85 122 99 / 0.12) 1.5px, transparent 1.5px);
     background-size: 22px 22px;
   }
   .shadow-soft {
-    box-shadow: 0 2px 10px oklch(0.3 0.025 60 / 0.07), 0 1px 2px oklch(0.3 0.025 60 / 0.05);
+    box-shadow: 0 2px 10px rgb(38 51 43 / 0.06), 0 1px 2px rgb(38 51 43 / 0.05);
   }
   .shadow-lift {
-    box-shadow: 0 12px 32px oklch(0.3 0.025 60 / 0.14), 0 2px 6px oklch(0.3 0.025 60 / 0.08);
+    box-shadow: 0 12px 32px rgb(38 51 43 / 0.13), 0 2px 6px rgb(38 51 43 / 0.08);
   }
   .glass {
-    background: oklch(1 0 0 / 0.72);
+    background: rgb(255 255 255 / 0.86);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
   .gradient-text {
-    background: linear-gradient(92deg, oklch(0.615 0.135 55), oklch(0.62 0.16 5) 55%, oklch(0.72 0.13 70));
+    background: linear-gradient(92deg, #34513f 0%, #557a63 48%, #c6934a 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -192,7 +232,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    background: linear-gradient(135deg, oklch(0.7 0.13 55 / 0.9), oklch(0.72 0.13 5 / 0.55), oklch(0.795 0.155 75 / 0.7));
+    background: linear-gradient(135deg, rgb(85 122 99 / 0.75), rgb(229 139 120 / 0.55), rgb(214 168 95 / 0.7));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -218,7 +258,7 @@
     height: 6px;
   }
   .scroll-slim::-webkit-scrollbar-thumb {
-    background: oklch(0.86 0.012 75);
+    background: #dcd8ca;
     border-radius: 9999px;
   }
   .scroll-slim::-webkit-scrollbar-track {

@@ -64,7 +64,7 @@ export function DashboardScreen() {
         <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight">
           <LayoutDashboard className="h-7 w-7 text-primary" /> Dashboard
         </h1>
-        <Button variant="outline" size="sm" className="rounded-lg text-stone-600" onClick={resetDemo}>
+        <Button variant="outline" size="sm" className="rounded-lg text-sagegray-600" onClick={resetDemo}>
           Reset demo data
         </Button>
       </div>
@@ -118,7 +118,7 @@ export function DashboardScreen() {
                         </p>
                         <AppStatusBadge status={a.status} />
                       </div>
-                      {a.note && <p className="mt-1.5 text-xs text-ginger-800">{a.note}</p>}
+                      {a.note && <p className="mt-1.5 text-xs text-sage-800">{a.note}</p>}
                       {a.status === "submitted" && (
                         <p className="mt-1.5 text-xs text-muted-foreground">
                           Shelter has 7 days to respond — you&apos;ll get a notification.
@@ -149,7 +149,7 @@ export function DashboardScreen() {
                               {d.anonymous ? "Anonymous" : d.donorName} · {d.method}
                             </p>
                           </div>
-                          <Badge variant="outline" className="border-green-200 bg-green-50 text-green-800">
+                          <Badge variant="outline" className="border-sage-200 bg-sage-50 text-sage-800">
                             receipt ready
                           </Badge>
                         </div>
@@ -174,7 +174,7 @@ export function DashboardScreen() {
                           </p>
                           <p className="text-xs text-muted-foreground">{r.note}</p>
                         </div>
-                        <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-800">
+                        <Badge variant="outline" className="border-gold-200 bg-gold-50 text-gold-800">
                           due {fmtDate(r.due)}
                         </Badge>
                       </div>
@@ -232,7 +232,7 @@ export function DashboardScreen() {
               </p>
               {pendingInbox.length === 0 ? (
                 <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-4 w-4 text-green-600" /> Inbox zero. Try applying to a pet
+                  <CheckCircle2 className="h-4 w-4 text-sage-600" /> Inbox zero. Try applying to a pet
                   from the Adopt screen, then refresh here.
                 </p>
               ) : (
@@ -248,7 +248,7 @@ export function DashboardScreen() {
                               {a.applicant} → {pet?.name}
                             </p>
                             <p className="max-w-xl text-xs text-muted-foreground">“{a.message}”</p>
-                            <p className="mt-1 text-xs text-stone-500">
+                            <p className="mt-1 text-xs text-sagegray-500">
                               {a.homeType} · {a.experience ? "has pet experience" : "first-time owner"} ·{" "}
                               {fmtDate(a.date)}
                             </p>
@@ -257,7 +257,7 @@ export function DashboardScreen() {
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            className="rounded-lg bg-green-700 hover:bg-green-800"
+                            className="rounded-lg bg-sage-700 hover:bg-sage-800"
                             onClick={() => decideApplication(a.id, "approved", a.petId)}
                           >
                             <CheckCircle2 className="h-4 w-4" /> Approve
@@ -265,7 +265,7 @@ export function DashboardScreen() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="rounded-lg border-red-200 text-red-700 hover:bg-red-50"
+                            className="rounded-lg border-emred-200 text-emred-700 hover:bg-emred-50"
                             onClick={() => decideApplication(a.id, "rejected", a.petId)}
                           >
                             <XCircle className="h-4 w-4" /> Reject
@@ -286,7 +286,7 @@ export function DashboardScreen() {
               <div className="mt-3 max-h-96 overflow-y-auto rounded-xl border scroll-slim">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-secondary/90 backdrop-blur">
-                    <tr className="text-left text-xs uppercase tracking-wide text-stone-500">
+                    <tr className="text-left text-xs uppercase tracking-wide text-sagegray-500">
                       <th className="px-4 py-2.5 font-semibold">Pet</th>
                       <th className="px-4 py-2.5 font-semibold">Shelter</th>
                       <th className="px-4 py-2.5 font-semibold">Age</th>
@@ -298,9 +298,9 @@ export function DashboardScreen() {
                     {pets.map((p) => (
                       <tr key={p.id} className="border-t bg-white">
                         <td className="px-4 py-2.5 font-semibold">{p.name}</td>
-                        <td className="px-4 py-2.5 text-stone-600">{shelterName(p.shelterId)}</td>
-                        <td className="px-4 py-2.5 text-stone-600">{ageLabel(p.ageMonths)}</td>
-                        <td className="px-4 py-2.5 text-stone-600">{Math.max(0, Math.round((Date.parse("2026-09-12") - Date.parse(p.admissionDate)) / 86400000))}d</td>
+                        <td className="px-4 py-2.5 text-sagegray-600">{shelterName(p.shelterId)}</td>
+                        <td className="px-4 py-2.5 text-sagegray-600">{ageLabel(p.ageMonths)}</td>
+                        <td className="px-4 py-2.5 text-sagegray-600">{Math.max(0, Math.round((Date.parse("2026-09-12") - Date.parse(p.admissionDate)) / 86400000))}d</td>
                         <td className="px-4 py-2.5">
                           <StatusBadge status={p.status} />
                         </td>
@@ -313,10 +313,10 @@ export function DashboardScreen() {
           </Card>
 
           {/* Admin / safe haven */}
-          <Card className="border-ginger-200 shadow-soft">
+          <Card className="border-sage-200 shadow-soft">
             <CardContent className="p-5">
               <h2 className="flex items-center gap-2 font-bold">
-                <ShieldAlert className="h-4 w-4 text-ginger-700" /> Admin — Safe Haven caseload
+                <ShieldAlert className="h-4 w-4 text-sage-700" /> Admin — Safe Haven caseload
               </h2>
               <p className="text-xs text-muted-foreground">
                 Restricted view: case managers only. Requester identities are never stored.
@@ -325,15 +325,15 @@ export function DashboardScreen() {
                 {safeHavenRequests.map((r) => (
                   <div key={r.code} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 text-sm">
                     <p>
-                      <span className="font-mono font-semibold text-ginger-700">{r.code}</span> · {r.petName} (
+                      <span className="font-mono font-semibold text-sage-700">{r.code}</span> · {r.petName} (
                       {r.species}) — {r.crisisType}
                     </p>
                     <Badge
                       variant="outline"
                       className={cn(
                         r.status === "in_care"
-                          ? "border-greyfur-200 bg-greyfur-50 text-greyfur-800"
-                          : "border-amber-200 bg-amber-50 text-amber-800"
+                          ? "border-sagegray-200 bg-sagegray-50 text-sagegray-800"
+                          : "border-gold-200 bg-gold-50 text-gold-800"
                       )}
                     >
                       <Eye className="mr-1 h-3 w-3" /> {r.status.replace("_", " ")}
@@ -363,7 +363,7 @@ function StatTile({
   return (
     <Card className="shadow-soft">
       <CardContent className="p-4">
-        <div className="flex items-center gap-2 text-stone-500">
+        <div className="flex items-center gap-2 text-sagegray-500">
           <Icon className="h-4 w-4" />
           <p className="text-xs font-medium">{label}</p>
         </div>
@@ -376,10 +376,10 @@ function StatTile({
 
 function AppStatusBadge({ status }: { status: string }) {
   const map: Record<string, string> = {
-    submitted: "border-amber-200 bg-amber-50 text-amber-800",
-    under_review: "border-greyfur-200 bg-greyfur-50 text-greyfur-800",
-    approved: "border-green-200 bg-green-50 text-green-800",
-    rejected: "border-red-200 bg-red-50 text-red-700",
+    submitted: "border-gold-200 bg-gold-50 text-gold-800",
+    under_review: "border-sagegray-200 bg-sagegray-50 text-sagegray-800",
+    approved: "border-sage-200 bg-sage-50 text-sage-800",
+    rejected: "border-emred-200 bg-emred-50 text-emred-700",
   };
   return (
     <Badge variant="outline" className={map[status]}>

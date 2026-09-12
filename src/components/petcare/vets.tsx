@@ -27,7 +27,7 @@ function FilterChip({
         "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer",
         active
           ? "border-primary bg-primary text-primary-foreground"
-          : "bg-white text-stone-600 hover:border-stone-400"
+          : "bg-white text-sagegray-600 hover:border-sagegray-400"
       )}
       aria-pressed={active}
     >
@@ -76,7 +76,7 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-ginger-50 text-ginger-700">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-medical-100 text-medical-700">
                         <Stethoscope className="h-5 w-5" />
                       </span>
                       <div>
@@ -92,17 +92,17 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     {c.emergency && (
-                      <Badge variant="outline" className="border-red-200 bg-red-50 text-red-700">
+                      <Badge variant="outline" className="border-emred-200 bg-emred-50 text-emred-700">
                         <Siren className="mr-1 h-3 w-3" /> Emergency
                       </Badge>
                     )}
                     {c.lowCost && (
-                      <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-800">
+                      <Badge variant="outline" className="border-sage-200 bg-sage-50 text-sage-800">
                         Low-cost
                       </Badge>
                     )}
                     {c.verified && (
-                      <Badge variant="outline" className="border-stone-200 text-stone-600">
+                      <Badge variant="outline" className="border-sagegray-200 text-sagegray-600">
                         <BadgeCheck className="mr-1 h-3 w-3" /> Verified
                       </Badge>
                     )}
@@ -136,7 +136,7 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
                   {c.reviews.map((r, i) => (
                     <div key={i} className="text-sm">
                       <p className="flex items-center gap-2 font-medium">
-                        <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                        <Star className="h-3 w-3 fill-gold-400 text-gold-400" />
                         {r.by}
                       </p>
                       <p className="text-muted-foreground">{r.comment}</p>
@@ -150,10 +150,10 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
       </div>
 
       {/* Blood bank cross-link */}
-      <Card className="mt-8 border-red-200 bg-red-50/50 shadow-soft">
+      <Card className="mt-8 border-emred-200 bg-emred-50/50 shadow-soft">
         <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5">
           <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-700">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emred-100 text-emred-700">
               <Droplets className="h-6 w-6" />
             </span>
             <div>

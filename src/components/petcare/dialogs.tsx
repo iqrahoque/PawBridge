@@ -69,7 +69,7 @@ export function AdoptDialog({ pet, open, onClose }: { pet: Pet; open: boolean; o
 
         {done ? (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
-            <CheckCircle2 className="h-12 w-12 text-green-600" />
+            <CheckCircle2 className="h-12 w-12 text-sage-600" />
             <p className="font-semibold">Application sent!</p>
             <p className="text-sm text-muted-foreground">
               {pet.name} is now marked <strong>pending</strong> while the shelter reviews your
@@ -220,7 +220,7 @@ export function DonateDialog({
         {done ? (
           <div className="space-y-4 py-2">
             <div className="flex flex-col items-center gap-2 text-center">
-              <CheckCircle2 className="h-12 w-12 text-green-600" />
+              <CheckCircle2 className="h-12 w-12 text-sage-600" />
               <p className="text-sm text-muted-foreground">{campaign.title}</p>
             </div>
             <Progress value={pct} className="h-3" />
@@ -366,7 +366,7 @@ export function DonorRegDialog({ open, onClose }: { open: boolean; onClose: () =
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Droplets className="h-5 w-5 text-red-600" /> Register a blood donor
+            <Droplets className="h-5 w-5 text-emred-600" /> Register a blood donor
           </DialogTitle>
           <DialogDescription>
             Healthy, vaccinated pets can save lives. Dogs: min 20kg · Cats: min 4kg.
@@ -620,7 +620,7 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Siren className="h-5 w-5 text-red-600" /> Report an animal in danger
+            <Siren className="h-5 w-5 text-emred-600" /> Report an animal in danger
           </DialogTitle>
           <DialogDescription>
             Be as precise as you can — exact spot, landmark and what you see. Responders will
@@ -689,7 +689,7 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
                     "flex cursor-pointer flex-col items-center gap-0.5 rounded-xl border p-2.5 text-center transition-colors",
                     urgency === o.v
                       ? o.v === "critical"
-                        ? "border-red-400 bg-red-50 text-red-800"
+                        ? "border-emred-400 bg-emred-50 text-emred-800"
                         : "border-primary bg-accent text-accent-foreground"
                       : "hover:bg-secondary"
                   )}
@@ -723,7 +723,7 @@ export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => 
             />
           </div>
 
-          <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900">
+          <div className="rounded-xl bg-gold-50 border border-gold-200 p-3 text-xs text-gold-900">
             In a life-threatening emergency also call the 24h vet line:{" "}
             <strong>+880 2 900 0002</strong>. Never put yourself in danger — responders have the gear.
           </div>
