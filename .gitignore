@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment & secrets — NEVER commit tokens or DB passwords
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# DB dumps & temp files (keep the canonical .sql files, ignore local exports)
+*.sql.gz
+dump/
+tmp/
