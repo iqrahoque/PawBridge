@@ -64,7 +64,7 @@ PetCare/
 │   ├── API_DESIGN.md            # REST API endpoints (real backend blueprint)
 │   └── ROADMAP.md               # Phased build plan (semester-friendly)
 ├── database/
-│   ├── schema.sql               # Full MySQL 8 DDL — 29 tables, triggers, views
+│   ├── schema.sql               # Full MySQL 8 DDL — 31 tables (incl. rescue network), triggers, views
 │   ├── seed_data.sql            # Realistic demo data (Dhaka-flavored 🇧🇩)
 │   └── queries/
 │       └── showcase_queries.sql # 10 impressive SQL queries for demos & viva
@@ -80,7 +80,7 @@ PetCare/
 # 1. Create the database
 mysql -u root -p -e "CREATE DATABASE petcare_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# 2. Load the schema (29 tables + triggers + views)
+# 2. Load the schema (31 tables + triggers + views)
 mysql -u root -p petcare_db < database/schema.sql
 
 # 3. Load demo data
@@ -99,9 +99,9 @@ mysql -u root -p petcare_db < database/queries/showcase_queries.sql
 | Phase | Status |
 |---|---|
 | 0 — Research & Specification | ✅ Done ([spec](docs/PROJECT_SPEC.md)) |
-| 1 — Database Design | ✅ Done ([ERD](docs/DATABASE_DESIGN.md), [SQL](database/schema.sql)) |
-| 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — the web app already implements its tokens & screens |
-| 3 — Web App (demo build) | ✅ **Live** on GitHub Pages |
+| 1 — Database Design | ✅ Done — 31 tables incl. Rescue Network ([ERD](docs/DATABASE_DESIGN.md), [SQL](database/schema.sql)) |
+| 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — v2 "Twilight Rescue" palette (violet/lavender) |
+| 3 — Web App (demo build) | ✅ **Live** on GitHub Pages — 9 screens incl. Community Rescue Network, 162-donor realistic dataset |
 | 4 — Real backend (API + MySQL) | 🔜 Next ([API design](docs/API_DESIGN.md) ready to implement) |
 
 ---

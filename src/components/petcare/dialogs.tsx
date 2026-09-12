@@ -15,11 +15,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle2, Heart, Droplets, MapPin, Smartphone, CreditCard, Banknote } from "lucide-react";
+import { CheckCircle2, Heart, Droplets, MapPin, Smartphone, CreditCard, Banknote, Siren } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePetCare } from "@/lib/store";
 import { useToast } from "@/hooks/use-toast";
-import { bdt, campaigns, type Pet, type Species } from "@/data/seed";
+import { bdt, campaigns, type Pet, type Species, type RescueSituation } from "@/data/seed";
 import { seedDonations } from "@/data/seed";
 import { PetArt } from "./cards";
 
@@ -120,7 +120,7 @@ export function AdoptDialog({ pet, open, onClose }: { pet: Pet; open: boolean; o
                 type="checkbox"
                 checked={experience}
                 onChange={(e) => setExperience(e.target.checked)}
-                className="h-4 w-4 accent-[#EA580C]"
+                className="h-4 w-4 accent-[#7C3AED]"
               />
               I have experience caring for pets
             </label>
@@ -559,6 +559,177 @@ export function ReportDialog({
           </div>
           <Button onClick={submit} className="w-full">
             {kind === "lost" ? "File lost report" : "File found report"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Rescue alert (U9 — Community Rescue Network)                        */
+/* ------------------------------------------------------------------ */
+
+const RESCUE_SITUATIONS: { v: RescueSituation; label: string; icon: string }[] = [
+  { v: "stuck_trapped", label: "Stuck / trapped", icon: "🪤" },
+  { v: "injured", label: "Injured / sick", icon: "🩹" },
+  { v: "road_accident", label: "Road accident", icon: "🚗" },
+  { v: "drowning_risk", label: "Drowning risk", icon: "🌊" },
+  { v: "abandoned", label: "Abandoned litter", icon: "📦" },
+  { v: "abuse_neglect", label: "Abuse / neglect", icon: "⚠️" },
+  { v: "other", label: "Other", icon: "❓" },
+];
+
+export function RescueDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const addRescueReport = usePetCare((s) => s.addRescueReport);
+  const { toast } = useToast();
+  const [species, setSpecies] = useState<"dog" | "cat" | "other">("cat");
+  const [situation, setSituation] = useState<RescueSituation>("stuck_trapped");
+  const [urgency, setUrgency] = useState<"critical" | "urgent" | "standard">("urgent");
+  const [area, setArea] = useState("");
+  const [description, setDescription] = useState("");
+
+  const submit = () => {
+    if (!area.trim() || description.trim().length < 10) {
+      toast({
+        title: "A bit more detail needed",
+        description: "Location and a clear description (10+ chars) help responders find the animal fast.",
+      });
+      return;
+    }
+    addRescueReport({
+      reporter: "Sara Chowdhury",
+      species,
+      situation,
+      urgency,
+      area: area.trim(),
+      description: description.trim(),
+    });
+    toast({
+      title: "Rescue alert posted 🚨",
+      description:
+        "Volunteers near you have been notified. You'll get karma as the case progresses. Stay nearby if you can — you're the best landmark.",
+    });
+    setArea("");
+    setDescription("");
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={(v) => (v ? null : onClose())}>
+      <DialogContent className="max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Siren className="h-5 w-5 text-red-600" /> Report an animal in danger
+          </DialogTitle>
+          <DialogDescription>
+            Be as precise as you can — exact spot, landmark and what you see. Responders will
+            coordinate through the alert.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-2">
+            {(["cat", "dog", "other"] as const).map((s) => (
+              <Label
+                key={s}
+                className={cn(
+                  "flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border p-2.5 text-sm font-medium capitalize transition-colors",
+                  species === s ? "border-primary bg-accent text-accent-foreground" : "hover:bg-secondary"
+                )}
+              >
+                <input
+                  type="radio"
+                  className="sr-only"
+                  checked={species === s}
+                  onChange={() => setSpecies(s)}
+                />
+                {s === "cat" ? "🐱 Cat" : s === "dog" ? "🐶 Dog" : "🐾 Other"}
+              </Label>
+            ))}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>What&apos;s happening?</Label>
+            <div className="grid grid-cols-2 gap-2">
+              {RESCUE_SITUATIONS.map((s) => (
+                <Label
+                  key={s.v}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-2 rounded-xl border p-2.5 text-sm font-medium transition-colors",
+                    situation === s.v ? "border-primary bg-accent text-accent-foreground" : "hover:bg-secondary"
+                  )}
+                >
+                  <input
+                    type="radio"
+                    className="sr-only"
+                    checked={situation === s.v}
+                    onChange={() => setSituation(s.v)}
+                  />
+                  <span>{s.icon}</span> {s.label}
+                </Label>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>How urgent is it?</Label>
+            <RadioGroup
+              value={urgency}
+              onValueChange={(v) => setUrgency(v as typeof urgency)}
+              className="grid grid-cols-3 gap-2"
+            >
+              {[
+                { v: "critical", l: "Critical", d: "life at risk now" },
+                { v: "urgent", l: "Urgent", d: "needs help today" },
+                { v: "standard", l: "Standard", d: "this week" },
+              ].map((o) => (
+                <Label
+                  key={o.v}
+                  className={cn(
+                    "flex cursor-pointer flex-col items-center gap-0.5 rounded-xl border p-2.5 text-center transition-colors",
+                    urgency === o.v
+                      ? o.v === "critical"
+                        ? "border-red-400 bg-red-50 text-red-800"
+                        : "border-primary bg-accent text-accent-foreground"
+                      : "hover:bg-secondary"
+                  )}
+                >
+                  <RadioGroupItem value={o.v} className="sr-only" />
+                  <span className="text-sm font-bold">{o.l}</span>
+                  <span className="text-[10px] text-muted-foreground">{o.d}</span>
+                </Label>
+              ))}
+            </RadioGroup>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="res-area">Exact location / landmark</Label>
+            <Input
+              id="res-area"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
+              placeholder="e.g. Mirpur 10 roundabout, beside Burger King, 3rd storm drain"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="res-desc">Describe what you see</Label>
+            <Textarea
+              id="res-desc"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={3}
+              placeholder="Colour, size, condition, is it reachable, is water rising, anything that helps…"
+            />
+          </div>
+
+          <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900">
+            In a life-threatening emergency also call the 24h vet line:{" "}
+            <strong>+880 2 900 0002</strong>. Never put yourself in danger — responders have the gear.
+          </div>
+
+          <Button onClick={submit} className="w-full">
+            <Siren className="h-4 w-4" /> Post rescue alert (+50 karma)
           </Button>
         </div>
       </DialogContent>

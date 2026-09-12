@@ -239,11 +239,11 @@ function PetDetail({
             <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.vaccinated ? "bg-green-100 text-green-800" : "bg-stone-100 text-stone-600")}>
               <Syringe className="h-3.5 w-3.5" /> {pet.vaccinated ? "Vaccinated" : "Vaccines pending"}
             </span>
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.neutered ? "bg-teal-100 text-teal-800" : "bg-stone-100 text-stone-600")}>
+            <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1", pet.neutered ? "bg-emerald-100 text-emerald-800" : "bg-stone-100 text-stone-600")}>
               <Scissors className="h-3.5 w-3.5" /> {pet.neutered ? "Neutered" : "Not neutered"}
             </span>
             {pet.goodWith.kids && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-orange-800">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-100 px-3 py-1 text-violet-800">
                 <Users className="h-3.5 w-3.5" /> Good with kids
               </span>
             )}
@@ -255,7 +255,7 @@ function PetDetail({
               <MapPin className="h-3.5 w-3.5" /> {shelter?.area}, {shelter?.city}
             </p>
             {shelter?.verified && (
-              <Badge variant="outline" className="mt-2 border-teal-200 bg-teal-50 text-teal-800">
+              <Badge variant="outline" className="mt-2 border-emerald-200 bg-emerald-50 text-emerald-800">
                 License verified · {shelter.license}
               </Badge>
             )}
@@ -278,11 +278,11 @@ function PetDetail({
             <Button
               variant="outline"
               size="icon"
-              className={cn("rounded-full", fav && "border-orange-300 bg-orange-50")}
+              className={cn("rounded-full", fav && "border-violet-300 bg-violet-50")}
               onClick={() => toggleFavorite(pet.id)}
               aria-label={fav ? "Remove from favorites" : "Add to favorites"}
             >
-              <Heart className={cn("h-4 w-4", fav && "fill-orange-600 text-orange-600")} />
+              <Heart className={cn("h-4 w-4", fav && "fill-primary text-primary")} />
             </Button>
           </div>
 
@@ -308,7 +308,7 @@ function PetDetail({
             </div>
             <Button
               variant="outline"
-              className="rounded-xl border-teal-600 text-teal-700 hover:bg-teal-50"
+              className="rounded-xl border-primary/30 text-primary hover:bg-accent"
               onClick={() => onNavigate("campaigns")}
             >
               Donate instead

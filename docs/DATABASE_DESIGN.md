@@ -1,7 +1,7 @@
 # PetCare — Database Design
 
 **Engine:** MySQL 8.0.16+ · **Charset:** `utf8mb4_unicode_ci` (Bangla-safe) · **Storage:** InnoDB
-**Schema:** 29 tables · 3 triggers · 3 views · full DDL in [`database/schema.sql`](../database/schema.sql)
+**Schema:** 31 tables · 3 triggers · 3 views · full DDL in [`database/schema.sql`](../database/schema.sql)
 
 ---
 

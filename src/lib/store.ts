@@ -68,6 +68,19 @@ export interface MyDonor {
   active: boolean;
 }
 
+export interface MyRescueReport {
+  id: number;
+  reporter: string;
+  species: "dog" | "cat" | "other";
+  situation: string; // RescueSituation
+  urgency: "critical" | "urgent" | "standard";
+  area: string;
+  description: string;
+  reportedAt: string; // ISO datetime
+  status: "reported" | "responding" | "rescued" | "closed";
+  responders: string[];
+}
+
 export interface MatchDecision {
   key: string; // `${lostId}-${foundId}`
   status: "confirmed" | "dismissed";
@@ -80,6 +93,9 @@ interface PetCareState {
   foundReports: MyFoundReport[];
   lostReports: MyLostReport[];
   donors: MyDonor[];
+  rescueReports: MyRescueReport[];
+  rescuedAlerts: Record<number, "rescued" | "closed">; // overrides for seeded rescue alerts
+  rescueResponders: Record<number, string[]>; // extra responders joined per alert id
   matchDecisions: Record<string, "confirmed" | "dismissed">;
   petStatusOverrides: Record<number, "available" | "pending" | "adopted" | "medical_hold" | "fostered">;
   karmaEarned: number; // session karma on top of the seeded persona total
@@ -91,6 +107,10 @@ interface PetCareState {
   addFoundReport: (r: Omit<MyFoundReport, "id" | "hue">) => void;
   addLostReport: (r: Omit<MyLostReport, "id" | "hue">) => void;
   addDonor: (d: Omit<MyDonor, "id">) => void;
+  addRescueReport: (r: Omit<MyRescueReport, "id" | "status" | "responders" | "reportedAt">) => void;
+  respondToRescue: (id: number) => void;
+  markRescueRescued: (id: number) => void;
+  markRescueClosed: (id: number) => void;
   decideMatch: (lostId: number, foundId: number, decision: "confirmed" | "dismissed") => void;
   decideApplication: (id: number, decision: "approved" | "rejected", petId: number) => void;
   earnKarma: (action: string, points: number) => void;
@@ -101,6 +121,7 @@ interface PetCareState {
 let nextId = 1000;
 const uid = () => ++nextId;
 const today = () => new Date().toISOString().slice(0, 10);
+const PERSONA_NAME = "Sara Chowdhury";
 
 export const usePetCare = create<PetCareState>()(
   persist(
@@ -111,6 +132,9 @@ export const usePetCare = create<PetCareState>()(
       foundReports: [],
       lostReports: [],
       donors: [],
+      rescueReports: [],
+      rescuedAlerts: {},
+      rescueResponders: {},
       matchDecisions: {},
       petStatusOverrides: {},
       karmaEarned: 0,
@@ -161,6 +185,58 @@ export const usePetCare = create<PetCareState>()(
         get().earnKarma(`Registered ${d.petName} as blood donor`, 50);
       },
 
+      // Rescue network (U9) — mirrors the rescue_reports table + karma rules
+      addRescueReport: (r) => {
+        const report: MyRescueReport = {
+          ...r,
+          id: uid(),
+          status: "reported",
+          responders: [],
+          reportedAt: new Date().toISOString(),
+        };
+        set((s) => ({ rescueReports: [report, ...s.rescueReports] }));
+        get().earnKarma(`Posted a ${r.urgency} rescue alert`, 50);
+      },
+
+      respondToRescue: (id) => {
+        // Seeded alerts get their responder recorded separately
+        if (id < 1000) {
+          set((s) => ({
+            rescueResponders: {
+              ...s.rescueResponders,
+              [id]: [...(s.rescueResponders[id] ?? []), PERSONA_NAME],
+            },
+          }));
+        }
+        get().earnKarma("Responding to a rescue alert", 40);
+      },
+
+      markRescueRescued: (id) => {
+        if (id < 1000) {
+          set((s) => ({ rescuedAlerts: { ...s.rescuedAlerts, [id]: "rescued" } }));
+        } else {
+          set((s) => ({
+            rescueReports: s.rescueReports.map((r) =>
+              r.id === id ? { ...r, status: "rescued" as const } : r
+            ),
+          }));
+        }
+        get().earnKarma("Animal secured — rescue complete!", 80);
+      },
+
+      markRescueClosed: (id) => {
+        if (id < 1000) {
+          set((s) => ({ rescuedAlerts: { ...s.rescuedAlerts, [id]: "closed" } }));
+        } else {
+          set((s) => ({
+            rescueReports: s.rescueReports.map((r) =>
+              r.id === id ? { ...r, status: "closed" as const } : r
+            ),
+          }));
+        }
+        get().earnKarma("Rescue case closed — animal is safe", 40);
+      },
+
       decideMatch: (lostId, foundId, decision) => {
         set((s) => ({
           matchDecisions: { ...s.matchDecisions, [`${lostId}-${foundId}`]: decision },
@@ -208,12 +284,15 @@ export const usePetCare = create<PetCareState>()(
           foundReports: [],
           lostReports: [],
           donors: [],
+          rescueReports: [],
+          rescuedAlerts: {},
+          rescueResponders: {},
           matchDecisions: {},
           petStatusOverrides: {},
           karmaEarned: 0,
           karmaLog: [],
         }),
     }),
-    { name: "petcare-demo-v1", storage: createJSONStorage(() => localStorage) }
+    { name: "petcare-demo-v2", storage: createJSONStorage(() => localStorage) }
   )
 );

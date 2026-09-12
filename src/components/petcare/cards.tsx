@@ -56,27 +56,34 @@ export function PetArt({
     <div
       className={cn("relative flex items-center justify-center overflow-hidden", className)}
       style={{
-        background: `linear-gradient(135deg, hsl(${pet.hue} 72% 88%), hsl(${(pet.hue + 40) % 360} 65% 78%))`,
+        background: `linear-gradient(135deg, hsl(${pet.hue} 78% 86%), hsl(${(pet.hue + 45) % 360} 70% 74%))`,
       }}
       aria-label={`Photo placeholder of ${pet.name}`}
       role="img"
     >
       <div
-        className="absolute rounded-full bg-white/30"
-        style={{ width: "45%", paddingBottom: "45%", left: "-8%", top: "-12%" }}
+        className="absolute rounded-full bg-white/35 blur-[2px]"
+        style={{ width: "48%", paddingBottom: "48%", left: "-9%", top: "-14%" }}
       />
       <div
-        className="absolute rounded-full bg-white/20"
-        style={{ width: "35%", paddingBottom: "35%", right: "-6%", bottom: "-10%" }}
+        className="absolute rounded-full bg-white/20 blur-[1px]"
+        style={{ width: "36%", paddingBottom: "36%", right: "-7%", bottom: "-11%" }}
+      />
+      <div
+        className="absolute inset-0 opacity-15"
+        style={{
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1.5px, transparent 1.5px)",
+          backgroundSize: "18px 18px",
+        }}
       />
       {pet.species === "dog" ? (
-        <Dog className={cn("text-white/70", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
+        <Dog className={cn("text-white/80 drop-shadow-sm", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
       ) : (
-        <Cat className={cn("text-white/70", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
+        <Cat className={cn("text-white/80 drop-shadow-sm", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
       )}
       <span
         className={cn(
-          "absolute bottom-2 right-3 font-bold text-white/80 tracking-tight",
+          "absolute bottom-2 right-3 font-bold text-white/90 tracking-tight drop-shadow",
           big ? "text-3xl" : "text-lg"
         )}
       >
@@ -139,7 +146,7 @@ export function PetCard({
         aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
       >
         <Heart
-          className={cn("h-4 w-4", isFavorite ? "fill-orange-600 text-orange-600" : "text-stone-500")}
+          className={cn("h-4 w-4 transition-colors", isFavorite ? "fill-primary text-primary" : "text-stone-500")}
         />
       </button>
     </Card>
@@ -191,7 +198,7 @@ export function CampaignCard({
               Goal reached
             </Badge>
           ) : (
-            <Badge variant="outline" className="border-orange-200 bg-orange-50 text-orange-800">
+            <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
               Active
             </Badge>
           )}

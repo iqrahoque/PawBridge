@@ -76,7 +76,7 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-700">
                         <Stethoscope className="h-5 w-5" />
                       </span>
                       <div>
@@ -97,7 +97,7 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
                       </Badge>
                     )}
                     {c.lowCost && (
-                      <Badge variant="outline" className="border-teal-200 bg-teal-50 text-teal-800">
+                      <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-800">
                         Low-cost
                       </Badge>
                     )}

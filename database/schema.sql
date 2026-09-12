@@ -359,7 +359,8 @@ CREATE TABLE karma_ledger (
   id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id        BIGINT UNSIGNED NOT NULL,
   action_type    ENUM('donation','adoption','foster','transport','blood_donation',
-                      'review','lost_found_help','volunteer','safe_haven_foster')
+                      'review','lost_found_help','volunteer','safe_haven_foster',
+                      'rescue_reported','rescue_responded','rescue_rescued','rescue_closed')
                     NOT NULL,
   reference_type VARCHAR(50) NULL,                     -- e.g. 'donations', 'transport_legs'
   reference_id   BIGINT UNSIGNED NULL,                 -- polymorphic pointer to the deed
@@ -571,6 +572,47 @@ CREATE TABLE crisis_foster_assignments (
   CONSTRAINT fk_havenassign_foster FOREIGN KEY (foster_id)
     REFERENCES users(id) ON DELETE RESTRICT,
   KEY idx_havenassign_status (status)
+) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------
+-- 11b. UNIQUE MODULE U9 — COMMUNITY RESCUE NETWORK 🚨
+--      Anyone can report an animal in danger (stuck, injured,
+--      abandoned...). Responders claim cases; karma is awarded
+--      at each stage via trg_rescue_* logic / app layer.
+-- ------------------------------------------------------------
+
+CREATE TABLE rescue_reports (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  reporter_id    BIGINT UNSIGNED NULL,                -- NULL = anonymous report
+  species        ENUM('dog','cat','other') NOT NULL DEFAULT 'other',
+  situation      ENUM('stuck_trapped','injured','road_accident',
+                      'drowning_risk','abandoned','abuse_neglect','other')
+                   NOT NULL DEFAULT 'other',
+  urgency        ENUM('critical','urgent','standard') NOT NULL DEFAULT 'urgent',
+  area           VARCHAR(200) NOT NULL,               -- landmark / street description
+  description    TEXT NOT NULL,
+  status         ENUM('reported','responding','rescued','closed')
+                   NOT NULL DEFAULT 'reported',
+  resolution     TEXT,                                -- outcome note when closed
+  reported_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  closed_at      TIMESTAMP NULL,
+  CONSTRAINT fk_rescue_reporter FOREIGN KEY (reporter_id)
+    REFERENCES users(id) ON DELETE SET NULL,
+  KEY idx_rescue_status (status, urgency),
+  KEY idx_rescue_reporter (reporter_id),
+  KEY idx_rescue_date (reported_at)
+) ENGINE=InnoDB;
+
+CREATE TABLE rescue_responders (
+  id             BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  rescue_id      BIGINT UNSIGNED NOT NULL,
+  responder_id   BIGINT UNSIGNED NOT NULL,
+  claimed_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_rescueres_rescue FOREIGN KEY (rescue_id)
+    REFERENCES rescue_reports(id) ON DELETE CASCADE,
+  CONSTRAINT fk_rescueres_user FOREIGN KEY (responder_id)
+    REFERENCES users(id) ON DELETE CASCADE,
+  UNIQUE KEY uq_responder_once (rescue_id, responder_id)  -- one claim per person
 ) ENGINE=InnoDB;
 
 -- ============================================================

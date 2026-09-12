@@ -7,6 +7,7 @@ import { PetsScreen } from "@/components/petcare/pets";
 import { CampaignsScreen } from "@/components/petcare/campaigns";
 import { VetsScreen } from "@/components/petcare/vets";
 import { BloodScreen } from "@/components/petcare/blood";
+import { RescueScreen } from "@/components/petcare/rescue";
 import { LostFoundScreen } from "@/components/petcare/lostfound";
 import { KarmaScreen } from "@/components/petcare/karma";
 import { DashboardScreen } from "@/components/petcare/dashboard";
@@ -51,8 +52,8 @@ export default function Page() {
       <div className="flex min-h-screen flex-col">
         <div className="h-16 border-b bg-white/60" />
         <main className="flex flex-1 items-center justify-center">
-          <div className="flex flex-col items-center gap-3 text-stone-400">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-orange-200 border-t-orange-600" />
+          <div className="flex flex-col items-center gap-3 text-primary/60">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600" />
             <p className="text-sm font-medium">Loading PetCare…</p>
           </div>
         </main>
@@ -79,6 +80,7 @@ export default function Page() {
         {screen === "campaigns" && <CampaignsScreen onNavigate={navigate} />}
         {screen === "vets" && <VetsScreen onNavigate={navigate} />}
         {screen === "blood" && <BloodScreen onNavigate={navigate} />}
+        {screen === "rescue" && <RescueScreen />}
         {screen === "lostfound" && <LostFoundScreen />}
         {screen === "karma" && <KarmaScreen />}
         {screen === "dashboard" && <DashboardScreen />}

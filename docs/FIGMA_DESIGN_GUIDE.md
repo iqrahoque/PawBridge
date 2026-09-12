@@ -13,21 +13,37 @@ Everything you need to build the prototype in Figma: design tokens, component in
 
 ## 2. Design Tokens
 
-### Color Palette
+### Color Palette — v2 "Twilight Rescue" (current web theme)
 
 | Token | Hex | Usage |
 |---|---|---|
-| `primary/600` | `#EA580C` | Primary CTAs: Adopt Me, Donate, Apply |
-| `primary/500` | `#F97316` | Hover, active nav, brand moments |
-| `primary/50` | `#FFF7ED` | Soft section backgrounds, highlighted cards |
-| `secondary/700` | `#0F766E` | Vet/medical surfaces, secondary buttons, links |
-| `secondary/50` | `#F0FDFA` | Vet directory cards background tint |
-| `accent/400` | `#FACC15` | Karma points, badges, "Lifesaver" awards |
-| `ink/900` | `#1C1917` | Primary text |
-| `ink/500` | `#78716C` | Secondary text, captions |
+| `primary/600` | `#7C3AED` | Primary CTAs: Adopt Me, Donate, Apply, active nav |
+| `primary/500` | `#8B5CF6` | Hover, brand moments |
+| `primary/50` | `#F5F3FF` | Soft section backgrounds, highlighted cards |
+| `accent-fuchsia/500` | `#D946EF` | Gradient pair with primary (logo, hero text) |
+| `rescue/600` | `#E11D48` | Rescue network, emergency badges, blood bank |
+| `warmth/500` | `#F59E0B` | Karma points, badges, awards |
+| `sky/700` | `#0369A1` | Lost & Found, info surfaces |
+| `emerald/600` | `#059669` | Verified badges, low-cost, success |
+| `ink/900` | `#2A2438` | Primary text (indigo-tinted dark) |
+| `ink/500` | `#6B6580` | Secondary text, captions |
 | `surface` | `#FFFFFF` | Cards, sheets |
-| `canvas` | `#FAFAF9` | Page background |
+| `canvas` | `#FBFAFF` | Page background (lavender-white) |
 | `success` | `#16A34A` | Approved, goal reached |
+
+**Gradients:** hero = violet → fuchsia → peach mesh on lavender canvas · rescue band = indigo → rose · CTA band = deep indigo → violet. Cards use soft indigo-tinted shadows and glass (`rgba(255,255,255,0.72)` + blur) on the nav.
+
+<details>
+<summary>Legacy v1 palette (orange/stone) — deprecated</summary>
+
+| Token | Hex |
+|---|---|
+| `primary/600` | `#EA580C` |
+| `secondary/700` | `#0F766E` |
+| `canvas` | `#FAFAF9` |
+
+</details>
+
 | `warning` | `#F59E0B` | Pending, near-capacity |
 | `error` | `#DC2626` | Rejected, critical urgency |
 | `info` | `#0EA5E9` | Medical hold, informational |

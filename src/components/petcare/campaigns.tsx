@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Truck, Package, MapPin, Route, Clock } from "lucide-react";
+import { Truck, Package, MapPin, Route, Clock, HandCoins, Heart, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { campaigns, wishItems, shelterName, transportMission, bdt, fmtDate, type Screen } from "@/data/seed";
+import { campaigns, wishItems, shelterName, transportMission, bdt, fmtDate, seedDonations, type Screen } from "@/data/seed";
 import { usePetCare } from "@/lib/store";
 import { CampaignCard } from "./cards";
 import { DonateDialog } from "./dialogs";
@@ -16,17 +16,46 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
   const myDonations = usePetCare((s) => s.donations);
   const [donateFor, setDonateFor] = useState<number | null>(null);
 
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-3xl font-extrabold tracking-tight">Donate</h1>
-      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        Fund a pet&apos;s surgery, stock a shelter&apos;s wish list, or fuel a rescue transport.
-        Every page shows live totals — the demo writes to localStorage exactly like the MySQL
-        trigger writes <code className="text-xs">raised_amount</code>.
-      </p>
+  const allDonations = [
+    ...myDonations.map((d) => ({ name: d.anonymous ? null : d.donorName, amount: d.amount, message: d.message, date: d.date })),
+    ...seedDonations.map((d) => ({ name: d.donorName, amount: d.amount, message: d.message ?? "", date: d.date })),
+  ].sort((a, b) => b.date.localeCompare(a.date));
+  const totalRaised = allDonations.reduce((s, d) => s + d.amount, 0);
+  const recent = allDonations.slice(0, 12);
 
+  return (
+    <div className="pb-4">
+      {/* Header band */}
+      <section className="bg-hero bg-paw-pattern border-b">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Transparent fundraising</p>
+              <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">
+                Small gifts. <span className="gradient-text">Big rescues.</span>
+              </h1>
+              <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+                Fund a pet&apos;s surgery, stock a shelter&apos;s wish list, or fuel a rescue transport.
+                Most of our donors give ৳100–৳1,000 — small amounts, stacked into surgeries.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <div className="rounded-2xl border bg-white/85 px-5 py-3 text-center shadow-soft backdrop-blur">
+                <p className="text-xl font-extrabold gradient-text">{bdt(totalRaised)}</p>
+                <p className="text-[11px] font-medium text-muted-foreground">raised by {allDonations.length} donors</p>
+              </div>
+              <div className="rounded-2xl border bg-white/85 px-5 py-3 text-center shadow-soft backdrop-blur">
+                <p className="text-xl font-extrabold text-primary">{bdt(Math.round(totalRaised / allDonations.length))}</p>
+                <p className="text-[11px] font-medium text-muted-foreground">average gift</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-10">
       {/* Campaigns */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {campaigns.map((c) => (
           <CampaignCard
             key={c.id}
@@ -37,6 +66,30 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
         ))}
       </div>
 
+      {/* Donor wall */}
+      <section className="mt-12">
+        <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+          <Users className="h-5 w-5 text-primary" /> Donor wall — latest gifts
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Real people, real amounts. ৳100 from a student matters as much as ৳5,000 from a well-wisher.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {recent.map((d, i) => (
+            <div key={i} className="flex items-center gap-3 rounded-2xl border bg-white p-3.5 shadow-soft">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-extrabold text-primary">
+                {(d.name ?? "?").charAt(0)}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-bold">{d.name ?? "Anonymous"}</p>
+                <p className="truncate text-xs text-muted-foreground">{d.message || d.date}</p>
+              </div>
+              <span className="shrink-0 text-sm font-extrabold text-primary">{bdt(d.amount)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Campaign updates */}
       <section className="mt-12">
         <h2 className="text-xl font-extrabold tracking-tight">How your money was used</h2>
@@ -46,7 +99,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
             c.updates.map((u, i) => (
               <Card key={`${c.id}-${i}`} className="shadow-soft">
                 <CardContent className="p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
                     {c.title}
                   </p>
                   <p className="mt-1.5 text-sm">{u.text}</p>
@@ -107,7 +160,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
           <CardContent className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="font-bold">{transportMission.title}</p>
-              <Badge variant="outline" className="border-orange-200 bg-orange-50 text-orange-800">
+              <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
                 <Clock className="mr-1 h-3 w-3" /> Departs {fmtDate(transportMission.neededOn)}
               </Badge>
             </div>
@@ -116,8 +169,8 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
                 <div
                   key={l.leg}
                   className={cn(
-                    "flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3",
-                    l.status === "claimed" ? "border-teal-200 bg-teal-50/60" : "bg-white"
+                    "flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 transition-colors",
+                    l.status === "claimed" ? "border-violet-200 bg-violet-50/60" : "bg-white"
                   )}
                 >
                   <p className="flex items-center gap-2 text-sm font-medium">
@@ -126,7 +179,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
                     <span className="text-xs text-muted-foreground">({l.km} km)</span>
                   </p>
                   {l.status === "claimed" ? (
-                    <Badge variant="outline" className="border-teal-200 bg-teal-50 text-teal-800">
+                    <Badge variant="outline" className="border-violet-200 bg-violet-50 text-violet-800">
                       Driver: {l.driver}
                     </Badge>
                   ) : (
@@ -189,6 +242,7 @@ export function CampaignsScreen({ onNavigate }: { onNavigate: (s: Screen) => voi
           })}
         </div>
       </section>
+      </div>
 
       <DonateDialog campaignId={donateFor ?? 1} open={donateFor !== null} onClose={() => setDonateFor(null)} />
       {/* keep onNavigate referenced for future deep links */}

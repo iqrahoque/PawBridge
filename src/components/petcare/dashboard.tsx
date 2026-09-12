@@ -118,7 +118,7 @@ export function DashboardScreen() {
                         </p>
                         <AppStatusBadge status={a.status} />
                       </div>
-                      {a.note && <p className="mt-1.5 text-xs text-teal-800">{a.note}</p>}
+                      {a.note && <p className="mt-1.5 text-xs text-violet-800">{a.note}</p>}
                       {a.status === "submitted" && (
                         <p className="mt-1.5 text-xs text-muted-foreground">
                           Shelter has 7 days to respond — you&apos;ll get a notification.
@@ -174,7 +174,7 @@ export function DashboardScreen() {
                           </p>
                           <p className="text-xs text-muted-foreground">{r.note}</p>
                         </div>
-                        <Badge variant="outline" className="border-orange-200 bg-orange-50 text-orange-800">
+                        <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-800">
                           due {fmtDate(r.due)}
                         </Badge>
                       </div>
@@ -332,7 +332,7 @@ export function DashboardScreen() {
                       variant="outline"
                       className={cn(
                         r.status === "in_care"
-                          ? "border-teal-200 bg-teal-50 text-teal-800"
+                          ? "border-sky-200 bg-sky-50 text-sky-800"
                           : "border-amber-200 bg-amber-50 text-amber-800"
                       )}
                     >

@@ -47,18 +47,18 @@ export function KarmaScreen() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {/* My karma */}
-        <Card className="bg-hero shadow-soft lg:col-span-1">
+        <Card className="bg-hero shadow-soft ring-gradient lg:col-span-1">
           <CardContent className="p-6">
             <p className="text-sm font-medium text-stone-600">{PERSONA}&apos;s karma balance</p>
-            <p className="mt-2 text-5xl font-extrabold tracking-tight text-primary">{myTotal.toLocaleString("en-IN")}</p>
+            <p className="mt-2 text-5xl font-extrabold tracking-tight gradient-text">{myTotal.toLocaleString("en-IN")}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
-              <Badge variant="outline" className="border-orange-200 bg-white/70 text-orange-800">
+              <Badge variant="outline" className="border-violet-200 bg-white/70 text-violet-800">
                 Adopter
               </Badge>
-              <Badge variant="outline" className="border-red-200 bg-white/70 text-red-700">
+              <Badge variant="outline" className="border-rose-200 bg-white/70 text-rose-700">
                 Blood donor family
               </Badge>
-              <Badge variant="outline" className="border-teal-200 bg-white/70 text-teal-800">
+              <Badge variant="outline" className="border-sky-200 bg-white/70 text-sky-800">
                 Found-reporter
               </Badge>
             </div>
@@ -94,8 +94,8 @@ export function KarmaScreen() {
                 <div
                   key={u.name}
                   className={cn(
-                    "flex items-center justify-between rounded-xl border p-3",
-                    u.name === PERSONA ? "border-orange-300 bg-accent" : "bg-white"
+                    "flex items-center justify-between rounded-xl border p-3 transition-colors",
+                    u.name === PERSONA ? "border-primary/40 bg-accent" : "bg-white"
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -107,7 +107,7 @@ export function KarmaScreen() {
                           : i === 1
                             ? "bg-stone-300 text-stone-700"
                             : i === 2
-                              ? "bg-orange-200 text-orange-900"
+                              ? "bg-violet-200 text-violet-900"
                               : "bg-secondary text-secondary-foreground"
                       )}
                     >
@@ -115,7 +115,7 @@ export function KarmaScreen() {
                     </span>
                     <span className="text-sm font-semibold">{u.name}</span>
                     {u.name === PERSONA && (
-                      <Badge variant="outline" className="border-orange-300 text-orange-800">
+                      <Badge variant="outline" className="border-violet-300 text-violet-800">
                         you
                       </Badge>
                     )}
@@ -171,7 +171,7 @@ export function KarmaScreen() {
       {/* Full ledger */}
       <section className="mb-4">
         <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
-          <History className="h-5 w-5 text-teal-700" /> Impact ledger
+          <History className="h-5 w-5 text-primary" /> Impact ledger
         </h2>
         <Card className="mt-4 shadow-soft">
           <CardContent className="max-h-80 overflow-y-auto p-0 scroll-slim">
@@ -185,7 +185,7 @@ export function KarmaScreen() {
               </thead>
               <tbody>
                 {[...karmaLog.map((l) => ({ name: PERSONA, action: l.action, points: l.points })),
-                  ...seedKarma].map((k, i) => (
+                  ...seedKarma.map((k) => ({ name: k.userName, action: k.action, points: k.points }))].map((k, i) => (
                   <tr key={i} className="border-t">
                     <td className="px-4 py-2.5 font-medium">{k.name}</td>
                     <td className="px-4 py-2.5 text-stone-600">{k.action}</td>
