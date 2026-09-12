@@ -36,3 +36,4 @@ Thumbs.db
 *.sql.gz
 dump/
 tmp/
+tsconfig.tsbuildinfo
