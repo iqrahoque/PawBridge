@@ -95,13 +95,37 @@ function PetList({
 
   return (
     <div>
-      {/* Header band */}
-      <section className="bg-tint-cyan border-b border-brand-100">
+      {/* Header band + species identity */}
+      <section className="bg-tint-sage border-b border-brand-100">
         <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
-          <h1 className="text-3xl font-bold tracking-tight">Adopt a pet</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Find your new best friend</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {filtered.length} pets shown · sorted by time waiting
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <SpeciesTab
+              active={species === "all"}
+              onClick={() => setSpecies("all")}
+              label="All pets"
+              count={pets.length}
+            />
+            <SpeciesTab
+              active={species === "dog"}
+              onClick={() => setSpecies("dog")}
+              label="Dogs"
+              count={pets.filter((p) => p.species === "dog").length}
+              tone="yellow"
+              Icon={Dog}
+            />
+            <SpeciesTab
+              active={species === "cat"}
+              onClick={() => setSpecies("cat")}
+              label="Cats"
+              count={pets.filter((p) => p.species === "cat").length}
+              tone="lav"
+              Icon={Cat}
+            />
+          </div>
         </div>
       </section>
 
@@ -120,20 +144,6 @@ function PetList({
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <FilterChip active={species === "all"} onClick={() => setSpecies("all")}>
-            All
-          </FilterChip>
-          <FilterChip active={species === "dog"} onClick={() => setSpecies("dog")}>
-            <span className="inline-flex items-center gap-1.5">
-              <Dog className="h-4 w-4" /> Dogs
-            </span>
-          </FilterChip>
-          <FilterChip active={species === "cat"} onClick={() => setSpecies("cat")}>
-            <span className="inline-flex items-center gap-1.5">
-              <Cat className="h-4 w-4" /> Cats
-            </span>
-          </FilterChip>
-          <span className="mx-1 hidden h-5 w-px bg-ink-300 sm:block" />
           {(["low", "medium", "high"] as Energy[]).map((e) => (
             <FilterChip key={e} active={energy === e} onClick={() => setEnergy(energy === e ? "all" : e)}>
               {e} energy
@@ -162,6 +172,45 @@ function PetList({
       )}
       </div>
     </div>
+  );
+}
+
+
+function SpeciesTab({
+  active,
+  onClick,
+  label,
+  count,
+  tone,
+  Icon,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  count: number;
+  tone?: "yellow" | "lav";
+  Icon?: React.ComponentType<{ className?: string }>;
+}) {
+  const activeCls =
+    tone === "yellow"
+      ? "bg-dog-yellow text-dog-yellow-deep border-dog-yellow-deep"
+      : tone === "lav"
+        ? "bg-cat-lav text-cat-lav-deep border-cat-lav-deep"
+        : "bg-ink-900 text-[#fff9f2] border-ink-900";
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-bold transition-colors",
+        active ? activeCls : "border-ink-300 bg-white text-ink-700 hover:border-ink-400"
+      )}
+    >
+      {Icon && <Icon className="h-4 w-4" />}
+      {label}
+      <span className={cn("rounded-full px-2 py-0.5 text-[11px]", active ? "bg-white/40" : "bg-ink-100")}>
+        {count}
+      </span>
+    </button>
   );
 }
 

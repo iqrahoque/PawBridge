@@ -12,6 +12,7 @@ import { LostFoundScreen } from "@/components/petcare/lostfound";
 import { KarmaScreen } from "@/components/petcare/karma";
 import { DashboardScreen } from "@/components/petcare/dashboard";
 import { DonateDialog } from "@/components/petcare/dialogs";
+import { EmergencyButton } from "@/components/petcare/emergency";
 import type { Screen, Species } from "@/data/seed";
 
 const subscribeNoop = () => () => {};
@@ -89,6 +90,7 @@ export default function Page() {
       </main>
       <Footer />
       <DonateDialog campaignId={donateFor ?? 1} open={donateFor !== null} onClose={() => setDonateFor(null)} />
+      <EmergencyButton onNavigate={navigate} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Image from "next/image";
 import {
   LayoutDashboard,
   PawPrint,
@@ -14,6 +15,8 @@ import {
   TrendingUp,
   Building2,
   ShieldAlert,
+  Check,
+  Circle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,6 +45,7 @@ import {
   personaReminders,
   personaSeedKarma,
   safeHavenRequests,
+  asset,
 } from "@/data/seed";
 import { usePetCare } from "@/lib/store";
 import { StatusBadge, PetPhoto } from "./cards";
@@ -91,7 +95,7 @@ export function DashboardScreen() {
               <AlertDialogTitle>Reset all demo data?</AlertDialogTitle>
               <AlertDialogDescription>
                 This clears everything you did in this demo — applications, donations, rescue
-                reports, karma and favorites — and restores the original seed. It cannot be
+                reports, Paw Points and favorites — and restores the original seed. It cannot be
                 undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -123,8 +127,65 @@ export function DashboardScreen() {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             <StatTile icon={ClipboardList} label="My applications" value={String(myApplications.length + 1)} hint="incl. Mishti (approved)" />
             <StatTile icon={HandCoins} label="My donations" value={bdt(myDonations.reduce((s, d) => s + d.amount, 0))} hint="this demo session" />
-            <StatTile icon={TrendingUp} label="Karma balance" value={String(personaSeedKarma + karmaEarned)} hint="+25 per application, +1/৳100" />
+            <StatTile icon={TrendingUp} label="Paw Points balance" value={String(personaSeedKarma + karmaEarned)} hint="+25 per application, +1/৳100" />
           </div>
+
+          {/* My Pets — the pets that joined your family through this platform */}
+          {(() => {
+            const approvedIds = new Set<number>([
+              ...myApplications.filter((a) => a.status === "approved").map((a) => a.petId),
+              ...seedApplications.filter((a) => effStatus(a.id, a.status) === "approved").map((a) => a.petId),
+            ]);
+            const myPets = [...approvedIds]
+              .map((id) => seedPets.find((p) => p.id === id))
+              .filter((p): p is (typeof seedPets)[number] => Boolean(p));
+            const in48h = (d: number) => {
+              const t = new Date();
+              t.setDate(t.getDate() + d);
+              return t.toISOString().slice(0, 10);
+            };
+            if (myPets.length === 0) return null;
+            return (
+              <Card className="shadow-soft">
+                <CardContent className="p-5">
+                  <h2 className="flex items-center gap-2 font-bold">
+                    <PawPrint className="h-4 w-4 text-primary" /> My Pets
+                  </h2>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Adopted through PawBridge — with their health timeline.
+                  </p>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    {myPets.map((p) => (
+                      <div key={p.id} className="flex gap-3 rounded-2xl border p-3">
+                        <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-ink-100">
+                          <Image src={asset(p.photo)} alt={`Photo of ${p.name}`} fill sizes="64px" className="object-cover" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-bold leading-tight">
+                            {p.name} <span className="text-xs font-normal capitalize text-muted-foreground">· {p.species}</span>
+                          </p>
+                          <div className="mt-1.5 space-y-1 text-xs">
+                            <p className="flex items-center gap-1.5 text-leaf-700">
+                              <Check className="h-3 w-3" /> Rabies vaccination complete
+                            </p>
+                            <p className="flex items-center gap-1.5 text-leaf-700">
+                              <Check className="h-3 w-3" /> Deworming up to date
+                            </p>
+                            <p className="flex items-center gap-1.5 text-brand2-700">
+                              <Circle className="h-2.5 w-2.5 fill-current" /> Next vaccination — {fmtDate(in48h(30))}
+                            </p>
+                            <p className="flex items-center gap-1.5 text-muted-foreground">
+                              <Circle className="h-2.5 w-2.5" /> Vet checkup — {fmtDate(in48h(14))}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
 
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Applications */}

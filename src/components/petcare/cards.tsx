@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PawPrint, MapPin, Heart, Users, AlertTriangle } from "lucide-react";
+import { PawPrint, MapPin, Heart, Users, AlertTriangle, ArrowRight, Dog, Cat } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -65,6 +65,22 @@ export function PetPhoto({
 }
 
 /* ------------------------------------------------------------------ */
+/* Species identity                                                    */
+/* ------------------------------------------------------------------ */
+
+export function SpeciesChip({ species }: { species: "dog" | "cat" }) {
+  return species === "dog" ? (
+    <span className="inline-flex items-center gap-1 rounded-full bg-[#26332c]/85 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-dog-yellow backdrop-blur-sm">
+      <Dog className="h-3 w-3" /> Dog
+    </span>
+  ) : (
+    <span className="inline-flex items-center gap-1 rounded-full bg-[#26332c]/85 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#dcc8f2] backdrop-blur-sm">
+      <Cat className="h-3 w-3" /> Cat
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Pet card                                                            */
 /* ------------------------------------------------------------------ */
 
@@ -79,33 +95,38 @@ export function PetCard({
   onOpen: () => void;
   onFavorite: () => void;
 }) {
+  const trait = pet.tags.slice(0, 3).join(" · ");
   return (
     <Card className="group relative overflow-hidden pt-0 gap-0 shadow-soft">
       <button onClick={onOpen} className="text-left w-full cursor-pointer" aria-label={`Open ${pet.name}'s profile`}>
         <div className="relative">
-          <PetPhoto pet={pet} className="h-44 w-full" />
-          <div className="absolute top-3 left-3">
+          <PetPhoto pet={pet} className="h-48 w-full" />
+          <div className="absolute top-3 left-3 flex items-center gap-1.5">
+            <SpeciesChip species={pet.species} />
             <StatusBadge status={pet.status} />
           </div>
         </div>
         <CardContent className="p-4">
           <div className="flex items-center justify-between gap-2">
             <h3 className="font-bold text-lg leading-tight">{pet.name}</h3>
-            <span className="text-xs text-muted-foreground">
-              {ageLabel(pet.ageMonths)} · {pet.gender}
+            <span className="text-xs font-medium text-muted-foreground">
+              {pet.gender === "male" ? "♂" : "♀"} {pet.gender} · {ageLabel(pet.ageMonths)}
             </span>
           </div>
-          <p className="text-sm text-muted-foreground">
-            {pet.breed} · {pet.size} · {pet.energy} energy
+          <p className="text-xs text-muted-foreground flex items-center gap-1">
+            <MapPin className="h-3 w-3" /> {shelterName(pet.shelterId)} · waiting {daysWaiting(pet)} days
+          </p>
+          <p className="mt-2 line-clamp-2 text-sm italic leading-relaxed text-ink-600">
+            “{trait.charAt(0).toUpperCase() + trait.slice(1)}”
           </p>
           <div className="mt-2 flex flex-wrap gap-1">
-            {pet.goodWith.kids && <MiniChip icon={Users} label="Kids" />}
+            {pet.goodWith.kids && <MiniChip icon={Users} label="Kids ok" />}
             <MiniChip icon={PawPrint} label={pet.species === "dog" ? "Dogs ok" : "Cats ok"} />
-            <MiniChip label={`${daysWaiting(pet)}d waiting`} />
+            {pet.vaccinated && <MiniChip icon={AlertTriangle} label="Vaccinated" />}
           </div>
-          <p className="mt-2 text-xs text-muted-foreground flex items-center gap-1">
-            <MapPin className="h-3 w-3" /> {shelterName(pet.shelterId)}
-          </p>
+          <span className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-brand-500 py-2 text-sm font-semibold text-[#fff9f2] transition-colors group-hover:bg-brand-600">
+            Meet {pet.name} <ArrowRight className="h-4 w-4" />
+          </span>
         </CardContent>
       </button>
       <button

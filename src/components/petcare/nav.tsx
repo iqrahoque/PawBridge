@@ -11,13 +11,13 @@ import {
   Droplets,
   Siren,
   Search,
-  Coins,
   LayoutDashboard,
   Github,
   ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { BrandMark, BrandTile } from "./brand";
 import { cn } from "@/lib/utils";
 import type { Screen } from "@/data/seed";
 
@@ -29,7 +29,7 @@ const LINKS: { screen: Screen; label: string; icon: React.ComponentType<{ classN
   { screen: "blood", label: "Blood Bank", icon: Droplets },
   { screen: "rescue", label: "Rescue", icon: Siren, alert: true },
   { screen: "lostfound", label: "Lost & Found", icon: Search },
-  { screen: "karma", label: "Karma", icon: Coins },
+  { screen: "karma", label: "Paw Points", icon: PawPrint },
 ];
 
 export function Nav({
@@ -46,17 +46,20 @@ export function Nav({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-primary/10 bg-white">
+    <header className="sticky top-0 z-40 w-full border-b border-brand-100 bg-[#fffdf9]/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
         <button
           onClick={() => go("home")}
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2.5 cursor-pointer"
           aria-label="PawBridge home"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-            <PawPrint className="h-5 w-5 text-white" />
+          <BrandTile className="h-10 w-10 rounded-2xl" />
+          <span className="flex flex-col items-start leading-none">
+            <span className="text-lg font-bold tracking-tight text-ink-800">PawBridge</span>
+            <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-500">
+              Adopt · Rescue · Heal
+            </span>
           </span>
-          <span className="text-lg font-bold tracking-tight text-ink-800">PawBridge</span>
         </button>
 
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
@@ -99,9 +102,7 @@ export function Nav({
             </SheetTrigger>
             <SheetContent side="right" className="w-72 overflow-y-auto">
               <SheetTitle className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                  <PawPrint className="h-4 w-4 text-white" />
-                </span>
+                <BrandTile className="h-8 w-8 rounded-lg" />
                 PawBridge
               </SheetTitle>
               <nav className="mt-4 flex flex-col gap-1" aria-label="Mobile">
@@ -132,27 +133,34 @@ export function Nav({
 
 export function Footer() {
   return (
-    <footer className="mt-auto bg-ink-800 text-white/70">
+    <footer className="mt-auto bg-ink-900 text-white/70">
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <p className="text-center text-xl font-bold tracking-tight text-white text-balance sm:text-2xl">
+          Every paw deserves a safe place to call home.
+        </p>
+        <div className="mt-9 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500">
-                <PawPrint className="h-5 w-5 text-white" />
-              </span>
-              <p className="font-bold tracking-tight text-white">PawBridge</p>
+              <BrandTile className="h-9 w-9 rounded-xl" />
+              <div className="flex flex-col leading-none">
+                <p className="font-bold tracking-tight text-white">PawBridge</p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-300">
+                  Adopt · Rescue · Heal
+                </p>
+              </div>
             </div>
             <p className="mt-3 text-sm text-white/60">
-              A pet welfare platform for Dhaka — adoption listings from verified shelters,
-              campaign fundraising, a vet directory and an emergency rescue network.
+              Helping Dhaka&apos;s streeties find homes, treatment and safety — adoption from
+              verified shelters, campaign fundraising, a vet directory and an emergency
+              rescue network.
             </p>
             <a
-              href="https://github.com/iqrahoque/PetCare"
+              href="https://github.com/iqrahoque/PawBridge"
               target="_blank"
               rel="noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-300 hover:text-brand-200 hover:underline"
             >
-              <Github className="h-4 w-4" /> github.com/iqrahoque/PetCare
+              <Github className="h-4 w-4" /> github.com/iqrahoque/PawBridge
               <ArrowUpRight className="h-3 w-3" />
             </a>
           </div>
@@ -170,7 +178,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2 text-sm">
               <li className="text-white/75">Campaign fundraising</li>
               <li className="text-white/75">Shelter wish lists</li>
-              <li className="text-white/75">Karma &amp; rewards</li>
+              <li className="text-white/75">Paw Points &amp; rewards</li>
               <li className="text-white/75">Safe Haven (crisis fostering)</li>
             </ul>
           </div>

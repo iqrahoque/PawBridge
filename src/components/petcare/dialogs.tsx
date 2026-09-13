@@ -128,7 +128,7 @@ export function AdoptDialog({ pet, open, onClose }: { pet: Pet; open: boolean; o
                 type="checkbox"
                 checked={experience}
                 onChange={(e) => setExperience(e.target.checked)}
-                className="h-4 w-4 accent-[#06a2be]"
+                className="h-4 w-4 accent-primary"
               />
               I have experience caring for pets
             </label>

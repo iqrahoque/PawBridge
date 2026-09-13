@@ -167,13 +167,21 @@ export function RescueScreen() {
               const status = RESCUE_STATUS_META[a.status];
               const mine = isMine(a);
               const responding = a.status === "reported" || a.status === "responding";
+              const urgentOpen = responding && (a.urgency === "critical" || a.urgency === "urgent");
               return (
                 <Card
                   key={`${mine ? "m" : "s"}-${a.id}`}
-                  className={cn("shadow-soft", a.status === "closed" && "opacity-80")}
+                  className={cn(
+                    "shadow-soft",
+                    a.status === "closed" && "opacity-80",
+                    urgentOpen && "border-l-4 border-l-danger-500"
+                  )}
                 >
                   <CardContent className="p-5">
                     <div className="flex items-start justify-between gap-3">
+                      {urgentOpen && (
+                        <span className="absolute -left-4 top-4 hidden" aria-hidden />
+                      )}
                       <div className="flex items-center gap-3">
                         {"photo" in a && a.photo ? (
                           <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-ink-100">
@@ -209,7 +217,16 @@ export function RescueScreen() {
 
                     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> {fmtAgo(a.reportedAt)}
+<Clock className="h-3 w-3" /> {fmtAgo(a.reportedAt)}
+                              {urgentOpen && (
+                                <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-danger-500 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                                  <span className="relative flex h-1.5 w-1.5">
+                                    <span className="absolute h-full w-full animate-ping rounded-full bg-white opacity-80" />
+                                    <span className="relative h-1.5 w-1.5 rounded-full bg-white" />
+                                  </span>
+                                  Urgent
+                                </span>
+                              )}
                       </span>
                       <span className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
@@ -305,7 +322,7 @@ export function RescueScreen() {
                 </div>
               </div>
               <p className="mt-4 rounded-xl bg-secondary p-3 text-xs text-secondary-foreground">
-                <strong>Karma rewards:</strong> posting an alert +50 · responding +40 · securing the animal +80 ·
+                <strong>Paw Points:</strong> posting an alert +50 · responding +40 · securing the animal +80 ·
                 closing a case +40. False alerts are removed by moderators and cost 100 points.
               </p>
             </CardContent>

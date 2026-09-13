@@ -47,114 +47,120 @@
 }
 
 /*
- * PetCare design system v6 — "Scholarships Corner" adaptation
- * Light, friendly, rounded: white canvas · cyan #06a2be as the single dominant
- * accent · #1da1f2 secondary · Plus Jakarta Sans headings (700) · Inter body.
+ * PawBridge design system v11 — warm animal-care identity
+ * Cream canvas · deep-forest dark surfaces · warm brown as the dominant brand
+ * accent · peach/sage/lavender/dog-yellow as tiny species accents.
  *
- *   brand   #06a2be — primary CTAs, links, active states, vet/medical chips
- *   brand2  #1da1f2 — complementary highlights, pending/urgent states
- *   leaf    #6cb24c — success: funded goals, available pets, approvals, stars
- *   danger  #e83030 — emergency & rescue only (buttons, critical badges, hearts)
- *   ink     #333333 text / #666666 muted / #f0f0f0 hairlines / #212623 dark surfaces
+ *   brand   #7b5e3b — primary CTAs, links, active states, vet/medical chips
+ *   brand2  #ce8747 — soft peach, complementary highlights, pending states
+ *   leaf    #74995e — sage success: funded goals, available pets, approvals
+ *   danger  #d95c5c — rescue red: emergency & rescue only (badges, hearts)
+ *   ink     warm greys — #35312b text / #6e6659 muted / deep forest #26332c dark surfaces
  *
  * Buttons & chips are pills (radius 50px), cards are rounded-[28px],
  * shadows come from the extracted elevation system.
  */
 @theme {
-  /* Brand cyan — single dominant accent */
-  --color-brand-50: #ecf9fc;
-  --color-brand-100: #d2f1f7;
-  --color-brand-200: #a6e4f0;
-  --color-brand-300: #6fd1e6;
-  --color-brand-400: #46adc9;
-  --color-brand-500: #06a2be;
-  --color-brand-600: #0587a0;
-  --color-brand-700: #076e83;
-  --color-brand-800: #085a6c;
-  --color-brand-900: #0a4b59;
+  /* Warm brown — single dominant accent */
+  --color-brand-50: #f8f1e7;
+  --color-brand-100: #efe3d0;
+  --color-brand-200: #dfc9a8;
+  --color-brand-300: #c9a87b;
+  --color-brand-400: #a5824f;
+  --color-brand-500: #7b5e3b;
+  --color-brand-600: #654d30;
+  --color-brand-700: #513e27;
+  --color-brand-800: #3f3120;
+  --color-brand-900: #31261a;
 
-  /* Secondary blue — complementary highlights */
-  --color-brand2-50: #e9f6fe;
-  --color-brand2-100: #d0edfd;
-  --color-brand2-200: #a2dcfb;
-  --color-brand2-300: #6fc5f8;
-  --color-brand2-400: #3bb1f4;
-  --color-brand2-500: #1da1f2;
-  --color-brand2-600: #1487cc;
-  --color-brand2-700: #116ea6;
-  --color-brand2-800: #0f5b87;
-  --color-brand2-900: #0d4b6e;
+  /* Soft peach — complementary highlights */
+  --color-brand2-50: #fdf3e9;
+  --color-brand2-100: #fae4cf;
+  --color-brand2-200: #f4c7a1;
+  --color-brand2-300: #ebaf7d;
+  --color-brand2-400: #de9a5f;
+  --color-brand2-500: #ce8747;
+  --color-brand2-600: #ad6f38;
+  --color-brand2-700: #8a582c;
+  --color-brand2-800: #6f4723;
+  --color-brand2-900: #5a3a1d;
 
-  /* Leaf green — success & availability */
-  --color-leaf-50: #f2f8ec;
-  --color-leaf-100: #e3f0d7;
-  --color-leaf-200: #c7e0b0;
-  --color-leaf-300: #a4cc82;
-  --color-leaf-400: #88bf61;
-  --color-leaf-500: #6cb24c;
-  --color-leaf-600: #57943c;
-  --color-leaf-700: #467630;
-  --color-leaf-800: #3a6029;
-  --color-leaf-900: #304f23;
+  /* Sage green — success & availability */
+  --color-leaf-50: #f4f8f0;
+  --color-leaf-100: #e5efdc;
+  --color-leaf-200: #cddfc0;
+  --color-leaf-300: #aecca0;
+  --color-leaf-400: #90b47e;
+  --color-leaf-500: #74995e;
+  --color-leaf-600: #5e7d4b;
+  --color-leaf-700: #4b643c;
+  --color-leaf-800: #3d5131;
+  --color-leaf-900: #324229;
 
-  /* Danger red — emergency & rescue only */
+  /* Rescue red — emergency & rescue only */
   --color-danger-50: #fdeded;
-  --color-danger-100: #fbd5d5;
-  --color-danger-200: #f6acac;
-  --color-danger-300: #f08181;
-  --color-danger-400: #ea5858;
-  --color-danger-500: #e83030;
-  --color-danger-600: #c52626;
-  --color-danger-700: #a01f1f;
-  --color-danger-800: #821b1b;
-  --color-danger-900: #6a1717;
+  --color-danger-100: #fad8d8;
+  --color-danger-200: #f5b4b4;
+  --color-danger-300: #ee8c8c;
+  --color-danger-400: #e37272;
+  --color-danger-500: #d95c5c;
+  --color-danger-600: #b84a4a;
+  --color-danger-700: #953b3b;
+  --color-danger-800: #793030;
+  --color-danger-900: #642828;
 
-  /* Ink — neutral greys (text, borders, dark surfaces) */
-  --color-ink-50: #f7f7f7;
-  --color-ink-100: #f0f0f0;
-  --color-ink-200: #e2e2e2;
-  --color-ink-300: #c9c9c9;
-  --color-ink-400: #999999;
-  --color-ink-500: #666666;
-  --color-ink-600: #4d4d4d;
-  --color-ink-700: #404040;
-  --color-ink-800: #333333;
-  --color-ink-900: #212623;
+  /* Ink — warm greys + deep forest (text, borders, dark surfaces) */
+  --color-ink-50: #faf7f2;
+  --color-ink-100: #f3eee6;
+  --color-ink-200: #e7dfd2;
+  --color-ink-300: #d0c6b5;
+  --color-ink-400: #9a8f7d;
+  --color-ink-500: #6e6659;
+  --color-ink-600: #544e43;
+  --color-ink-700: #443f36;
+  --color-ink-800: #35312b;
+  --color-ink-900: #26332c;
+
+  /* Species accents (used sparingly) */
+  --color-cat-lav: #e9e1f3;
+  --color-cat-lav-deep: #6d5a8e;
+  --color-dog-yellow: #f6d98b;
+  --color-dog-yellow-deep: #8a6a1f;
 }
 
 :root {
   --radius: 1rem;
-  --background: #ffffff;
-  --foreground: #333333;
-  --card: #ffffff;
-  --card-foreground: #333333;
-  --popover: #ffffff;
-  --popover-foreground: #333333;
-  --primary: #06a2be;
-  --primary-foreground: #ffffff;
-  --secondary: #f0f0f0;
-  --secondary-foreground: #333333;
-  --muted: #f7f7f7;
-  --muted-foreground: #666666;
-  --accent: #ecf9fc;
-  --accent-foreground: #076e83;
-  --destructive: #e83030;
-  --border: #e6e6e6;
-  --input: #dcdcdc;
-  --ring: #06a2be;
-  --chart-1: #06a2be;
-  --chart-2: #1da1f2;
-  --chart-3: #6cb24c;
-  --chart-4: #e83030;
-  --chart-5: #212623;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #333333;
-  --sidebar-primary: #06a2be;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ecf9fc;
-  --sidebar-accent-foreground: #076e83;
-  --sidebar-border: #e6e6e6;
-  --sidebar-ring: #06a2be;
+  --background: #fff9f2;
+  --foreground: #35312b;
+  --card: #fffdf9;
+  --card-foreground: #35312b;
+  --popover: #fffdf9;
+  --popover-foreground: #35312b;
+  --primary: #7b5e3b;
+  --primary-foreground: #fff9f2;
+  --secondary: #f3eee6;
+  --secondary-foreground: #35312b;
+  --muted: #f8f4ec;
+  --muted-foreground: #6e6659;
+  --accent: #f8f1e7;
+  --accent-foreground: #513e27;
+  --destructive: #d95c5c;
+  --border: #eae2d4;
+  --input: #dcd3c2;
+  --ring: #7b5e3b;
+  --chart-1: #7b5e3b;
+  --chart-2: #ce8747;
+  --chart-3: #74995e;
+  --chart-4: #d95c5c;
+  --chart-5: #26332c;
+  --sidebar: #fffdf9;
+  --sidebar-foreground: #35312b;
+  --sidebar-primary: #7b5e3b;
+  --sidebar-primary-foreground: #fff9f2;
+  --sidebar-accent: #f8f1e7;
+  --sidebar-accent-foreground: #513e27;
+  --sidebar-border: #eae2d4;
+  --sidebar-ring: #7b5e3b;
 }
 
 @layer base {
@@ -178,27 +184,41 @@
 @layer utilities {
   /* Section bands (flat, light — per design system) */
   .bg-hero {
-    background: #ffffff;
+    background: #fff9f2;
   }
   .bg-paper {
-    background: #f7f7f7;
+    background: #f8f1e7;
   }
-  /* Light page tints — the palette's own 50-steps used as section bands
-     (kept subtle: white canvas stays dominant) */
-  .bg-tint-cyan {
-    background: #ecf9fc; /* brand-50 */
+  /* Light page tints — species accents used as section bands
+     (kept subtle: the cream canvas stays dominant) */
+  .bg-tint-sage {
+    background: #eaf2e3; /* leaf band — adoption & campaigns */
   }
-  .bg-tint-blue {
-    background: #e9f6fe; /* brand2-50 */
+  .bg-tint-lavender {
+    background: #f1ecf8; /* cat lavender band — vets & fostering */
   }
-  .bg-tint-green {
-    background: #f2f8ec; /* leaf-50 */
+  .bg-tint-peach {
+    background: #fbeadd; /* peach band — fundraising */
+  }
+  .bg-tint-yellow {
+    background: #fdf3da; /* dog-yellow band — Paw Points */
   }
   .bg-rescue {
     background: #fdeded;
   }
   .bg-cta {
-    background: #212623;
+    background: #26332c;
+  }
+  /* Faint paw-print wallpaper for hero/CTA areas (3-6% opacity feel) */
+  .paw-wallpaper {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%237b5e3b' fill-opacity='0.05'%3E%3Cellipse cx='28' cy='24' rx='5' ry='6.5'/%3E%3Cellipse cx='44' cy='24' rx='5' ry='6.5'/%3E%3Cellipse cx='19' cy='34' rx='4.2' ry='5.5'/%3E%3Cellipse cx='53' cy='34' rx='4.2' ry='5.5'/%3E%3Cpath d='M36 32c7 0 12.5 5.8 12.5 12S43 55 36 55s-12.5-4.8-12.5-11S29 32 36 32z'/%3E%3Cg transform='rotate(-18 100 96)'%3E%3Cellipse cx='93' cy='88' rx='5' ry='6.5'/%3E%3Cellipse cx='109' cy='88' rx='5' ry='6.5'/%3E%3Cellipse cx='84' cy='98' rx='4.2' ry='5.5'/%3E%3Cellipse cx='118' cy='98' rx='4.2' ry='5.5'/%3E%3Cpath d='M101 96c7 0 12.5 5.8 12.5 12S108 119 101 119s-12.5-4.8-12.5-11S94 96 101 96z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E" );
+  }
+  /* Organic blob radii for hero photos */
+  .blob-a {
+    border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+  }
+  .blob-b {
+    border-radius: 44% 56% 48% 52% / 56% 44% 56% 44%;
   }
   /* Extracted shadow system */
   .shadow-soft {

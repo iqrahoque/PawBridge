@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  Search,
   PawPrint,
+  House,
   ArrowRight,
   Droplets,
   SearchCheck,
@@ -13,7 +13,6 @@ import {
   ShieldCheck,
   Dog,
   Cat,
-  Coins,
 } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,7 +28,8 @@ import {
   seedDonations,
   type Screen,
 } from "@/data/seed";
-import { PetCard, CampaignCard, PetPhoto } from "./cards";
+import { PetCard, CampaignCard, PetPhoto, SpeciesChip } from "./cards";
+import { daysWaiting } from "@/data/seed";
 import type { MyDonation } from "@/lib/store";
 import { usePetCare } from "@/lib/store";
 
@@ -50,15 +50,19 @@ export function HomeScreen({
 
   const featured = pets.filter((p) => [1, 2, 9].includes(p.id));
   const activeCampaigns = campaigns.filter((c) => c.status === "active").slice(0, 3);
-  const collagePets = pets.filter((p) => [2, 1, 10].includes(p.id));
+  const heroDog = pets.find((p) => p.id === 1) ?? pets[0];
+  const heroCat = pets.find((p) => p.id === 5) ?? pets[1];
+  const streeties = [...pets].sort((a, b) => daysWaiting(b) - daysWaiting(a)).slice(0, 3);
   const openAlerts = seedRescueAlerts.filter((a) => a.status === "reported" || a.status === "responding").length;
 
   const totalRaised =
     seedDonations.reduce((s, d) => s + d.amount, 0) + myDonations.reduce((s, d) => s + d.amount, 0);
   const donorCount = seedDonations.length + myDonations.length;
-  const availableCount = pets.filter(
-    (p) => (petStatusOverrides[p.id] ?? p.status) === "available"
-  ).length;
+  const available = pets.filter((p) => (petStatusOverrides[p.id] ?? p.status) === "available");
+  const availableCount = available.length;
+  const dogCount = available.filter((p) => p.species === "dog").length;
+  const catCount = available.filter((p) => p.species === "cat").length;
+  const donorOnRecord = bloodDonors.filter((d) => d.active).length;
 
   const search = () => {
     const q = query.trim().toLowerCase();
@@ -79,40 +83,40 @@ export function HomeScreen({
   return (
     <div>
       {/* Hero */}
-      <section className="bg-hero border-b">
+      <section className="bg-hero paw-wallpaper border-b border-brand-100">
         <div className="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:pb-20 sm:pt-20">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="animate-fade-up text-center lg:text-left">
               <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-ink-800 sm:text-5xl text-balance">
-                Adopt a dog or cat in Dhaka
+                Give a streetie a second chance.
               </h1>
               <p className="mx-auto mt-5 max-w-lg text-base text-ink-600 sm:text-lg lg:mx-0">
-                Listings from verified shelters, fundraising for veterinary treatment, and a
-                rescue network for animals in danger.
+                Find a loving companion, help an animal in danger, or get emergency care —
+                Dhaka&apos;s dogs and cats, all in one place.
               </p>
 
-              <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-2xl border bg-white p-2 shadow-soft lg:mx-0">
-                <Search className="ml-2 h-5 w-5 shrink-0 text-ink-400" />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && search()}
-                  placeholder="Search by name or breed"
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-ink-400"
-                  aria-label="Search pets"
-                />
-                <Button onClick={search} className="shrink-0 rounded-xl">
-                  Search
-                </Button>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+                <button
+                  onClick={() => onNavigate("pets", { species: "dog" })}
+                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-brand-200 bg-tint-yellow px-4 py-2 text-sm font-semibold text-ink-800 transition-colors hover:border-dog-yellow-deep"
+                >
+                  <Dog className="h-4 w-4 text-dog-yellow-deep" /> {dogCount} dogs waiting
+                </button>
+                <button
+                  onClick={() => onNavigate("pets", { species: "cat" })}
+                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-brand-200 bg-cat-lav px-4 py-2 text-sm font-semibold text-ink-800 transition-colors hover:border-cat-lav-deep"
+                >
+                  <Cat className="h-4 w-4 text-cat-lav-deep" /> {catCount} cats waiting
+                </button>
               </div>
 
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                <Button size="lg" className="rounded-xl" onClick={() => onNavigate("pets")}>
-                  Find Your Companion <ArrowRight className="h-4 w-4" />
+                <Button size="lg" className="rounded-full" onClick={() => onNavigate("pets")}>
+                  Find a Pet <ArrowRight className="h-4 w-4" />
                 </Button>
                 <Button
                   size="lg"
-                  className="rounded-full bg-ink-800 text-white hover:bg-ink-900"
+                  className="rounded-full bg-ink-900 text-[#fff9f2] hover:bg-ink-800"
                   onClick={() => onNavigate("campaigns")}
                 >
                   <HandCoins className="h-4 w-4" /> Help an Animal
@@ -124,54 +128,79 @@ export function HomeScreen({
                   onClick={() => onNavigate("rescue")}
                   className="mx-auto mt-4 flex cursor-pointer items-center gap-2 rounded-full border border-danger-200 bg-white py-1.5 pl-2.5 pr-3.5 transition-colors hover:border-danger-400 lg:mx-0"
                 >
-                  <span className="h-2.5 w-2.5 rounded-full bg-danger-500" />
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-danger-400 opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-danger-500" />
+                  </span>
                   <p className="text-xs font-semibold text-danger-700">
-                    {openAlerts} open rescue {openAlerts === 1 ? "alert" : "alerts"}
+                    {openAlerts} animals need help right now
                   </p>
                   <ArrowRight className="h-3.5 w-3.5 text-danger-500" />
                 </button>
               )}
             </div>
 
-            {/* Static pet preview */}
-            <div className="hidden gap-5 lg:grid">
-              <div className="grid grid-cols-2 gap-5">
-                <MiniPetCard pet={collagePets[0]} onOpen={() => onOpenPet(collagePets[0].id)} priority />
-                <MiniPetCard pet={collagePets[1]} onOpen={() => onOpenPet(collagePets[1].id)} priority />
+            {/* Organic photo composition — real Dhaka streeties */}
+            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+              <button
+                onClick={() => onOpenPet(heroDog.id)}
+                className="blob-a relative block h-64 w-full cursor-pointer overflow-hidden shadow-deep sm:h-80"
+                aria-label={`Open ${heroDog.name}'s profile`}
+              >
+                <PetPhoto pet={heroDog} className="absolute inset-0 h-full w-full" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+              </button>
+              <button
+                onClick={() => onOpenPet(heroCat.id)}
+                className="blob-b absolute -bottom-4 -left-2 h-36 w-36 cursor-pointer overflow-hidden border-4 border-[#fff9f2] shadow-lift sm:-left-6 sm:h-44 sm:w-44"
+                aria-label={`Open ${heroCat.name}'s profile`}
+              >
+                <PetPhoto pet={heroCat} className="absolute inset-0 h-full w-full" sizes="180px" />
+              </button>
+              <div className="absolute -right-1 top-6 flex flex-col items-end gap-2 sm:right-2">
+                <span className="rounded-full bg-white/95 px-3.5 py-2 text-xs font-bold text-ink-800 shadow-soft">
+                  🐾 {availableCount} pets waiting
+                </span>
+                <span className="rounded-full bg-white/95 px-3.5 py-2 text-xs font-bold text-danger-700 shadow-soft">
+                  🚨 {openAlerts} urgent rescues
+                </span>
+                <span className="rounded-full bg-white/95 px-3.5 py-2 text-xs font-bold text-ink-800 shadow-soft">
+                  🩸 {donorOnRecord} blood donors nearby
+                </span>
               </div>
-              <div className="grid grid-cols-2 gap-5">
-                <MiniPetCard pet={collagePets[2]} onOpen={() => onOpenPet(collagePets[2].id)} />
-                <button
-                  onClick={() => onNavigate("pets")}
-                  className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-primary/40 p-4 text-center transition-colors hover:bg-accent"
-                >
-                  <PawPrint className="h-6 w-6 text-primary" />
-                  <p className="text-sm font-semibold text-primary">See all {pets.length} pets</p>
-                </button>
-              </div>
+              <p className="mt-8 px-16 text-center text-sm font-semibold italic text-brand-500 sm:px-24 lg:hidden">
+                Every paw matters.
+              </p>
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
-            {[
-              { label: "Pets available", value: String(availableCount), Icon: PawPrint },
-              { label: "Raised for treatment", value: bdt(totalRaised), Icon: HandCoins },
-              { label: "Shelter & clinic partners", value: String(shelters.length + clinics.length), Icon: HeartHandshake },
-              { label: "Blood donors on record", value: String(bloodDonors.filter((d) => d.active).length), Icon: Droplets },
-            ].map((s) => (
-              <Card key={s.label} className="border-primary/10 bg-white shadow-soft">
-                <CardContent className="flex items-center gap-3 p-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent">
-                    <s.Icon className="h-4 w-4 text-primary" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-lg font-bold tracking-tight sm:text-xl">{s.value}</p>
-                    <p className="text-[11px] text-muted-foreground">{s.label}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          {/* Impact */}
+          <div className="mx-auto mt-14 max-w-4xl">
+            <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-brand-500">
+              PawBridge impact
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                { label: "Pets waiting for homes", value: String(availableCount), Icon: PawPrint },
+                { label: "Raised for treatment", value: bdt(totalRaised), Icon: HeartHandshake },
+                { label: "Shelters &amp; partners", value: String(shelters.length + clinics.length), Icon: House },
+                { label: "Active blood donors", value: String(donorOnRecord), Icon: Droplets },
+              ].map((s) => (
+                <Card key={s.label} className="border-brand-100 bg-[#fffdf9] shadow-soft">
+                  <CardContent className="flex items-center gap-3 p-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-brand-50">
+                      <s.Icon className="h-4 w-4 text-brand-500" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-lg font-bold tracking-tight sm:text-xl">{s.value}</p>
+                      <p className="text-[11px] text-muted-foreground">{s.label}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <p className="mt-4 text-center text-sm text-muted-foreground">
+              Together, {donorCount} donors have made treatment possible for streeties like Max.
+            </p>
           </div>
         </div>
       </section>
@@ -199,8 +228,39 @@ export function HomeScreen({
         </button>
       </section>
 
+      {/* Streeties of Dhaka */}
+      <section className="mx-auto max-w-6xl px-4 pt-14">
+        <SectionHead
+          title="Meet the streeties of Dhaka"
+          sub="Real animals from around the city who have been waiting the longest for someone to notice them."
+        />
+        <div className="mt-7 grid gap-5 sm:grid-cols-3">
+          {streeties.map((p) => (
+            <button key={p.id} onClick={() => onOpenPet(p.id)} className="cursor-pointer text-left">
+              <Card className="overflow-hidden pt-0 shadow-soft transition-shadow hover:shadow-lift">
+                <div className="relative">
+                  <PetPhoto pet={p} className="h-40 w-full" />
+                  <span className="absolute left-3 top-3">
+                    <SpeciesChip species={p.species} />
+                  </span>
+                </div>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <p className="font-bold">{p.name}</p>
+                    <span className="rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-bold text-brand-700">
+                      {daysWaiting(p)} days waiting
+                    </span>
+                  </div>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{p.story.split(".")[0]}.</p>
+                </CardContent>
+              </Card>
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* Featured pets */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
+      <section className="mx-auto max-w-6xl px-4 pb-14 pt-14">
         <SectionHead
           title="Pets ready for adoption"
           sub="From verified shelters, sorted by time waiting."
@@ -221,7 +281,7 @@ export function HomeScreen({
       </section>
 
       {/* Campaigns */}
-      <section className="bg-tint-cyan border-y border-brand-100">
+      <section className="bg-tint-peach border-y border-brand-100">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <SectionHead
             title="Fund a treatment"
@@ -242,47 +302,47 @@ export function HomeScreen({
         </div>
       </section>
 
-      {/* Other modules */}
+      {/* Situations */}
       <section className="mx-auto max-w-6xl px-4 py-14">
         <SectionHead
-          title="Other modules"
-          sub="Blood bank, rescue network, lost &amp; found, karma rewards and crisis fostering."
+          title="What do you need right now?"
+          sub="Real situations, one tap away — no forms, no jargon."
         />
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <ModuleCard
+          <SituationCard
             icon={Siren}
             tone="red"
+            question="I found an animal in danger"
             title="Rescue Network"
-            text="Report an animal in danger. Volunteers claim the case and close it with an outcome note."
             action={() => onNavigate("rescue")}
           />
-          <ModuleCard
+          <SituationCard
             icon={Droplets}
             tone="rose"
+            question="A pet needs blood"
             title="Pet Blood Bank"
-            text="Urgent transfusions matched to eligible donor pets by species, blood type and donation window."
             action={() => onNavigate("blood")}
           />
-          <ModuleCard
+          <SituationCard
             icon={SearchCheck}
             tone="gold"
+            question="My pet is missing"
             title="Lost & Found"
-            text="Lost and found reports are matched on species, colour and area."
             action={() => onNavigate("lostfound")}
           />
-          <ModuleCard
-            icon={Coins}
-            tone="coral"
-            title="Karma Ledger"
-            text="Donations, adoptions and rescues earn points. Redeem them for vet checkups or shelter meals."
-            action={() => onNavigate("karma")}
-          />
-          <ModuleCard
+          <SituationCard
             icon={HeartHandshake}
-            tone="sage"
+            tone="lav"
+            question="I need temporary foster care"
             title="Safe Haven"
-            text="Confidential temporary fostering for the pets of people in crisis."
             action={() => onNavigate("dashboard")}
+          />
+          <SituationCard
+            icon={PawPrint}
+            tone="brown"
+            question="I want to help"
+            title="Donate & Paw Points"
+            action={() => onNavigate("campaigns")}
           />
         </div>
       </section>
@@ -388,58 +448,40 @@ function SectionHead({
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero mini pet card                                                  */
-/* ------------------------------------------------------------------ */
-
-function MiniPetCard({ pet, onOpen, priority }: { pet: (typeof pets)[number]; onOpen: () => void; priority?: boolean }) {
-  return (
-    <button onClick={onOpen} className="w-full cursor-pointer text-left">
-      <Card className="overflow-hidden pt-0 shadow-soft">
-        <PetPhoto pet={pet} className="h-32 w-full" sizes="(max-width: 1024px) 50vw, 25vw" priority={priority} />
-        <CardContent className="p-3">
-          <p className="font-bold leading-tight">{pet.name}</p>
-          <p className="text-xs capitalize text-muted-foreground">
-            {pet.breed} · {pet.status.replace("_", " ")}
-          </p>
-        </CardContent>
-      </Card>
-    </button>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /* Module card                                                         */
 /* ------------------------------------------------------------------ */
 
-function ModuleCard({
+function SituationCard({
   icon: Icon,
   tone,
+  question,
   title,
-  text,
   action,
 }: {
   icon: React.ComponentType<{ className?: string }>;
-  tone: "red" | "rose" | "gold" | "coral" | "sage";
+  tone: "red" | "rose" | "gold" | "lav" | "brown";
+  question: string;
   title: string;
-  text: string;
   action: () => void;
 }) {
   const tones = {
     red: "bg-danger-50 text-danger-600",
     rose: "bg-brand2-50 text-brand2-600",
-    gold: "bg-ink-100 text-ink-700",
-    coral: "bg-brand-50 text-brand-700",
-    sage: "bg-leaf-50 text-leaf-700",
+    gold: "bg-tint-yellow text-dog-yellow-deep",
+    lav: "bg-tint-lavender text-cat-lav-deep",
+    brown: "bg-brand-50 text-brand-700",
   };
   return (
     <button onClick={action} className="cursor-pointer text-left">
-      <Card className="h-full shadow-soft">
+      <Card className="h-full shadow-soft transition-shadow hover:shadow-lift">
         <CardContent className="p-5">
-          <span className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${tones[tone]}`}>
+          <span className={`inline-flex h-10 w-10 items-center justify-center rounded-2xl ${tones[tone]}`}>
             <Icon className="h-5 w-5" />
           </span>
-          <p className="mt-3 font-bold">{title}</p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+          <p className="mt-3 text-sm font-semibold text-ink-800">{question}</p>
+          <p className="mt-0.5 flex items-center gap-1 text-xs font-bold text-brand-600">
+            {title} <ArrowRight className="h-3 w-3" />
+          </p>
         </CardContent>
       </Card>
     </button>

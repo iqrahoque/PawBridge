@@ -3,7 +3,7 @@
 > **Adopt. Donate. Heal.**
 > A database-driven platform that connects adopters, shelters, veterinary clinics and donors — helping dogs & cats in Bangladesh find homes, funds and medical care.
 
-**🌐 Live demo:** https://iqrahoque.github.io/PetCare/
+**🌐 Live demo:** https://iqrahoque.github.io/PawBridge/
 
 ---
 
