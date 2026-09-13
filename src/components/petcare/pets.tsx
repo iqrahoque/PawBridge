@@ -94,14 +94,20 @@ function PetList({
     .sort((a, b) => daysWaiting(b) - daysWaiting(a)); // longest waiters first
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-3xl font-bold tracking-tight">Adopt a pet</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        {filtered.length} pets shown · sorted by time waiting
-      </p>
+    <div>
+      {/* Header band */}
+      <section className="bg-tint-cyan border-b border-brand-100">
+        <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
+          <h1 className="text-3xl font-bold tracking-tight">Adopt a pet</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {filtered.length} pets shown · sorted by time waiting
+          </p>
+        </div>
+      </section>
 
+      <div className="mx-auto max-w-6xl px-4 py-8">
       {/* Filters */}
-      <div className="mt-6 space-y-3">
+      <div className="space-y-3">
         <div className="relative max-w-md">
           {/* search field */}
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
@@ -154,6 +160,7 @@ function PetList({
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

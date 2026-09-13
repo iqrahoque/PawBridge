@@ -30,7 +30,7 @@ export function CampaignsScreen() {
   return (
     <div className="pb-4">
       {/* Header band */}
-      <section className="bg-hero border-b">
+      <section className="bg-tint-cyan border-b border-brand-100">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">

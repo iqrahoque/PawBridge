@@ -183,6 +183,17 @@
   .bg-paper {
     background: #f7f7f7;
   }
+  /* Light page tints — the palette's own 50-steps used as section bands
+     (kept subtle: white canvas stays dominant) */
+  .bg-tint-cyan {
+    background: #ecf9fc; /* brand-50 */
+  }
+  .bg-tint-blue {
+    background: #e9f6fe; /* brand2-50 */
+  }
+  .bg-tint-green {
+    background: #f2f8ec; /* leaf-50 */
+  }
   .bg-rescue {
     background: #fdeded;
   }

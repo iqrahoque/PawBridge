@@ -29,6 +29,9 @@ Light, friendly, rounded: **white canvas · cyan `#06a2be` as the single dominan
 |---|---|---|
 | Page canvas | `background` | `#FFFFFF` |
 | Alternate section band | `ink/50` | `#F7F7F7` |
+| Light tint band — cyan (pets / campaigns headers, home "Fund a treatment") | `brand/50` | `#ECF9FC` |
+| Light tint band — blue (karma header) | `brand2/50` | `#E9F6FE` |
+| Light tint band — green (vets header) | `leaf/50` | `#F2F8EC` |
 | Card surface | `card` | `#FFFFFF` |
 | Dark CTA band / Adopted badge | `ink/900` | `#212623` |
 | Footer | `ink/800` | `#333333` |
@@ -58,6 +61,10 @@ Light, friendly, rounded: **white canvas · cyan `#06a2be` as the single dominan
 - 🪙 **Karma** — balance card solid ink `#212623` with white number, cyan rank-1 medal, blue rank-3 "you" highlight.
 
 **Surfaces (all flat, no decorative gradients, no glass blur):** hero = white · alternate bands = `#F7F7F7` · rescue surfaces = `#FDEDED` · CTA band = `#212623` · footer = `#333333` with white/60 text.
+
+**Light colour accents (v8):** to keep the white canvas from feeling sterile, a few pages use a full-width header band tinted with the palette's own 50-step: Adopt `#ECF9FC` (cyan) · Campaigns `#ECF9FC` · Vets `#F2F8EC` (green) · Karma `#E9F6FE` (blue) · Blood bank `#FDEDED` (red, shared with Rescue). White remains the dominant surface everywhere; tints never carry text colour changes.
+
+**Photography (v8):** all photos are real street dogs and cats of Dhaka and South Asia (deshi dogs, street tabbies, community feeders) — no studio/purebred stock. Sources are Wikimedia Commons / Flickr under Creative Commons, credited in `public/images/CREDITS.md`. Pet breeds in the seed data were updated to match (Deshi mix, not Golden Retriever/Samoyed/Siamese).
 
 <details>
 <summary>Legacy v5 palette (Sage + Cream + Coral) — deprecated</summary>

@@ -42,14 +42,21 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
   const openRequests = bloodRequests.filter((r) => r.status === "open");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
-        <Droplets className="h-7 w-7 text-danger-600" /> Pet blood bank
-      </h1>
-      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        Clinics post urgent transfusion requests; donors are matched by species, blood type and
-        donation window (dogs: 8-week gap · cats: 4-week gap).
-      </p>
+    <div>
+      {/* Header band */}
+      <section className="bg-rescue border-b border-danger-200">
+        <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
+          <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
+            <Droplets className="h-7 w-7 text-danger-600" /> Pet blood bank
+          </h1>
+          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            Clinics post urgent transfusion requests; donors are matched by species, blood type and
+            donation window (dogs: 8-week gap · cats: 4-week gap).
+          </p>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-8">
 
       {/* Open requests */}
       <section className="mt-8">
@@ -236,6 +243,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
       </section>
 
       <DonorRegDialog open={regOpen} onClose={() => setRegOpen(false)} />
+      </div>
     </div>
   );
 }

@@ -41,14 +41,21 @@ export function KarmaScreen() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight text-ink-800">
-        <Coins className="h-7 w-7 text-brand-600" /> Karma &amp; impact ledger
-      </h1>
-      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        Donations, adoptions, fostering, transport legs and rescue cases all earn points.
-        Redeem them with partner vets and stores, or convert them into shelter meals.
-      </p>
+    <div>
+      {/* Header band */}
+      <section className="bg-tint-blue border-b border-brand2-100">
+        <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
+          <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight text-ink-800">
+            <Coins className="h-7 w-7 text-brand-600" /> Karma &amp; impact ledger
+          </h1>
+          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            Donations, adoptions, fostering, transport legs and rescue cases all earn points.
+            Redeem them with partner vets and stores, or convert them into shelter meals.
+          </p>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-8">
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {/* My karma */}
@@ -205,6 +212,7 @@ export function KarmaScreen() {
           </CardContent>
         </Card>
       </section>
+      </div>
     </div>
   );
 }

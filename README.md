@@ -101,7 +101,7 @@ mysql -u root -p petcare_db < database/queries/showcase_queries.sql
 | 0 — Research & Specification | ✅ Done ([spec](docs/PROJECT_SPEC.md)) |
 | 1 — Database Design | ✅ Done — 31 tables incl. Rescue Network ([ERD](docs/DATABASE_DESIGN.md), [SQL](database/schema.sql)) |
 | 2 — Figma Prototype | 🎨 Use the [design guide](docs/FIGMA_DESIGN_GUIDE.md) — v6 "Scholarships Corner" design system (#06A2BE cyan accent / white canvas / Plus Jakarta Sans + Inter / pill buttons) |
-| 3 — Web App (demo build) | ✅ **Live** on GitHub Pages — 9 screens incl. Community Rescue Network, 162-donor realistic dataset |
+| 3 — Web App (demo build) | ✅ **Live** on GitHub Pages — 9 screens incl. Community Rescue Network, 162-donor realistic dataset, real Dhaka street dog/cat photography ([credits](public/images/CREDITS.md)) |
 | 4 — Real backend (API + MySQL) | 🔜 Next ([API design](docs/API_DESIGN.md) ready to implement) |
 
 ---

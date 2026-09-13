@@ -51,14 +51,20 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-3xl font-bold tracking-tight">Vet directory</h1>
-      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-        Verified clinics around Dhaka with ratings, hours and emergency tags. Low-cost clinics
-        offer subsidized spay/neuter for community animals.
-      </p>
+    <div>
+      {/* Header band */}
+      <section className="bg-tint-green border-b border-leaf-100">
+        <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
+          <h1 className="text-3xl font-bold tracking-tight">Vet directory</h1>
+          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            Verified clinics around Dhaka with ratings, hours and emergency tags. Low-cost clinics
+            offer subsidized spay/neuter for community animals.
+          </p>
+        </div>
+      </section>
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mx-auto max-w-6xl px-4 py-8">
+      <div className="flex flex-wrap gap-2">
         <FilterChip active={emergencyOnly} onClick={() => setEmergencyOnly(!emergencyOnly)}>
           24h emergency
         </FilterChip>
@@ -175,6 +181,7 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
       </Card>
 
       <DonorRegDialog open={regOpen} onClose={() => setRegOpen(false)} />
+      </div>
     </div>
   );
 }

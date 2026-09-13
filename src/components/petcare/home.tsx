@@ -221,7 +221,7 @@ export function HomeScreen({
       </section>
 
       {/* Campaigns */}
-      <section className="bg-paper border-y">
+      <section className="bg-tint-cyan border-y border-brand-100">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <SectionHead
             title="Fund a treatment"
