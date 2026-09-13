@@ -56,7 +56,7 @@ export function Nav({
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
             <PawPrint className="h-5 w-5 text-white" />
           </span>
-          <span className="text-lg font-extrabold tracking-tight text-forest">PetCare</span>
+          <span className="text-lg font-bold tracking-tight text-ink-800">PetCare</span>
         </button>
 
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
@@ -75,7 +75,7 @@ export function Nav({
               <Icon className="h-4 w-4" />
               {label}
               {alert && screen !== s && (
-                <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-emred-500" />
+                <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-danger-500" />
               )}
             </button>
           ))}
@@ -117,7 +117,7 @@ export function Nav({
                     >
                       <Icon className="h-4 w-4" />
                       {label}
-                      {alert && screen !== s && <span className="ml-auto h-2 w-2 rounded-full bg-emred-500" />}
+                      {alert && screen !== s && <span className="ml-auto h-2 w-2 rounded-full bg-danger-500" />}
                     </button>
                   )
                 )}
@@ -132,17 +132,17 @@ export function Nav({
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t bg-white">
+    <footer className="mt-auto bg-ink-800 text-white/70">
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500">
                 <PawPrint className="h-5 w-5 text-white" />
               </span>
-              <p className="font-extrabold tracking-tight text-forest">PetCare</p>
+              <p className="font-bold tracking-tight text-white">PetCare</p>
             </div>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="mt-3 text-sm text-white/60">
               A pet welfare platform for Dhaka — adoption listings from verified shelters,
               campaign fundraising, a vet directory and an emergency rescue network.
             </p>
@@ -150,40 +150,40 @@ export function Footer() {
               href="https://github.com/iqrahoque/PetCare"
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-300 hover:text-brand-200 hover:underline"
             >
               <Github className="h-4 w-4" /> github.com/iqrahoque/PetCare
               <ArrowUpRight className="h-3 w-3" />
             </a>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">For pets</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50">For pets</p>
             <ul className="mt-3 space-y-2 text-sm">
-              <li className="text-foreground/80">Adoption portal</li>
-              <li className="text-foreground/80">Pet blood bank</li>
-              <li className="text-foreground/80">Emergency rescue network</li>
-              <li className="text-foreground/80">Lost &amp; found matching</li>
+              <li className="text-white/75">Adoption portal</li>
+              <li className="text-white/75">Pet blood bank</li>
+              <li className="text-white/75">Emergency rescue network</li>
+              <li className="text-white/75">Lost &amp; found matching</li>
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">For people</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50">For people</p>
             <ul className="mt-3 space-y-2 text-sm">
-              <li className="text-foreground/80">Campaign fundraising</li>
-              <li className="text-foreground/80">Shelter wish lists</li>
-              <li className="text-foreground/80">Karma &amp; rewards</li>
-              <li className="text-foreground/80">Safe Haven (crisis fostering)</li>
+              <li className="text-white/75">Campaign fundraising</li>
+              <li className="text-white/75">Shelter wish lists</li>
+              <li className="text-white/75">Karma &amp; rewards</li>
+              <li className="text-white/75">Safe Haven (crisis fostering)</li>
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Demo notes</p>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="text-xs font-bold uppercase tracking-wider text-white/50">Demo notes</p>
+            <p className="mt-3 text-sm text-white/60">
               Data mirrors the MySQL seed in the repo. Your interactions (adoptions, donations,
               rescues, reports) are saved to your browser&apos;s localStorage — reset anytime from
               the Dashboard.
             </p>
           </div>
         </div>
-        <div className="mt-8 flex flex-col items-start justify-between gap-2 border-t pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-5 text-xs text-white/50 sm:flex-row sm:items-center">
           <p>© 2026 PetCare — university database project demo by Iqra Hoque.</p>
           <p>Demo data mirrors the MySQL seed in the repository.</p>
         </div>

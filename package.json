@@ -5,7 +5,7 @@
   "description": "PetCare static web demo (GitHub Pages ready)",
   "scripts": {
     "dev": "next dev -p 3000",
-    "build": "EXPORT_MODE=1 next build",
+    "build": "EXPORT_MODE=1 NEXT_PUBLIC_BASE_PATH=/PetCare next build",
     "start": "npx serve@latest out",
     "lint": "eslint ."
   },

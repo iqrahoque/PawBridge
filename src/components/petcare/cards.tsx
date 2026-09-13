@@ -1,6 +1,7 @@
 "use client";
 
-import { PawPrint, Dog, Cat, MapPin, Heart, Users, AlertTriangle } from "lucide-react";
+import Image from "next/image";
+import { PawPrint, MapPin, Heart, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -8,6 +9,7 @@ import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   type Pet,
+  asset,
   type PetStatus,
   type Campaign,
   bdt,
@@ -23,11 +25,11 @@ import type { MyDonation } from "@/lib/store";
 /* ------------------------------------------------------------------ */
 
 const STATUS_META: Record<PetStatus, { label: string; cls: string }> = {
-  available: { label: "Available", cls: "bg-sage-100 text-sage-800 border-sage-200" },
-  pending: { label: "Pending", cls: "bg-gold-100 text-gold-800 border-gold-200" },
-  adopted: { label: "Adopted", cls: "bg-sagegray-200 text-sagegray-700 border-sagegray-300" },
-  medical_hold: { label: "Medical hold", cls: "bg-medical-100 text-medical-800 border-medical-200" },
-  fostered: { label: "Fostered", cls: "bg-coral-100 text-coral-800 border-coral-200" },
+  available: { label: "Available", cls: "bg-leaf-100 text-leaf-800 border-leaf-200" },
+  pending: { label: "Pending", cls: "bg-brand2-100 text-brand2-800 border-brand2-200" },
+  adopted: { label: "Adopted", cls: "bg-ink-900 text-white border-ink-900" },
+  medical_hold: { label: "Medical hold", cls: "bg-brand-100 text-brand-800 border-brand-200" },
+  fostered: { label: "Fostered", cls: "bg-ink-100 text-ink-700 border-ink-200" },
 };
 
 export function StatusBadge({ status }: { status: PetStatus }) {
@@ -40,40 +42,23 @@ export function StatusBadge({ status }: { status: PetStatus }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Placeholder pet art (offline-safe, deterministic per pet)           */
+/* Real pet photo (served from /public/images, basePath-aware)         */
 /* ------------------------------------------------------------------ */
 
-export function PetArt({
+export function PetPhoto({
   pet,
   className,
-  big = false,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  priority = false,
 }: {
-  pet: Pick<Pet, "name" | "species" | "hue">;
+  pet: Pick<Pet, "name" | "photo">;
   className?: string;
-  big?: boolean;
+  sizes?: string;
+  priority?: boolean;
 }) {
   return (
-    <div
-      className={cn("relative flex items-center justify-center overflow-hidden", className)}
-      style={{
-        background: `linear-gradient(135deg, hsl(${pet.hue} 45% 82%), hsl(${(pet.hue + 20) % 360} 40% 72%))`,
-      }}
-      aria-label={`Photo placeholder of ${pet.name}`}
-      role="img"
-    >
-      {pet.species === "dog" ? (
-        <Dog className={cn("text-white/85", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
-      ) : (
-        <Cat className={cn("text-white/85", big ? "h-28 w-28" : "h-14 w-14")} strokeWidth={1.5} />
-      )}
-      <span
-        className={cn(
-          "absolute bottom-2 right-3 font-bold text-white/90 tracking-tight",
-          big ? "text-3xl" : "text-lg"
-        )}
-      >
-        {pet.name}
-      </span>
+    <div className={cn("relative overflow-hidden bg-ink-100", className)} role="img" aria-label={`Photo of ${pet.name}`}>
+      <Image src={asset(pet.photo)} alt={`Photo of ${pet.name}`} fill sizes={sizes} priority={priority} className="object-cover" />
     </div>
   );
 }
@@ -97,7 +82,7 @@ export function PetCard({
     <Card className="group overflow-hidden pt-0 gap-0 shadow-soft">
       <button onClick={onOpen} className="text-left w-full cursor-pointer" aria-label={`Open ${pet.name}'s profile`}>
         <div className="relative">
-          <PetArt pet={pet} className="h-44 w-full" />
+          <PetPhoto pet={pet} className="h-44 w-full" />
           <div className="absolute top-3 left-3">
             <StatusBadge status={pet.status} />
           </div>
@@ -131,7 +116,7 @@ export function PetCard({
         aria-label={isFavorite ? `Remove ${pet.name} from favorites` : `Add ${pet.name} to favorites`}
       >
         <Heart
-          className={cn("h-4 w-4 transition-colors", isFavorite ? "fill-coral-500 text-coral-500" : "text-sagegray-500")}
+          className={cn("h-4 w-4 transition-colors", isFavorite ? "fill-danger-500 text-danger-500" : "text-ink-400")}
         />
       </button>
     </Card>
@@ -174,16 +159,25 @@ export function CampaignCard({
   const done = raised >= campaign.goal;
 
   return (
-    <Card className="shadow-soft hover:shadow-lift transition-shadow flex flex-col">
+    <Card className="shadow-soft hover:shadow-lift transition-shadow flex flex-col overflow-hidden pt-0 gap-0">
+      <div className="relative h-32 w-full bg-ink-100">
+        <Image
+          src={asset(campaign.photo)}
+          alt={`Photo for ${campaign.title}`}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
       <CardContent className="p-5 flex flex-col flex-1 gap-3">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-bold leading-snug">{campaign.title}</h3>
           {done ? (
-            <Badge className="bg-sage-100 text-sage-800 border-sage-200" variant="outline">
+            <Badge className="bg-leaf-100 text-leaf-800 border-leaf-200" variant="outline">
               Goal reached
             </Badge>
           ) : (
-            <Badge variant="outline" className="border-sage-200 bg-sage-50 text-sage-800">
+            <Badge variant="outline" className="border-brand-200 bg-brand-50 text-brand-800">
               Active
             </Badge>
           )}
@@ -196,7 +190,7 @@ export function CampaignCard({
             <span className="text-muted-foreground">
               of {bdt(campaign.goal)} ·{" "}
               {pct >= 85 ? (
-                <span className="font-bold text-gold-600">{pct}% funded</span>
+                <span className="font-bold text-leaf-600">{pct}% funded</span>
               ) : (
                 `${pct}%`
               )}
@@ -215,7 +209,7 @@ export function CampaignCard({
               "w-full rounded-xl py-2 text-sm font-semibold transition-colors cursor-pointer",
               done
                 ? "bg-secondary text-secondary-foreground cursor-default"
-                : "bg-coral-500 text-white hover:bg-coral-600"
+                : "bg-brand-500 text-white hover:bg-brand-600"
             )}
           >
             {done ? "Fully funded" : "Donate now"}
@@ -236,7 +230,7 @@ export function Stars({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          className={cn("h-3.5 w-3.5", i <= rating ? "fill-gold-400 text-gold-400" : "text-sagegray-300")}
+          className={cn("h-3.5 w-3.5", i <= rating ? "fill-leaf-400 text-leaf-400" : "text-ink-300")}
         />
       ))}
     </span>
@@ -245,9 +239,9 @@ export function Stars({ rating }: { rating: number }) {
 
 export function UrgencyBadge({ urgency }: { urgency: "critical" | "urgent" | "scheduled" }) {
   const map = {
-    critical: "bg-emred-100 text-emred-800 border-emred-200",
-    urgent: "bg-gold-100 text-gold-800 border-gold-200",
-    scheduled: "bg-sagegray-100 text-sagegray-700 border-sagegray-200",
+    critical: "bg-danger-100 text-danger-800 border-danger-200",
+    urgent: "bg-brand2-100 text-brand2-800 border-brand2-200",
+    scheduled: "bg-ink-100 text-ink-700 border-ink-200",
   } as const;
   return (
     <Badge variant="outline" className={cn("gap-1", map[urgency])}>

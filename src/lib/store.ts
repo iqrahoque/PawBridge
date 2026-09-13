@@ -42,7 +42,6 @@ export interface MyFoundReport {
   area: string;
   description: string;
   foundOn: string;
-  hue: number;
 }
 
 export interface MyLostReport {
@@ -54,7 +53,6 @@ export interface MyLostReport {
   area: string;
   description: string;
   lostOn: string;
-  hue: number;
 }
 
 export interface MyDonor {
@@ -79,6 +77,7 @@ export interface MyRescueReport {
   reportedAt: string; // ISO datetime
   status: "reported" | "responding" | "rescued" | "closed";
   responders: string[];
+  resolution?: string;
 }
 
 export interface MatchDecision {
@@ -168,13 +167,13 @@ export const usePetCare = create<PetCareState>()(
         })),
 
       addFoundReport: (r) => {
-        const report: MyFoundReport = { ...r, id: uid(), hue: Math.floor(Math.random() * 360) };
+        const report: MyFoundReport = { ...r, id: uid() };
         set((s) => ({ foundReports: [report, ...s.foundReports] }));
         get().earnKarma("Filed a found-pet report", 100);
       },
 
       addLostReport: (r) => {
-        const report: MyLostReport = { ...r, id: uid(), hue: Math.floor(Math.random() * 360) };
+        const report: MyLostReport = { ...r, id: uid() };
         set((s) => ({ lostReports: [report, ...s.lostReports] }));
         get().earnKarma("Filed a lost-pet report", 25);
       },

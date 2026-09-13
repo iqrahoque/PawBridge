@@ -24,6 +24,12 @@ export type Screen =
 
 export const TODAY = new Date("2026-09-12T12:00:00");
 
+/**
+ * Prefix public/ asset paths with the deploy basePath (/PetCare on GitHub Pages).
+ * NEXT_PUBLIC_BASE_PATH is set only for the static-export build; dev uses "".
+ */
+export const asset = (p: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${p}`;
+
 /* ------------------------------------------------------------------ */
 /* U9 — Community Rescue Network (report an animal in danger)          */
 /* ------------------------------------------------------------------ */
@@ -50,16 +56,16 @@ export const SITUATION_META: Record<RescueSituation, { label: string }> = {
 };
 
 export const RESCUE_URGENCY_META: Record<RescueUrgency, { label: string; cls: string; dot: string }> = {
-  critical: { label: "Critical — life at risk", cls: "border-emred-200 bg-emred-50 text-emred-800", dot: "bg-emred-500" },
-  urgent: { label: "Urgent — act today", cls: "border-gold-200 bg-gold-50 text-gold-800", dot: "bg-gold-500" },
-  standard: { label: "Standard — this week", cls: "border-sagegray-200 bg-sagegray-50 text-sagegray-800", dot: "bg-sagegray-500" },
+  critical: { label: "Critical — life at risk", cls: "border-danger-200 bg-danger-50 text-danger-800", dot: "bg-danger-500" },
+  urgent: { label: "Urgent — act today", cls: "border-brand2-200 bg-brand2-50 text-brand2-800", dot: "bg-brand2-500" },
+  standard: { label: "Standard — this week", cls: "border-ink-200 bg-ink-50 text-ink-800", dot: "bg-ink-500" },
 };
 
 export const RESCUE_STATUS_META: Record<RescueStatus, { label: string; cls: string }> = {
-  reported: { label: "Reported — needs responders", cls: "border-emred-200 bg-emred-50 text-emred-700" },
-  responding: { label: "Responders on the way", cls: "border-gold-200 bg-gold-50 text-gold-800" },
-  rescued: { label: "Animal secured", cls: "border-sage-200 bg-sage-50 text-sage-800" },
-  closed: { label: "Safe — case closed", cls: "border-sage-200 bg-sage-50 text-sage-800" },
+  reported: { label: "Reported — needs responders", cls: "border-danger-200 bg-danger-50 text-danger-700" },
+  responding: { label: "Responders on the way", cls: "border-brand2-200 bg-brand2-50 text-brand2-800" },
+  rescued: { label: "Animal secured", cls: "border-leaf-200 bg-leaf-50 text-leaf-800" },
+  closed: { label: "Safe — case closed", cls: "border-leaf-200 bg-leaf-50 text-leaf-800" },
 };
 
 export interface RescueAlert {
@@ -74,7 +80,7 @@ export interface RescueAlert {
   status: RescueStatus;
   responders: string[];
   resolution?: string;
-  hue: number;
+  photo?: string;
 }
 
 export const seedRescueAlerts: RescueAlert[] = [
@@ -89,8 +95,8 @@ export const seedRescueAlerts: RescueAlert[] = [
       "Kitten fell into an open storm drain beside the footpath. Crying loudly, water level rising. We can hear it but can't reach — the grate is too heavy for us.",
     reportedAt: "2026-09-12T09:42:00",
     status: "responding",
+    photo: "/images/rescue/drain-kitten.jpg",
     responders: ["Rashed Karim", "Nafis Rahman"],
-    hue: 348,
   },
   {
     id: 2,
@@ -103,8 +109,8 @@ export const seedRescueAlerts: RescueAlert[] = [
       "A cat has been sitting on the AC cornice of the 6th floor for two days. Meows when callers come. Possibly stuck, can't climb down the smooth wall.",
     reportedAt: "2026-09-11T18:20:00",
     status: "reported",
+    photo: "/images/rescue/ledge-cat.jpg",
     responders: [],
-    hue: 14,
   },
   {
     id: 3,
@@ -117,8 +123,8 @@ export const seedRescueAlerts: RescueAlert[] = [
       "Deshi dog hit by a CNG, limping badly with a bleeding hind leg. Traffic is heavy — he has crawled to the roadside median. Currently wrapped in a blanket, needs urgent vet pickup.",
     reportedAt: "2026-09-10T14:05:00",
     status: "rescued",
+    photo: "/images/rescue/injured-dog.jpg",
     responders: ["Tanvir Ahmed", "Nusrat Jahan", "Sajid Bappi"],
-    hue: 14,
   },
   {
     id: 4,
@@ -131,10 +137,10 @@ export const seedRescueAlerts: RescueAlert[] = [
       "Box of 4 newborn kittens left near the park bench. Mother nowhere in sight. Eyes still closed — they need bottle feeding every 2 hours.",
     reportedAt: "2026-09-08T08:15:00",
     status: "closed",
+    photo: "/images/rescue/kittens-box.jpg",
     responders: ["Mitu Akter", "Lubna Mariam"],
     resolution:
       "All 4 kittens hand-fed by volunteers and moved to Pawfect Haven's neonatal unit. One already has an adopter lined up!",
-    hue: 42,
   },
 ];
 
@@ -295,7 +301,7 @@ export interface Pet {
   status: PetStatus;
   admissionDate: string; // ISO date
   tags: string[];
-  hue: number; // placeholder-art hue
+  photo: string; // real photo under /public/images
 }
 
 export const pets: Pet[] = [
@@ -319,7 +325,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-11-02",
     tags: ["playful", "affectionate", "loyal"],
-    hue: 145,
+    photo: "/images/pets/max.jpg",
   },
   {
     id: 2,
@@ -340,7 +346,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-02-14",
     tags: ["shy", "gentle", "quiet"],
-    hue: 15,
+    photo: "/images/pets/mishti.jpg",
   },
   {
     id: 3,
@@ -361,7 +367,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-03-01",
     tags: ["energetic", "playful", "trained"],
-    hue: 42,
+    photo: "/images/pets/tommy.jpg",
   },
   {
     id: 4,
@@ -382,7 +388,7 @@ export const pets: Pet[] = [
     status: "pending",
     admissionDate: "2026-01-20",
     tags: ["protective", "smart", "loyal"],
-    hue: 185,
+    photo: "/images/pets/sheru.jpg",
   },
   {
     id: 5,
@@ -402,7 +408,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-07-10",
     tags: ["playful", "curious"],
-    hue: 350,
+    photo: "/images/pets/minnie.jpg",
   },
   {
     id: 6,
@@ -423,7 +429,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2026-06-15",
     tags: ["gentle", "street-smart", "affectionate"],
-    hue: 130,
+    photo: "/images/pets/rani.jpg",
   },
   {
     id: 7,
@@ -444,7 +450,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-12-05",
     tags: ["independent", "calm", "philosophical"],
-    hue: 32,
+    photo: "/images/pets/bagha.jpg",
   },
   {
     id: 8,
@@ -465,7 +471,7 @@ export const pets: Pet[] = [
     status: "medical_hold",
     admissionDate: "2026-02-01",
     tags: ["chatty", "resilient", "affectionate"],
-    hue: 12,
+    photo: "/images/pets/pihu.jpg",
   },
   {
     id: 9,
@@ -487,7 +493,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-09-30",
     tags: ["calm", "gentle", "senior-friendly", "house-trained"],
-    hue: 205,
+    photo: "/images/pets/kalu.jpg",
   },
   {
     id: 10,
@@ -508,7 +514,7 @@ export const pets: Pet[] = [
     status: "available",
     admissionDate: "2025-08-12",
     tags: ["playful", "travel-ready"],
-    hue: 190,
+    photo: "/images/pets/snowy.jpg",
   },
 ];
 
@@ -540,6 +546,7 @@ export interface Campaign {
   status: "active" | "completed";
   endsAt: string;
   updates: { date: string; text: string }[];
+  photo: string;
 }
 
 export const campaigns: Campaign[] = [
@@ -553,6 +560,7 @@ export const campaigns: Campaign[] = [
     goal: 150000,
     status: "active",
     endsAt: "2026-10-31",
+    photo: "/images/pets/max.jpg",
     updates: [
       { date: "2026-01-18", text: "Surgery successful — Max is already weight-bearing!" },
       { date: "2026-03-02", text: "Physio round 2 complete. Implants stay in permanently, no more costs." },
@@ -568,6 +576,7 @@ export const campaigns: Campaign[] = [
     goal: 60000,
     status: "completed",
     endsAt: "2026-03-15",
+    photo: "/images/pets/pihu.jpg",
     updates: [{ date: "2026-03-10", text: "Goal reached. Pihu tested negative and is gaining weight." }],
   },
   {
@@ -580,6 +589,7 @@ export const campaigns: Campaign[] = [
     goal: 50000,
     status: "active",
     endsAt: "2026-11-30",
+    photo: "/images/campaigns/blankets.jpg",
     updates: [],
   },
   {
@@ -592,6 +602,7 @@ export const campaigns: Campaign[] = [
     goal: 80000,
     status: "active",
     endsAt: "2026-12-15",
+    photo: "/images/campaigns/vaccination.jpg",
     updates: [{ date: "2026-09-10", text: "Drive kicked off — 40 dogs vaccinated on day one." }],
   },
 ];
@@ -851,7 +862,7 @@ export interface LostReport {
   description: string;
   lostOn: string;
   status: "searching" | "reunited";
-  hue: number;
+  photo?: string;
 }
 
 export interface FoundReport {
@@ -863,7 +874,7 @@ export interface FoundReport {
   description: string;
   foundOn: string;
   status: "with_finder" | "at_shelter" | "reunited";
-  hue: number;
+  photo?: string;
 }
 
 export const seedLostReports: LostReport[] = [
@@ -877,7 +888,7 @@ export const seedLostReports: LostReport[] = [
     description: "Very friendly orange tabby with a notch on the left ear. Answers to Simba, loves chipped rice.",
     lostOn: "2026-08-28",
     status: "searching",
-    hue: 145,
+    photo: "/images/lostfound/simba.jpg",
   },
 ];
 
@@ -891,7 +902,7 @@ export const seedFoundReports: FoundReport[] = [
     description: "Sweet orange tabby found limping slightly. Possible notch on left ear. Very hungry, very cuddly.",
     foundOn: "2026-08-30",
     status: "with_finder",
-    hue: 185,
+    photo: "/images/lostfound/simba.jpg",
   },
 ];
 

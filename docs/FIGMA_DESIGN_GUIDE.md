@@ -13,53 +13,62 @@ Everything you need to build the prototype in Figma: design tokens, component in
 
 ## 2. Design Tokens
 
-### Color Palette — v4 "Sage + Cream + Coral" (current web theme)
+### Color Palette — v6 "Scholarships Corner" adaptation (current web theme)
 
-Warm, trustworthy, animal-welfare palette. **Sage = normal information · Coral = emotional/action elements · Red breaks the pattern only for emergencies · Gold = little highlights.**
+Light, friendly, rounded: **white canvas · cyan `#06a2be` as the single dominant accent · Plus Jakarta Sans headings · pill buttons · big soft shadows.** Extracted from the reference design system and mapped onto PetCare's semantics: cyan = normal info/CTA · green = success/available · red breaks the pattern only for emergencies · blue = complementary highlights.
 
 #### Brand
 | Role | Token | Hex |
 |---|---|---|
-| Primary / Sage | `sage/500` | `#557A63` |
-| Primary Dark / Forest | `sage/700` | `#34513F` |
+| Primary accent / CTA | `brand/500` | `#06A2BE` |
+| Primary hover | `brand/600` | `#0587A0` |
+| Complementary highlight | `brand2/500` | `#1DA1F2` |
 
-#### Warmth
+#### Background & surfaces
 | Role | Token | Hex |
 |---|---|---|
-| Coral (emotional/action) | `coral/500` | `#E58B78` |
-| Gold (highlights, LOST badges, karma) | `gold/400` | `#D6A85F` |
-
-#### Background
-| Role | Token | Hex |
-|---|---|---|
-| Cream canvas | `cream` | `#F9F6EF` |
+| Page canvas | `background` | `#FFFFFF` |
+| Alternate section band | `ink/50` | `#F7F7F7` |
 | Card surface | `card` | `#FFFFFF` |
+| Dark CTA band / Adopted badge | `ink/900` | `#212623` |
+| Footer | `ink/800` | `#333333` |
 
-#### Text
+#### Text & neutrals
 | Role | Token | Hex |
 |---|---|---|
-| Primary text / Charcoal | `charcoal` | `#26332B` |
-| Secondary text / Sage Gray | `sagegray/500` | `#718078` |
+| Primary text | `ink/800` | `#333333` |
+| Secondary/muted text | `ink/500` | `#666666` |
+| Hairlines / input borders | `border` | `#E6E6E6` |
 
 #### Functional
 | Role | Token | Hex |
 |---|---|---|
-| Success (= sage) | `sage/500` | `#557A63` |
-| Warning (= gold) | `gold/400` | `#D6A85F` |
-| Emergency red | `emred/500` | `#D9534F` |
-| Medical accent | `medical/200` | `#DCEBED` |
+| Success / available / funded | `leaf/500` | `#6CB24C` |
+| Emergency & rescue | `danger/500` | `#E83030` |
+| Emergency surface | `danger/50` | `#FDEDED` |
 
 **Where each colour is used**
 
-- 🏠 **Homepage** — background cream `#F9F6EF`, navbar white, logo forest `#34513F`. Primary CTA "Find Your Companion" in sage `#557A63`; secondary CTA "Help an Animal" in coral `#E58B78`.
-- 🐕 **Adoption cards** — mostly white; sage for normal info (status chips, meta), coral for emotional/action (favourite heart). Status badges: Available = sage, Pending = gold, Fostered = coral, Medical hold = medical blue, Adopted = sage gray.
-- 🆘 **Emergency (Rescue)** — the pattern-break surface: very pale warm red `#FFF1EF` background, emergency button `#D9534F` (emred/500). Urgency reads instantly without making the whole site aggressive.
-- 💰 **Donations** — Donate button coral `#E58B78`, progress bar sage `#557A63`, milestone highlights ("98% funded") in gold `#D6A85F`.
-- 🏥 **Vet directory** — slightly more clinical: sage + white + medical light blue `#DCEBED` icon chips and accents.
-- 🐾 **Lost & Found** — LOST badge gold `#D6A85F`, FOUND badge sage `#557A63` — recognisable at a glance.
-- **Dark CTA band** — flat deep forest `#34513F`; headings stay single-colour (no gradient text).
+- 🏠 **Homepage** — background white, navbar white, logo tile `#06A2BE` with ink wordmark. Primary CTA "Find Your Companion" in cyan `#06A2BE`; secondary CTA "Help an Animal" in dark ink `#333333` (the reference design's dark button). Rescue chip stays red-bordered.
+- 🐕 **Adoption cards** — white with real photos; leaf-green "Available" chips, cyan info chips, red favourite heart (filled). Status badges: Available = leaf green, Pending = blue `#1DA1F2`, Fostered = neutral grey, Medical hold = cyan, Adopted = solid ink `#212623` + white text.
+- 🆘 **Emergency (Rescue)** — the pattern-break surface: pale red `#FDEDED` hero, solid red `#E83030` buttons, critical badge red / urgent badge blue.
+- 💰 **Donations** — Donate button cyan `#06A2BE`, progress bar cyan, "100% funded" milestone in leaf green `#6CB24C`; campaign cards open with a real photo banner.
+- 🏥 **Vet directory** — clinical-calm: cyan icon chips, leaf-green star ratings, red "Emergency" outline badges, grey "Verified".
+- 🐾 **Lost & Found** — match-suggestion card in pale blue `#E9F6FE` with blue "Searching" badges; reunited states flip to leaf green.
+- 🪙 **Karma** — balance card solid ink `#212623` with white number, cyan rank-1 medal, blue rank-3 "you" highlight.
 
-**Surfaces (v5 — all flat, no decorative gradients, no glass blur):** hero = flat `#F4F0E3` · rescue surfaces = flat pale warm red `#FFF1EF` · CTA band = flat forest `#34513F`. Cards are white with charcoal-tinted soft shadows; the nav is solid white with a bottom border.
+**Surfaces (all flat, no decorative gradients, no glass blur):** hero = white · alternate bands = `#F7F7F7` · rescue surfaces = `#FDEDED` · CTA band = `#212623` · footer = `#333333` with white/60 text.
+
+<details>
+<summary>Legacy v5 palette (Sage + Cream + Coral) — deprecated</summary>
+
+| Token | Hex |
+|---|---|
+| `sage/500` | `#557A63` |
+| `coral/500` | `#E58B78` |
+| `cream` | `#F9F6EF` |
+
+</details>
 
 <details>
 <summary>Legacy v3 palette (cat-colours "Pawfect": ginger / paw-pink) — deprecated</summary>
@@ -96,17 +105,19 @@ Warm, trustworthy, animal-welfare palette. **Sage = normal information · Coral 
 
 ### Typography
 
-- **Headings:** Plus Jakarta Sans (SemiBold/Bold) — warm geometric, friendly authority
-- **Body/UI:** Inter (Regular/Medium) — dense data stays legible
+- **Headings:** Plus Jakarta Sans, weight **700** (reference type scale: H1 48px · H2 31px · H3 23px)
+- **Body/UI:** Inter, weight 400/500, 16px base, 1.4 line height
 - **Fallback for Bangla text:** Hind Siliguri
 
-Scale: `40/32` hero · `24` page title · `20` section · `16` card title · `14` body · `12` caption/badge
+Scale: `48` hero (mobile 36) · `31` page title · `23` section · `16` card title · `14` body · `12` caption/badge
 
 ### Shape & Elevation
 
-- Radius: `16px` cards · `12px` inputs · `999px` chips & pills
-- Shadow: `0 2px 8px rgba(28,25,23,0.08)` (cards) · `0 8px 24px rgba(28,25,23,0.12)` (modals)
-- Grid: 8pt spacing (4 for micro) · Page gutters 24px mobile / 64px desktop
+- Buttons, chips, badges, tabs, inputs: **pill** (radius 50px on standard heights; the reference's "rounded corners 50px+ feel")
+- Cards: **28px** radius · dialogs 24px · photos on cards inherit the card radius
+- Shadows (extracted system): cards `rgba(0,0,0,0.1) 0 10px 30px` · hero imagery `rgba(0,0,0,0.1) 0 0 60px` · hover/modal `rgba(0,0,0,0.2) 2px 8px 23px 3px`
+- Spacing: 10px base grid (20/30/40/60 section rhythm) · page gutters 16px mobile / 64px desktop
+- Touch targets: min 44px on mobile; max-width 1152px content container
 
 ## 3. Component Inventory (build these as Figma Components)
 
