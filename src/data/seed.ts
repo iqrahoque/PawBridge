@@ -603,7 +603,7 @@ export const campaigns: Campaign[] = [
     status: "active",
     endsAt: "2026-12-15",
     photo: "/images/campaigns/vaccination.jpg",
-    updates: [{ date: "2026-09-10", text: "Drive kicked off — 40 dogs vaccinated on day one." }],
+    updates: [{ date: "2026-09-10", text: "Drive kicked off — 19 dogs vaccinated on day one. Next camp scheduled at the Dhanmondi lake gate." }],
   },
 ];
 
