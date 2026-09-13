@@ -116,7 +116,7 @@ INSERT INTO donation_campaigns (id, shelter_id, pet_id, title, description, goal
 (1, 1, 1,    "Max's Fracture Surgery Fund", 'Max was hit by a car on Airport Road. Surgery, implants and physiotherapy cost 1,50,000 BDT. Every taka goes to the clinic directly.', 150000.00, 'BDT', 'active',    '2025-11-05', '2026-10-31'),
 (2, 1, 8,    'Emergency Treatment for Pihu', 'Pihu contracted panleukopenia at 7 months old. ICU, IV fluids and round-the-clock care saved her life.', 60000.00, 'BDT', 'completed', '2026-02-01', '2026-03-15'),
 (3, 2, NULL, 'Winter Blanket Drive for 200 Streeties', 'Dhaka winters are brutal for community animals. Help us buy 200 thermal blankets before December.', 50000.00, 'BDT', 'active',    '2026-09-01', '2026-11-30'),
-(4, 2, NULL, 'Vaccination Drive — Ramna Park Strays', 'Rabies vaccination + deworming for 150 community dogs around Ramna Park. 500 BDT protects one life.', 80000.00, 'BDT', 'active',    '2026-09-10', '2026-12-15');
+(4, 2, NULL, 'Ramna Park Rabies Drive', 'PawBridge volunteers run the rabies vaccination + deworming camp for 150 community dogs around Ramna Park. 500 BDT protects one life.', 80000.00, 'BDT', 'active',    '2026-09-10', '2026-12-15');
 
 INSERT INTO donations (campaign_id, donor_id, amount, message, anonymous, payment_method) VALUES
 (1, 11, 50.00, 'Max deserves the best', FALSE, 'nagad'), -- #1 2025-11-06 · Rashed Karim

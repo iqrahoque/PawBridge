@@ -51,12 +51,12 @@ export function Nav({
         <button
           onClick={() => go("home")}
           className="flex items-center gap-2 cursor-pointer"
-          aria-label="PetCare home"
+          aria-label="PawBridge home"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
             <PawPrint className="h-5 w-5 text-white" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-ink-800">PetCare</span>
+          <span className="text-lg font-bold tracking-tight text-ink-800">PawBridge</span>
         </button>
 
         <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
@@ -102,7 +102,7 @@ export function Nav({
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                   <PawPrint className="h-4 w-4 text-white" />
                 </span>
-                PetCare
+                PawBridge
               </SheetTitle>
               <nav className="mt-4 flex flex-col gap-1" aria-label="Mobile">
                 {[...LINKS, { screen: "dashboard" as Screen, label: "Dashboard", icon: LayoutDashboard, alert: false }].map(
@@ -140,7 +140,7 @@ export function Footer() {
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500">
                 <PawPrint className="h-5 w-5 text-white" />
               </span>
-              <p className="font-bold tracking-tight text-white">PetCare</p>
+              <p className="font-bold tracking-tight text-white">PawBridge</p>
             </div>
             <p className="mt-3 text-sm text-white/60">
               A pet welfare platform for Dhaka — adoption listings from verified shelters,
@@ -184,7 +184,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-5 text-xs text-white/50 sm:flex-row sm:items-center">
-          <p>© 2026 PetCare — university database project demo by Iqra Hoque.</p>
+          <p>© 2026 PawBridge — university database project demo by Iqra Hoque.</p>
           <p>Demo data mirrors the MySQL seed in the repository.</p>
         </div>
       </div>

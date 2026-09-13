@@ -260,7 +260,7 @@ export const clinics: Clinic[] = [
   },
   {
     id: 3,
-    name: "PetCare Plus Vet Clinic",
+    name: "PawBridge Plus Vet Clinic",
     area: "Mirpur 10",
     address: "Ring Road, Mirpur 10, Dhaka",
     phone: "+880 2 900 0003",
@@ -596,9 +596,9 @@ export const campaigns: Campaign[] = [
     id: 4,
     shelterId: 2,
     petId: null,
-    title: "Vaccination Drive — Ramna Park Strays",
+    title: "Ramna Park Rabies Drive",
     description:
-      "Rabies vaccination + deworming for 150 community dogs around Ramna Park. ৳500 protects one life.",
+      "PawBridge volunteers run the rabies vaccination + deworming camp for 150 community dogs around Ramna Park. ৳500 protects one life.",
     goal: 80000,
     status: "active",
     endsAt: "2026-12-15",
@@ -634,7 +634,7 @@ export const seedDonations: SeedDonation[] = [
   { id: 14, campaignId: 1, donorName: "PawMart Dhanmondi", amount: 500, method: "card", date: "2025-12-24" },
   { id: 15, campaignId: 1, donorName: "Tanvir Ahmed", amount: 100, method: "nagad", date: "2026-01-09" },
   { id: 16, campaignId: 1, donorName: "Mitu Akter", amount: 900, method: "nagad", date: "2026-01-09" },
-  { id: 17, campaignId: 1, donorName: "Nusrat Ema", amount: 3000, message: "Go team PetCare!", method: "bank", date: "2026-01-12" },
+  { id: 17, campaignId: 1, donorName: "Nusrat Ema", amount: 3000, message: "Go team PawBridge!", method: "bank", date: "2026-01-12" },
   { id: 18, campaignId: 1, donorName: "Nafis Rahman", amount: 850, message: "Keep up the amazing work", method: "bank", date: "2026-01-14" },
   { id: 19, campaignId: 1, donorName: "Mehjabin Karim", amount: 1900, message: "Get well soon, Max!", method: "cash", date: "2026-01-14" },
   { id: 20, campaignId: 1, donorName: "Rashed Karim", amount: 2500, message: "This platform is a blessing", method: "bank", date: "2026-01-18" },
@@ -732,7 +732,7 @@ export const seedDonations: SeedDonation[] = [
   { id: 112, campaignId: 1, donorName: "Mehjabin Karim", amount: 800, message: "Shared with my office group chat", method: "nagad", date: "2026-08-02" },
   { id: 113, campaignId: 1, donorName: null, amount: 300, message: "Keep up the amazing work", method: "bkash", date: "2026-08-03" },
   { id: 114, campaignId: 1, donorName: "Lubna Mariam", amount: 3000, message: "In memory of my late Tommy", method: "bank", date: "2026-08-06" },
-  { id: 115, campaignId: 1, donorName: "Anika Tabassum", amount: 300, message: "Go team PetCare!", method: "nagad", date: "2026-08-10" },
+  { id: 115, campaignId: 1, donorName: "Anika Tabassum", amount: 300, message: "Go team PawBridge!", method: "nagad", date: "2026-08-10" },
   { id: 116, campaignId: 1, donorName: "Mitu Akter", amount: 400, message: "In memory of my late Tommy", method: "bkash", date: "2026-08-12" },
   { id: 117, campaignId: 1, donorName: "Lubna Mariam", amount: 3000, message: "From me and my cat Milo", method: "nagad", date: "2026-08-12" },
   { id: 118, campaignId: 1, donorName: "Rumana Malik", amount: 3000, message: "Sorry I can't give more this month", method: "bkash", date: "2026-08-13" },
@@ -1082,8 +1082,8 @@ export interface Reward {
 export const rewards: Reward[] = [
   { id: 1, title: "Free vet checkup", description: "One complete wellness checkup for any pet.", partner: "Care & Cure Veterinary Clinic", category: "vet_discount", cost: 300, stock: 50 },
   { id: 2, title: "15% off pet food", description: "One-time discount on any pet food purchase.", partner: "PawMart Dhanmondi", category: "pet_store", cost: 150, stock: null },
-  { id: 3, title: "Donate 5 shelter meals", description: "We deliver 5 meals to a shelter pet in your name.", partner: "PetCare Network", category: "meal_donation", cost: 100, stock: null },
-  { id: 4, title: "PetCare tote + sticker pack", description: "Official merch to show your rescue pride.", partner: "PetCare Network", category: "merchandise", cost: 500, stock: 20 },
+  { id: 3, title: "Donate 5 shelter meals", description: "We deliver 5 meals to a shelter pet in your name.", partner: "PawBridge Network", category: "meal_donation", cost: 100, stock: null },
+  { id: 4, title: "PawBridge tote + sticker pack", description: "Official merch to show your rescue pride.", partner: "PawBridge Network", category: "merchandise", cost: 500, stock: 20 },
 ];
 
 /** Karma earned by the demo persona (Sara Chowdhury) from the seed ledger. */

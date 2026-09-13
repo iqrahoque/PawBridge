@@ -291,7 +291,7 @@ export function HomeScreen({
       <section className="bg-paper border-t">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <SectionHead
-            title="How PetCare works"
+            title="How PawBridge works"
             sub="From listing to adoption to follow-up care."
           />
           <div className="mt-7 grid gap-4 sm:grid-cols-3">

@@ -1,4 +1,4 @@
-# 🐾 PetCare
+# 🐾 PetCare (web brand: **PawBridge**)
 
 > **Adopt. Donate. Heal.**
 > A database-driven platform that connects adopters, shelters, veterinary clinics and donors — helping dogs & cats in Bangladesh find homes, funds and medical care.

@@ -323,7 +323,7 @@ export function RescueScreen() {
                 {[
                   { name: "Bangladesh Animal Hospital", meta: "24h emergency · Banani", phone: "+880 2 900 0002" },
                   { name: "Care & Cure Veterinary Clinic", meta: "blood bank on site · Gulshan 2", phone: "+880 2 900 0001" },
-                  { name: "PetCare Plus Vet Clinic", meta: "low-cost treatment · Mirpur 10", phone: "+880 2 900 0003" },
+                  { name: "PawBridge Plus Vet Clinic", meta: "low-cost treatment · Mirpur 10", phone: "+880 2 900 0003" },
                 ].map((c) => (
                   <div key={c.name} className="flex items-center justify-between gap-2 rounded-xl border p-3">
                     <div>
@@ -378,7 +378,7 @@ export function RescueScreen() {
           </div>
           <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
             <PawPrint className="h-3.5 w-3.5 text-primary" />
-            Backed by the rescue_reports + rescue_responders tables in the PetCare MySQL schema.
+            Backed by the rescue_reports + rescue_responders tables in the PawBridge MySQL schema.
           </p>
         </section>
       </div>
