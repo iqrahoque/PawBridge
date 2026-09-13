@@ -14,6 +14,10 @@ import { cn } from "@/lib/utils";
 
 export function CampaignsScreen() {
   const myDonations = usePetCare((s) => s.donations);
+  const claimedLegs = usePetCare((s) => s.claimedLegs);
+  const sponsoredPets = usePetCare((s) => s.sponsoredPets);
+  const claimTransportLeg = usePetCare((s) => s.claimTransportLeg);
+  const sponsorPet = usePetCare((s) => s.sponsorPet);
   const [donateFor, setDonateFor] = useState<number | null>(null);
 
   const allDonations = [
@@ -164,37 +168,38 @@ export function CampaignsScreen() {
               </Badge>
             </div>
             <div className="mt-4 space-y-2">
-              {transportMission.legs.map((l) => (
-                <div
-                  key={l.leg}
-                  className={cn(
-                    "flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 transition-colors",
-                    l.status === "claimed" ? "border-leaf-200 bg-leaf-50/60" : "bg-white"
-                  )}
-                >
-                  <p className="flex items-center gap-2 text-sm font-medium">
-                    <Route className="h-4 w-4 text-primary" />
-                    Leg {l.leg}: {l.from} → {l.to}
-                    <span className="text-xs text-muted-foreground">({l.km} km)</span>
-                  </p>
-                  {l.status === "claimed" ? (
-                    <Badge variant="outline" className="border-leaf-200 bg-leaf-50 text-leaf-800">
-                      Driver: {l.driver}
-                    </Badge>
-                  ) : (
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="rounded-lg"
-                      onClick={() =>
-                        usePetCare.getState().earnKarma(`Drove transport leg ${l.leg} (${l.from}→${l.to})`, 75)
-                      }
-                    >
-                      Claim this leg (+75 karma)
-                    </Button>
-                  )}
-                </div>
-              ))}
+              {transportMission.legs.map((l) => {
+                const claimed = l.status === "claimed" || claimedLegs.includes(l.leg);
+                return (
+                  <div
+                    key={l.leg}
+                    className={cn(
+                      "flex flex-wrap items-center justify-between gap-2 rounded-xl border p-3 transition-colors",
+                      claimed ? "border-leaf-200 bg-leaf-50/60" : "bg-white"
+                    )}
+                  >
+                    <p className="flex items-center gap-2 text-sm font-medium">
+                      <Route className="h-4 w-4 text-primary" />
+                      Leg {l.leg}: {l.from} → {l.to}
+                      <span className="text-xs text-muted-foreground">({l.km} km)</span>
+                    </p>
+                    {claimed ? (
+                      <Badge variant="outline" className="border-leaf-200 bg-leaf-50 text-leaf-800">
+                        Driver: {l.status === "claimed" ? l.driver : "Sara Chowdhury (you)"}
+                      </Badge>
+                    ) : (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="rounded-lg"
+                        onClick={() => claimTransportLeg(l.leg)}
+                      >
+                        Claim this leg (+75 karma)
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -213,6 +218,7 @@ export function CampaignsScreen() {
           ].map(({ petId, sponsor, monthly }) => {
             const pet = pets.find((p) => p.id === petId);
             if (!pet) return null;
+            const sponsoring = sponsoredPets.includes(petId);
             return (
               <Card key={petId} className="shadow-soft">
                 <CardContent className="flex items-center gap-4 p-4">
@@ -225,11 +231,12 @@ export function CampaignsScreen() {
                   </div>
                   <Button
                     size="sm"
-                    variant="outline"
+                    variant={sponsoring ? "default" : "outline"}
                     className="rounded-lg"
-                    onClick={() => usePetCare.getState().earnKarma(`Started virtual fostering ${pet.name}`, 60)}
+                    disabled={sponsoring}
+                    onClick={() => sponsorPet(petId, pet.name)}
                   >
-                    Sponsor too
+                    {sponsoring ? "You're a sponsor" : "Sponsor too"}
                   </Button>
                 </CardContent>
               </Card>

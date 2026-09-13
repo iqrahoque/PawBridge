@@ -16,6 +16,7 @@ import {
   daysWaiting,
   ageLabel,
   shelterName,
+  fmtDate,
 } from "@/data/seed";
 import { seedDonations } from "@/data/seed";
 import type { MyDonation } from "@/lib/store";
@@ -79,7 +80,7 @@ export function PetCard({
   onFavorite: () => void;
 }) {
   return (
-    <Card className="group overflow-hidden pt-0 gap-0 shadow-soft">
+    <Card className="group relative overflow-hidden pt-0 gap-0 shadow-soft">
       <button onClick={onOpen} className="text-left w-full cursor-pointer" aria-label={`Open ${pet.name}'s profile`}>
         <div className="relative">
           <PetPhoto pet={pet} className="h-44 w-full" />
@@ -199,7 +200,7 @@ export function CampaignCard({
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>{donorCount} donors</span>
             <span>
-              {campaign.status === "completed" ? "Completed" : `Ends ${campaign.endsAt.slice(0, 10)}`}
+              {campaign.status === "completed" ? "Completed" : `Ends ${fmtDate(campaign.endsAt)}`}
             </span>
           </div>
           <button

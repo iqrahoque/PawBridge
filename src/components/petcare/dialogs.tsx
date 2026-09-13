@@ -36,6 +36,14 @@ export function AdoptDialog({ pet, open, onClose }: { pet: Pet; open: boolean; o
   const [message, setMessage] = useState("");
   const [done, setDone] = useState(false);
 
+  // Fresh form every time the dialog opens (component itself stays mounted).
+  // Render-time state adjustment — the pattern recommended over useEffect.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) setDone(false);
+  }
+
   const submit = () => {
     if (!name.trim() || !message.trim()) {
       toast({ title: "Almost there", description: "Please add your name and a short message to the shelter." });
@@ -120,7 +128,7 @@ export function AdoptDialog({ pet, open, onClose }: { pet: Pet; open: boolean; o
                 type="checkbox"
                 checked={experience}
                 onChange={(e) => setExperience(e.target.checked)}
-                className="h-4 w-4 accent-[#7C3AED]"
+                className="h-4 w-4 accent-[#06a2be]"
               />
               I have experience caring for pets
             </label>
@@ -172,6 +180,13 @@ export function DonateDialog({
   const [anonymous, setAnonymous] = useState(false);
   const [method, setMethod] = useState<"bkash" | "nagad" | "card" | "bank" | "cash">("bkash");
   const [done, setDone] = useState(false);
+
+  // Fresh form every time the dialog opens (component itself stays mounted)
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) setDone(false);
+  }
 
   const seedRaised = useMemo(
     () => seedDonations.filter((d) => d.campaignId === campaignId).reduce((s, d) => s + d.amount, 0),

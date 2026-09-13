@@ -62,6 +62,10 @@ export function HomeScreen({
 
   const search = () => {
     const q = query.trim().toLowerCase();
+    if (!q) {
+      onNavigate("pets");
+      return;
+    }
     const match = pets.find(
       (p) =>
         p.name.toLowerCase().includes(q) ||
@@ -93,7 +97,7 @@ export function HomeScreen({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && search()}
-                  placeholder="Search by name, breed or species"
+                  placeholder="Search by name or breed"
                   className="w-full bg-transparent text-sm outline-none placeholder:text-ink-400"
                   aria-label="Search pets"
                 />

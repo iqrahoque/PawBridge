@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { personaSeedKarma } from "@/data/seed";
 
 /**
  * Client-side "database" for the GitHub Pages demo.
@@ -93,11 +94,17 @@ interface PetCareState {
   lostReports: MyLostReport[];
   donors: MyDonor[];
   rescueReports: MyRescueReport[];
-  rescuedAlerts: Record<number, "rescued" | "closed">; // overrides for seeded rescue alerts
+  // overrides for seeded rescue alerts (responding marks the claim phase)
+  rescuedAlerts: Record<number, "responding" | "rescued" | "closed">;
   rescueResponders: Record<number, string[]>; // extra responders joined per alert id
   matchDecisions: Record<string, "confirmed" | "dismissed">;
   petStatusOverrides: Record<number, "available" | "pending" | "adopted" | "medical_hold" | "fostered">;
-  karmaEarned: number; // session karma on top of the seeded persona total
+  // status changes made to SEEDED applications from the shelter inbox
+  seedAppOverrides: Record<number, "approved" | "rejected">;
+  claimedLegs: number[]; // transport relay legs claimed by the persona
+  sponsoredPets: number[]; // virtual fostering pledges
+  notifiedDonors: string[]; // blood bank "I can come in" per `${requestId}-${donorId}`
+  karmaEarned: number; // session karma on top of the seeded persona total (goes negative when seeded points are redeemed)
   karmaLog: { action: string; points: number }[];
 
   addApplication: (a: Omit<MyApplication, "id" | "date" | "status">) => void;
@@ -112,15 +119,21 @@ interface PetCareState {
   markRescueClosed: (id: number) => void;
   decideMatch: (lostId: number, foundId: number, decision: "confirmed" | "dismissed") => void;
   decideApplication: (id: number, decision: "approved" | "rejected", petId: number) => void;
+  claimTransportLeg: (leg: number) => void;
+  sponsorPet: (petId: number, petName: string) => void;
+  notifyDonor: (key: string) => void;
   earnKarma: (action: string, points: number) => void;
   spendKarma: (rewardTitle: string, points: number) => boolean;
   resetDemo: () => void;
 }
 
-let nextId = 1000;
-const uid = () => ++nextId;
+// Time-based ids survive page reloads (a module counter would reset and
+// collide with ids already persisted in localStorage).
+const uid = () => Date.now() + Math.floor(Math.random() * 100);
 const today = () => new Date().toISOString().slice(0, 10);
 const PERSONA_NAME = "Sara Chowdhury";
+/** Full karma balance = MySQL-seeded points + everything done in the demo. */
+export const totalKarma = (earned: number) => personaSeedKarma + earned;
 
 export const usePetCare = create<PetCareState>()(
   persist(
@@ -136,6 +149,10 @@ export const usePetCare = create<PetCareState>()(
       rescueResponders: {},
       matchDecisions: {},
       petStatusOverrides: {},
+      seedAppOverrides: {},
+      claimedLegs: [],
+      sponsoredPets: [],
+      notifiedDonors: [],
       karmaEarned: 0,
       karmaLog: [],
 
@@ -198,13 +215,26 @@ export const usePetCare = create<PetCareState>()(
       },
 
       respondToRescue: (id) => {
-        // Seeded alerts get their responder recorded separately
         if (id < 1000) {
+          // Seeded alert: record the responder and move the case to "responding"
+          // so the "Secured" action becomes available.
           set((s) => ({
             rescueResponders: {
               ...s.rescueResponders,
               [id]: [...(s.rescueResponders[id] ?? []), PERSONA_NAME],
             },
+            rescuedAlerts: s.rescuedAlerts[id]
+              ? s.rescuedAlerts
+              : { ...s.rescuedAlerts, [id]: "responding" as const },
+          }));
+        } else {
+          // Own posted alert: record responder + flip to responding
+          set((s) => ({
+            rescueReports: s.rescueReports.map((r) =>
+              r.id === id && !r.responders.includes(PERSONA_NAME)
+                ? { ...r, responders: [...r.responders, PERSONA_NAME], status: "responding" as const }
+                : r
+            ),
           }));
         }
         get().earnKarma("Responding to a rescue alert", 40);
@@ -216,7 +246,9 @@ export const usePetCare = create<PetCareState>()(
         } else {
           set((s) => ({
             rescueReports: s.rescueReports.map((r) =>
-              r.id === id ? { ...r, status: "rescued" as const } : r
+              r.id === id && r.status !== "rescued" && r.status !== "closed"
+                ? { ...r, status: "rescued" as const }
+                : r
             ),
           }));
         }
@@ -229,7 +261,7 @@ export const usePetCare = create<PetCareState>()(
         } else {
           set((s) => ({
             rescueReports: s.rescueReports.map((r) =>
-              r.id === id ? { ...r, status: "closed" as const } : r
+              r.id === id && r.status !== "closed" ? { ...r, status: "closed" as const } : r
             ),
           }));
         }
@@ -246,10 +278,21 @@ export const usePetCare = create<PetCareState>()(
       },
 
       decideApplication: (id, decision, petId) => {
+        const isSeed = id < 1000;
+        // Idempotent: an application can only be decided once (no repeat karma,
+        // and seed-inbox rows must disappear from the pending list).
+        const current = isSeed
+          ? get().seedAppOverrides[id]
+          : get().applications.find((a) => a.id === id)?.status;
+        if (current === "approved" || current === "rejected") return;
+
         set((s) => ({
-          applications: s.applications.map((a) =>
-            a.id === id ? { ...a, status: decision } : a
-          ),
+          applications: isSeed
+            ? s.applications
+            : s.applications.map((a) => (a.id === id ? { ...a, status: decision } : a)),
+          seedAppOverrides: isSeed
+            ? { ...s.seedAppOverrides, [id]: decision }
+            : s.seedAppOverrides,
           petStatusOverrides: {
             ...s.petStatusOverrides,
             [petId]: decision === "approved" ? ("adopted" as const) : ("available" as const),
@@ -267,12 +310,32 @@ export const usePetCare = create<PetCareState>()(
         })),
 
       spendKarma: (rewardTitle, points) => {
-        if (get().karmaEarned < points) return false;
+        // The spendable balance includes the MySQL-seeded points, so redemptions
+        // must be able to draw them down too (karmaEarned goes negative) —
+        // otherwise a fresh user could never redeem anything.
+        if (totalKarma(get().karmaEarned) < points) return false;
         set((s) => ({
           karmaEarned: s.karmaEarned - points,
           karmaLog: [{ action: `Redeemed: ${rewardTitle}`, points: -points }, ...s.karmaLog],
         }));
         return true;
+      },
+
+      claimTransportLeg: (leg) => {
+        if (get().claimedLegs.includes(leg)) return;
+        set((s) => ({ claimedLegs: [...s.claimedLegs, leg] }));
+        get().earnKarma(`Volunteered for transport leg ${leg}`, 75);
+      },
+
+      sponsorPet: (petId, petName) => {
+        if (get().sponsoredPets.includes(petId)) return;
+        set((s) => ({ sponsoredPets: [...s.sponsoredPets, petId] }));
+        get().earnKarma(`Started virtual fostering ${petName}`, 60);
+      },
+
+      notifyDonor: (key) => {
+        if (get().notifiedDonors.includes(key)) return;
+        set((s) => ({ notifiedDonors: [...s.notifiedDonors, key] }));
       },
 
       resetDemo: () =>
@@ -288,10 +351,14 @@ export const usePetCare = create<PetCareState>()(
           rescueResponders: {},
           matchDecisions: {},
           petStatusOverrides: {},
+          seedAppOverrides: {},
+          claimedLegs: [],
+          sponsoredPets: [],
+          notifiedDonors: [],
           karmaEarned: 0,
           karmaLog: [],
         }),
     }),
-    { name: "petcare-demo-v2", storage: createJSONStorage(() => localStorage) }
+    { name: "petcare-demo-v3", storage: createJSONStorage(() => localStorage) }
   )
 );

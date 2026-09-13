@@ -163,11 +163,11 @@ export function VetsScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) 
               </p>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" className="rounded-xl" onClick={() => onNavigate("blood")}>
+          <div className="flex w-full flex-wrap gap-2 sm:w-auto">
+            <Button variant="outline" className="flex-1 rounded-xl sm:flex-none" onClick={() => onNavigate("blood")}>
               Open blood bank
             </Button>
-            <Button className="rounded-xl" onClick={() => setRegOpen(true)}>
+            <Button className="flex-1 rounded-xl sm:flex-none" onClick={() => setRegOpen(true)}>
               Register my donor pet
             </Button>
           </div>

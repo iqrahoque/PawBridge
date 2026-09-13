@@ -21,8 +21,9 @@ import type { MyDonor } from "@/lib/store";
 
 export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
   const myDonors = usePetCare((s) => s.donors);
+  const notified = usePetCare((s) => s.notifiedDonors);
+  const notifyDonor = usePetCare((s) => s.notifyDonor);
   const [regOpen, setRegOpen] = useState(false);
-  const [notified, setNotified] = useState<string[]>([]);
 
   const allDonors = [
     ...myDonors,
@@ -126,7 +127,7 @@ export function BloodScreen({ onNavigate }: { onNavigate: (s: Screen) => void })
                               className="rounded-lg"
                               disabled={notified.includes(`${r.id}-${d.id}`) || d.eligible !== "eligible"}
                               onClick={() => {
-                                setNotified((n) => [...n, `${r.id}-${d.id}`]);
+                                notifyDonor(`${r.id}-${d.id}`);
                                 usePetCare.getState().earnKarma(
                                   `Responded to blood request with ${d.petName}`,
                                   120

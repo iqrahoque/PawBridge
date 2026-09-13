@@ -301,26 +301,28 @@ function PetDetail({
           </Accordion>
 
           {/* Sticky-ish action bar */}
-          <div className="sticky bottom-4 flex items-center gap-3 rounded-2xl border bg-white p-3 shadow-soft">
-            <div className="flex-1 pl-1">
+          <div className="sticky bottom-4 rounded-2xl border bg-white p-3 shadow-soft sm:flex sm:items-center sm:gap-3">
+            <div className="mb-2.5 sm:mb-0 sm:flex-1 sm:pl-1">
               <p className="text-sm font-semibold">Ready to meet {pet.name}?</p>
               <p className="text-xs text-muted-foreground">Applications go straight to the shelter.</p>
             </div>
-            <Button
-              variant="outline"
-              className="rounded-xl border-primary/30 text-primary hover:bg-accent"
-              onClick={() => onNavigate("campaigns")}
-            >
-              Donate instead
-            </Button>
-            <Button
-              className="rounded-xl"
-              onClick={() => setAdoptOpen(true)}
-              disabled={pet.status === "adopted"}
-            >
-              <Heart className="h-4 w-4" />
-              {pet.status === "adopted" ? "Already adopted" : "Adopt me"}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="flex-1 rounded-xl border-primary/30 text-primary hover:bg-accent sm:flex-none"
+                onClick={() => onNavigate("campaigns")}
+              >
+                Donate instead
+              </Button>
+              <Button
+                className="flex-1 rounded-xl sm:flex-none"
+                onClick={() => setAdoptOpen(true)}
+                disabled={pet.status === "adopted"}
+              >
+                <Heart className="h-4 w-4" />
+                {pet.status === "adopted" ? "Already adopted" : "Adopt me"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

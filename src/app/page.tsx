@@ -35,7 +35,9 @@ export default function Page() {
 
   const navigate = (s: Screen, opts?: { species?: Species }) => {
     setScreen(s);
-    if (s !== "pets") setSelectedPetId(null);
+    // Opening the Adopt screen from the nav always shows the list — only an
+    // explicit species jump (home hero chips) pre-sets the filter.
+    if (s !== "pets" || !opts?.species) setSelectedPetId(null);
     if (opts?.species) setSpeciesFilter(opts.species);
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   };

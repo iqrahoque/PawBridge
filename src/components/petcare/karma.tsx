@@ -32,6 +32,11 @@ export function KarmaScreen() {
         title: "Reward redeemed!",
         description: `${title} — voucher PMC-${Math.random().toString(36).slice(2, 6).toUpperCase()} sent to your email. (-${cost} karma)`,
       });
+    } else {
+      toast({
+        title: "Not enough karma",
+        description: `You need ${cost - myTotal} more points for "${title}".`,
+      });
     }
   };
 
@@ -63,8 +68,8 @@ export function KarmaScreen() {
               </Badge>
             </div>
             <p className="mt-4 text-xs text-white/60">
-              Seeded from the MySQL karma_ledger ({personaSeedKarma} pts) + everything you do in this
-              demo ({karmaEarned} pts this session).
+              Seeded from the MySQL karma_ledger ({personaSeedKarma} pts) + your demo activity, net
+              of redemptions ({karmaEarned >= 0 ? "+" : ""}{karmaEarned} pts).
             </p>
 
             {karmaLog.length > 0 && (

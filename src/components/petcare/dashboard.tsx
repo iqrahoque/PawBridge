@@ -18,6 +18,17 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   pets as seedPets,
@@ -41,6 +52,8 @@ export function DashboardScreen() {
   const myDonations = usePetCare((s) => s.donations);
   const favorites = usePetCare((s) => s.favorites);
   const overrides = usePetCare((s) => s.petStatusOverrides);
+  const seedAppOverrides = usePetCare((s) => s.seedAppOverrides);
+  const karmaEarned = usePetCare((s) => s.karmaEarned);
   const decideApplication = usePetCare((s) => s.decideApplication);
   const resetDemo = usePetCare((s) => s.resetDemo);
 
@@ -53,8 +66,11 @@ export function DashboardScreen() {
   const residents = pets.filter((p) => p.status !== "adopted").length;
   const capacity = shelters.reduce((s, sh) => s + sh.capacity, 0);
   const utilization = Math.round((residents / capacity) * 100);
-  const pendingInbox = [...myApplications.map((a) => ({ ...a, petId: a.petId, applicant: a.applicant, date: a.date })),
-    ...seedApplications].filter((a) => a.status === "submitted" || a.status === "under_review");
+  const effStatus = (id: number, fallback: string) => seedAppOverrides[id] ?? fallback;
+  const pendingInbox = [
+    ...myApplications.map((a) => ({ ...a, petId: a.petId, applicant: a.applicant, date: a.date })),
+    ...seedApplications.map((a) => ({ ...a, status: effStatus(a.id, a.status) })),
+  ].filter((a) => a.status === "submitted" || a.status === "under_review");
   const raisedTotal =
     seedDonations.reduce((s, d) => s + d.amount, 0) + myDonations.reduce((s, d) => s + d.amount, 0);
 
@@ -64,9 +80,32 @@ export function DashboardScreen() {
         <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
           <LayoutDashboard className="h-7 w-7 text-primary" /> Dashboard
         </h1>
-        <Button variant="outline" size="sm" className="rounded-lg text-ink-600" onClick={resetDemo}>
-          Reset demo data
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline" size="sm" className="rounded-lg text-ink-600">
+              Reset demo data
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Reset all demo data?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This clears everything you did in this demo — applications, donations, rescue
+                reports, karma and favorites — and restores the original seed. It cannot be
+                undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Keep my data</AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-danger-500 text-white hover:bg-danger-600"
+                onClick={resetDemo}
+              >
+                Reset everything
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       <Tabs defaultValue="adopter" className="mt-6">
@@ -81,10 +120,10 @@ export function DashboardScreen() {
 
         {/* ------------------------------ ADOPTER ------------------------------ */}
         <TabsContent value="adopter" className="mt-6 space-y-6">
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             <StatTile icon={ClipboardList} label="My applications" value={String(myApplications.length + 1)} hint="incl. Mishti (approved)" />
             <StatTile icon={HandCoins} label="My donations" value={bdt(myDonations.reduce((s, d) => s + d.amount, 0))} hint="this demo session" />
-            <StatTile icon={TrendingUp} label="Karma balance" value={String(personaSeedKarma + usePetCare.getState().karmaEarned)} hint="+25 per application, +1/৳100" />
+            <StatTile icon={TrendingUp} label="Karma balance" value={String(personaSeedKarma + karmaEarned)} hint="+25 per application, +1/৳100" />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
@@ -106,7 +145,7 @@ export function DashboardScreen() {
                       id: a.id,
                       petId: a.petId,
                       petName: seedPets.find((p) => p.id === a.petId)?.name ?? "Pet",
-                      status: a.status,
+                      status: effStatus(a.id, a.status),
                       date: a.date,
                       note: a.decisionNote,
                     })),
@@ -283,8 +322,8 @@ export function DashboardScreen() {
           <Card className="shadow-soft">
             <CardContent className="p-5">
               <h2 className="font-bold">My pets ({pets.length})</h2>
-              <div className="mt-3 max-h-96 overflow-y-auto rounded-xl border scroll-slim">
-                <table className="w-full text-sm">
+              <div className="mt-3 max-h-96 overflow-x-auto overflow-y-auto rounded-xl border scroll-slim">
+                <table className="w-full min-w-[560px] text-sm">
                   <thead className="sticky top-0 bg-secondary">
                     <tr className="text-left text-xs uppercase tracking-wide text-ink-500">
                       <th className="px-4 py-2.5 font-semibold">Pet</th>
