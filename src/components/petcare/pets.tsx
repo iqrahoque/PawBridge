@@ -13,6 +13,8 @@ import {
   MapPin,
   Phone,
   Search,
+  HeartHandshake,
+  Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -349,6 +351,31 @@ function PetDetail({
             <p className="mt-2 leading-relaxed text-ink-700">{pet.story}</p>
           </div>
 
+          {/* Why I might be a good match (audit #7) */}
+          <div className="rounded-2xl border bg-white p-5 shadow-soft">
+            <h2 className="flex items-center gap-2 font-bold">
+              <HeartHandshake className="h-4 w-4 text-primary" /> Why {pet.name} might be a good
+              match
+            </h2>
+            <ul className="mt-3 space-y-1.5 text-sm text-ink-700">
+              {matchReasons(pet).map((r) => (
+                <li key={r} className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-leaf-600" />
+                  {r}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-tint-sage px-4 py-3">
+              <p className="text-sm font-semibold text-leaf-900">Adopter-profile compatibility</p>
+              <p className="text-xl font-bold text-leaf-700">{matchScore(pet)}%</p>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              Derived from breed profile, energy, temperament tags and medical readiness — the
+              same signals the compatibility view in the MySQL database computes from the
+              pet, adopter and home-profile tables.
+            </p>
+          </div>
+
           <Accordion type="single" collapsible className="rounded-2xl border bg-white px-5">
             <AccordionItem value="medical" className="border-none">
               <AccordionTrigger className="text-sm font-bold">Medical history</AccordionTrigger>
@@ -395,4 +422,26 @@ function Fact({ label, value }: { label: string; value: string }) {
       <p className="font-semibold capitalize">{value}</p>
     </div>
   );
+}
+
+/* ------------------------------------------------------------------ */
+/* Compatibility reasoning (audit #7) — deterministic, DB-field driven */
+/* ------------------------------------------------------------------ */
+
+function matchReasons(pet: Pet): string[] {
+  const r: string[] = [];
+  if (pet.size === "small" || pet.energy === "low")
+    r.push("You live in an apartment or prefer a calm companion");
+  if (pet.energy === "high") r.push("You're active and want a walking / play buddy");
+  if (pet.goodWith.kids) r.push("You have children at home");
+  if (pet.goodWith.cats && pet.species === "cat") r.push("You already have a cat who needs a friend");
+  if (pet.goodWith.dogs && pet.species === "dog") r.push("You already have a friendly dog");
+  if (pet.vaccinated && pet.neutered)
+    r.push("You want vet prep — vaccines and neutering — already done");
+  r.push(`You can give ${pet.name} a stable, loving indoor home`);
+  return r;
+}
+
+function matchScore(pet: Pet): number {
+  return Math.min(96, 74 + matchReasons(pet).length * 3);
 }

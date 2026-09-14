@@ -222,7 +222,7 @@ export const clinics: Clinic[] = [
     address: "Road 41, Gulshan 2, Dhaka",
     phone: "+880 2 900 0001",
     hours: "Sat–Thu 9:00–21:00 · Fri 15:00–20:00",
-    services: ["surgery", "vaccination", "blood bank", "dental", "diagnostics"],
+    services: ["surgery", "vaccination", "blood bank", "dental", "diagnostics", "deworming", "skin & coat"],
     emergency: true,
     lowCost: false,
     verified: true,
@@ -264,8 +264,8 @@ export const clinics: Clinic[] = [
     area: "Mirpur 10",
     address: "Ring Road, Mirpur 10, Dhaka",
     phone: "+880 2 900 0003",
-    hours: "Sat–Thu 10:00–19:00",
-    services: ["vaccination", "low-cost spay/neuter", "general checkup"],
+    hours: "Sat–Thu 15:00–19:00",
+    services: ["vaccination", "low-cost spay/neuter", "general checkup", "deworming"],
     emergency: false,
     lowCost: true,
     verified: false,
@@ -1245,3 +1245,58 @@ export const fmtDate = (iso: string) => {
 
 export const daysUntil = (iso: string) =>
   Math.ceil((new Date(iso).getTime() - TODAY.getTime()) / 86400000);
+
+/* ------------------------------------------------------------------ */
+/* Happy Tails — real outcomes from the seed workflows (audit #19)     */
+/* ------------------------------------------------------------------ */
+
+export interface HappyTail {
+  id: number;
+  petName: string;
+  title: string;
+  story: string;
+  before: string;
+  after: string;
+  photo: string;
+  species: Species;
+  badge: string;
+}
+
+export const happyTails: HappyTail[] = [
+  {
+    id: 1,
+    petName: "Max",
+    title: "From the Airport Road median to a second chance",
+    story:
+      "Max was hit by a car on Airport Road with a shattered hind leg. Donors funded the surgery, the implants and two rounds of physiotherapy — today he zooms across the shelter yard, then naps on your feet, waiting for a home of his own.",
+    before: "Fractured leg, stranded in traffic",
+    after: "Fully healed, vet-cleared, up for adoption",
+    photo: "/images/pets/max.jpg",
+    species: "dog",
+    badge: "Surgery funded",
+  },
+  {
+    id: 2,
+    petName: "Pihu",
+    title: "The kitten who beat panleukopenia",
+    story:
+      "Pihu contracted panleukopenia at 7 months old — a disease most street kittens don't survive. The ICU team fought for her with IV fluids and round-the-clock care, and PawBridge donors covered every taka. She tested negative in March and gains weight every day.",
+    before: "ICU, IV fluids, critical for weeks",
+    after: "Tested negative — recovering strong",
+    photo: "/images/pets/pihu.jpg",
+    species: "cat",
+    badge: "Treatment funded",
+  },
+  {
+    id: 3,
+    petName: "Simba",
+    title: "Lost at the lake, home within days",
+    story:
+      "When Simba slipped out in Dhanmondi, Sara filed a lost report the same night. PawBridge's matching engine flagged a found orange tabby near the lake gate — 87.5% confidence, same ear notch, same love of chipped rice. One confirmation later, he was back on her lap.",
+    before: "Missing near Dhanmondi Lake",
+    after: "Reunited via an 87.5% match",
+    photo: "/images/lostfound/simba.jpg",
+    species: "cat",
+    badge: "Reunited",
+  },
+];

@@ -1,6 +1,6 @@
 "use client";
 
-import { Coins, Gift, Trophy, History } from "lucide-react";
+import { Coins, Gift, Trophy, History, PawPrint, Droplets, HandCoins } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,20 @@ export function KarmaScreen() {
   const { toast } = useToast();
 
   const myTotal = personaSeedKarma + karmaEarned;
+
+  // Impact-first framing (audit #11): deeds before points
+  const myDeeds = [
+    ...seedKarma.filter((k) => k.userName === PERSONA).map((k) => k.action),
+    ...karmaLog.filter((l) => l.points > 0).map((l) => l.action),
+  ];
+  const bloodDeeds = myDeeds.filter((a) => /blood/i.test(a)).length;
+  const fosterDeeds = myDeeds.filter((a) => /foster|transport|rescue/i.test(a)).length;
+  const impactStats = [
+    { label: "Good deeds logged", value: String(myDeeds.length), Icon: PawPrint },
+    { label: "Blood donor actions", value: String(bloodDeeds), Icon: Droplets },
+    { label: "Foster & transport help", value: String(fosterDeeds), Icon: HandCoins },
+    { label: "Paw Points earned", value: myTotal.toLocaleString("en-IN"), Icon: Coins },
+  ];
 
   const leaderboard = (() => {
     const totals: Record<string, number> = {};
@@ -46,12 +60,28 @@ export function KarmaScreen() {
       <section className="bg-tint-blue border-b border-brand2-100">
         <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
           <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight text-ink-800">
-            <Coins className="h-7 w-7 text-brand-600" /> Paw Points ledger
+            <PawPrint className="h-7 w-7 text-brand-600" /> Paw Impact
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Donations, adoptions, fostering, transport legs and rescue cases all earn points.
-            Redeem them with partner vets and stores, or convert them into shelter meals.
+            Your help isn&apos;t a score — it&apos;s animals fed, treatments funded and blood
+            matched. Every action lands in the impact ledger and earns Paw Points you can turn
+            into shelter meals and partner perks.
           </p>
+          <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {impactStats.map((s) => (
+              <Card key={s.label} className="border-brand2-100 bg-white/70 shadow-soft">
+                <CardContent className="flex items-center gap-3 p-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-tint-yellow">
+                    <s.Icon className="h-4 w-4 text-dog-yellow-deep" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-lg font-bold tracking-tight sm:text-xl">{s.value}</p>
+                    <p className="text-[11px] text-muted-foreground">{s.label}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 

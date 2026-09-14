@@ -23,13 +23,16 @@ import {
   clinics,
   shelters,
   bloodDonors,
+  bloodRequests,
   seedRescueAlerts,
+  happyTails,
   bdt,
   seedDonations,
+  daysUntil,
   type Screen,
 } from "@/data/seed";
 import { PetCard, CampaignCard, PetPhoto, SpeciesChip } from "./cards";
-import { daysWaiting } from "@/data/seed";
+import { daysWaiting, fmtAgo } from "@/data/seed";
 import type { MyDonation } from "@/lib/store";
 import { usePetCare } from "@/lib/store";
 
@@ -63,6 +66,22 @@ export function HomeScreen({
   const dogCount = available.filter((p) => p.species === "dog").length;
   const catCount = available.filter((p) => p.species === "cat").length;
   const donorOnRecord = bloodDonors.filter((d) => d.active).length;
+
+  // Urgent-right-now trio (audit #33): one surgery, one blood need, one rescue
+  const surgeryFund = campaigns.find((c) => c.id === 1)!;
+  const surgeryRaised =
+    seedDonations.filter((d) => d.campaignId === surgeryFund.id).reduce((s, d) => s + d.amount, 0) +
+    myDonations.filter((d) => d.campaignId === surgeryFund.id).reduce((s, d) => s + d.amount, 0);
+  const surgeryLeft = Math.max(0, surgeryFund.goal - surgeryRaised);
+  const bloodReq = bloodRequests.find((r) => r.status === "open");
+  const eligibleDonors = bloodReq
+    ? bloodDonors.filter(
+        (d) => d.active && d.species === bloodReq.species && d.bloodType === bloodReq.bloodType
+      ).length
+    : 0;
+  const criticalAlert = seedRescueAlerts.find(
+    (a) => a.urgency === "critical" && (a.status === "reported" || a.status === "responding")
+  );
 
   const search = () => {
     const q = query.trim().toLowerCase();
@@ -205,27 +224,67 @@ export function HomeScreen({
         </div>
       </section>
 
-      {/* Rescue strip */}
+      {/* Urgent right now (audit #33) */}
       <section className="mx-auto max-w-6xl px-4 -mt-7 sm:-mt-8">
-        <button
-          onClick={() => onNavigate("rescue")}
-          className="bg-rescue flex w-full cursor-pointer items-center gap-4 rounded-3xl border border-danger-200 p-5 text-left sm:p-6"
-        >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-danger-500 text-white">
-            <Siren className="h-6 w-6" />
-          </span>
-          <span className="flex-1">
-            <span className="block font-bold tracking-tight text-ink-800 sm:text-lg">
-              See an animal in danger?
-            </span>
-            <span className="mt-0.5 block text-sm text-ink-600">
-              Post an alert — nearby shelters and volunteers are notified and can take the case.
-            </span>
-          </span>
-          <span className="hidden shrink-0 items-center gap-1.5 rounded-xl bg-danger-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-danger-600 sm:inline-flex">
-            Open Rescue Network <ArrowRight className="h-4 w-4" />
-          </span>
-        </button>
+        <div className="rounded-3xl border border-danger-200 bg-rescue p-5 shadow-soft sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="flex items-center gap-2 text-lg font-bold tracking-tight text-danger-800">
+              <Siren className="h-5 w-5" /> Urgent right now
+            </p>
+            <button
+              onClick={() => onNavigate("rescue")}
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-danger-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-danger-600"
+            >
+              Report an animal <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <button
+              onClick={() => onNavigate("campaigns")}
+              className="cursor-pointer rounded-2xl border border-danger-100 bg-white p-4 text-left transition-shadow hover:shadow-lift"
+            >
+              <span className="rounded-full bg-brand2-100 px-2.5 py-1 text-[11px] font-bold text-brand2-800">
+                SURGERY FUND
+              </span>
+              <p className="mt-2 font-bold text-ink-800">Max&apos;s fracture surgery</p>
+              <p className="mt-0.5 text-sm text-ink-600">
+                <span className="font-bold text-danger-700">{bdt(surgeryLeft)} to go</span> · ends
+                in {daysUntil(surgeryFund.endsAt)} days
+              </p>
+            </button>
+            {bloodReq && (
+              <button
+                onClick={() => onNavigate("blood")}
+                className="cursor-pointer rounded-2xl border border-danger-100 bg-white p-4 text-left transition-shadow hover:shadow-lift"
+              >
+                <span className="rounded-full bg-danger-100 px-2.5 py-1 text-[11px] font-bold text-danger-800">
+                  BLOOD — CRITICAL
+                </span>
+                <p className="mt-2 font-bold text-ink-800">
+                  {bloodReq.bloodType} blood needed tonight
+                </p>
+                <p className="mt-0.5 text-sm text-ink-600">
+                  <span className="font-bold text-danger-700">{eligibleDonors} eligible donors</span>{" "}
+                  matched near the clinic
+                </p>
+              </button>
+            )}
+            {criticalAlert && (
+              <button
+                onClick={() => onNavigate("rescue")}
+                className="cursor-pointer rounded-2xl border border-danger-100 bg-white p-4 text-left transition-shadow hover:shadow-lift"
+              >
+                <span className="rounded-full bg-danger-100 px-2.5 py-1 text-[11px] font-bold text-danger-800">
+                  RESCUE — {criticalAlert.status === "responding" ? "RESPONDING" : "NO RESPONDER YET"}
+                </span>
+                <p className="mt-2 font-bold text-ink-800">Kitten trapped in a storm drain</p>
+                <p className="mt-0.5 text-sm text-ink-600">
+                  {criticalAlert.area.split(",")[0]} · reported {fmtAgo(criticalAlert.reportedAt)}
+                </p>
+              </button>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Streeties of Dhaka */}
@@ -386,6 +445,57 @@ export function HomeScreen({
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Happy Tails (audit #19) */}
+      <section className="bg-tint-yellow border-t border-brand-100">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <SectionHead
+            title="Happy Tails"
+            sub="Real outcomes from the rescue, treatment and matching workflows — every one of these is a row in the database."
+          />
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {happyTails.map((t) => (
+              <button
+                key={t.id}
+                onClick={() =>
+                  t.petName === "Max"
+                    ? onOpenPet(1)
+                    : t.petName === "Pihu"
+                      ? onOpenPet(8)
+                      : onNavigate("lostfound")
+                }
+                className="cursor-pointer text-left"
+              >
+                <Card className="h-full overflow-hidden pt-0 shadow-soft transition-shadow hover:shadow-lift">
+                  <div className="relative">
+                    <PetPhoto pet={{ name: t.petName, photo: t.photo }} className="h-44 w-full" />
+                    <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-leaf-800 shadow-sm">
+                      {t.badge}
+                    </span>
+                  </div>
+                  <CardContent className="p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-brand-500">
+                      {t.petName}&apos;s story
+                    </p>
+                    <h3 className="mt-1 font-bold leading-snug">{t.title}</h3>
+                    <p className="mt-1.5 line-clamp-3 text-sm leading-relaxed text-ink-600">
+                      {t.story}
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-1.5 text-[11px]">
+                      <span className="rounded-full bg-danger-50 px-2.5 py-1 font-medium text-danger-700">
+                        Before: {t.before}
+                      </span>
+                      <span className="rounded-full bg-leaf-50 px-2.5 py-1 font-medium text-leaf-800">
+                        After: {t.after}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </button>
             ))}
           </div>
         </div>

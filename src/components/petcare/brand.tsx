@@ -62,7 +62,7 @@ export function BrandMark({
 export function BrandTile({ className }: { className?: string }) {
   return (
     <span
-      className={`flex items-center justify-center rounded-2xl bg-brand-500 ${className ?? "h-9 w-9"}`}
+      className={`flex items-center justify-center rounded-2xl bg-ink-900 ${className ?? "h-9 w-9"}`}
     >
       <BrandMark tone="dark" className="h-[68%] w-[68%]" />
     </span>

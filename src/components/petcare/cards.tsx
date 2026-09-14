@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PawPrint, MapPin, Heart, Users, AlertTriangle, ArrowRight, Dog, Cat } from "lucide-react";
+import { PawPrint, MapPin, Heart, Users, ArrowRight, Dog, Cat, Syringe, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -14,6 +14,7 @@ import {
   type Campaign,
   bdt,
   daysWaiting,
+  daysUntil,
   ageLabel,
   shelterName,
   fmtDate,
@@ -40,6 +41,32 @@ export function StatusBadge({ status }: { status: PetStatus }) {
       {m.label}
     </Badge>
   );
+}
+
+/* ------------------------------------------------------------------ */
+/* Urgency hierarchy (audit #8) — not every animal is equally urgent   */
+/* ------------------------------------------------------------------ */
+
+export type PetUrgency = "medical" | "longterm" | "ready";
+
+export const PET_URGENCY_META: Record<PetUrgency, { label: string; cls: string }> = {
+  medical: { label: "Urgent medical", cls: "bg-danger-100 text-danger-800 border-danger-200" },
+  longterm: { label: "Long-term resident", cls: "bg-brand2-100 text-brand2-800 border-brand2-200" },
+  ready: { label: "Ready for adoption", cls: "bg-leaf-100 text-leaf-800 border-leaf-200" },
+};
+
+/** Derived urgency: medical holds go first, then long waiters, then ready pets. */
+export function petUrgency(pet: Pet): PetUrgency | null {
+  if (pet.status === "medical_hold") return "medical";
+  if (pet.status !== "available") return null; // pending/adopted/fostered keep the plain status
+  return daysWaiting(pet) >= 180 ? "longterm" : "ready";
+}
+
+export function PetUrgencyBadge({ pet }: { pet: Pet }) {
+  const key = petUrgency(pet);
+  if (!key) return <StatusBadge status={pet.status} />;
+  const m = PET_URGENCY_META[key];
+  return <Badge variant="outline" className={cn("gap-1 font-medium", m.cls)}>{m.label}</Badge>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -103,7 +130,7 @@ export function PetCard({
           <PetPhoto pet={pet} className="h-48 w-full" />
           <div className="absolute top-3 left-3 flex items-center gap-1.5">
             <SpeciesChip species={pet.species} />
-            <StatusBadge status={pet.status} />
+            <PetUrgencyBadge pet={pet} />
           </div>
         </div>
         <CardContent className="p-4">
@@ -121,8 +148,9 @@ export function PetCard({
           </p>
           <div className="mt-2 flex flex-wrap gap-1">
             {pet.goodWith.kids && <MiniChip icon={Users} label="Kids ok" />}
-            <MiniChip icon={PawPrint} label={pet.species === "dog" ? "Dogs ok" : "Cats ok"} />
-            {pet.vaccinated && <MiniChip icon={AlertTriangle} label="Vaccinated" />}
+            {pet.goodWith.dogs && <MiniChip icon={Dog} label="Dogs ok" />}
+            {pet.goodWith.cats && <MiniChip icon={Cat} label="Cats ok" />}
+            {pet.vaccinated && <MiniChip icon={Syringe} label="Vaccinated" />}
           </div>
           <span className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-brand-500 py-2 text-sm font-semibold text-[#fff9f2] transition-colors group-hover:bg-brand-600">
             Meet {pet.name} <ArrowRight className="h-4 w-4" />
@@ -219,9 +247,19 @@ export function CampaignCard({
             </span>
           </div>
           <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>{donorCount} donors</span>
             <span>
-              {campaign.status === "completed" ? "Completed" : `Ends ${fmtDate(campaign.endsAt)}`}
+              {donorCount === 1 ? "1 person has" : `${donorCount} people have`} helped
+            </span>
+            <span>
+              {campaign.status === "completed" ? (
+                "Completed"
+              ) : (
+                <span className={cn(daysUntil(campaign.endsAt) <= 21 && "font-semibold text-brand2-700")}>
+                  {daysUntil(campaign.endsAt) <= 0
+                    ? "Final hours"
+                    : `${daysUntil(campaign.endsAt)} days left`}
+                </span>
+              )}
             </span>
           </div>
           <button

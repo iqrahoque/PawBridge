@@ -60,7 +60,7 @@ export default function Page() {
             <p className="text-sm font-medium">Loading PawBridge…</p>
           </div>
         </main>
-        <Footer />
+        <Footer onNavigate={navigate} />
       </div>
     );
   }
@@ -88,7 +88,7 @@ export default function Page() {
         {screen === "karma" && <KarmaScreen />}
         {screen === "dashboard" && <DashboardScreen />}
       </main>
-      <Footer />
+      <Footer onNavigate={navigate} />
       <DonateDialog campaignId={donateFor ?? 1} open={donateFor !== null} onClose={() => setDonateFor(null)} />
       <EmergencyButton onNavigate={navigate} />
     </div>

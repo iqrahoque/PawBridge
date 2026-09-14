@@ -1,7 +1,11 @@
-# 🐾 PetCare (web brand: **PawBridge**)
+# 🐾 PawBridge
 
-> **Adopt. Donate. Heal.**
-> A database-driven platform that connects adopters, shelters, veterinary clinics and donors — helping dogs & cats in Bangladesh find homes, funds and medical care.
+<p align="center">
+  <img src="public/images/brand/logo-badge.png" alt="PawBridge logo — cat and dog forming a heart" width="120">
+</p>
+
+> **Adopt · Rescue · Heal** — every paw deserves a safe place to call home.
+> A database-driven platform that connects adopters, shelters, veterinary clinics and donors — helping Dhaka's streeties find homes, funds, blood and medical care.
 
 **🌐 Live demo:** https://iqrahoque.github.io/PawBridge/
 
@@ -9,7 +13,7 @@
 
 ## 📖 About
 
-Every year thousands of street dogs and cats in Dhaka (and across Bangladesh) wait for a family, while shelters struggle with funding and people who *want* to help don't know where to start. **PetCare** is a one-stop hub that solves this with three connected services:
+Every year thousands of street dogs and cats in Dhaka (and across Bangladesh) wait for a family, while shelters struggle with funding and people who *want* to help don't know where to start. **PawBridge** is a one-stop hub that solves this with three connected services:
 
 | Service | What it does |
 |---|---|
