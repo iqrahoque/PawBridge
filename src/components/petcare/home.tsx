@@ -182,7 +182,7 @@ export function HomeScreen({
               {[
                 { label: "Pets waiting for homes", value: String(availableCount), Icon: PawPrint },
                 { label: "Raised for treatment", value: bdt(totalRaised), Icon: HeartHandshake },
-                { label: "Shelters &amp; partners", value: String(shelters.length + clinics.length), Icon: House },
+                { label: "Shelters & partners", value: String(shelters.length + clinics.length), Icon: House },
                 { label: "Active blood donors", value: String(donorOnRecord), Icon: Droplets },
               ].map((s) => (
                 <Card key={s.label} className="border-brand-100 bg-[#fffdf9] shadow-soft">
