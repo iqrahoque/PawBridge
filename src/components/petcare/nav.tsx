@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BrandMark, BrandTile } from "./brand";
+import { BrandMark } from "./brand";
 import { NotificationsBell } from "./notifications";
 import { cn } from "@/lib/utils";
 import type { Screen } from "@/data/seed";
@@ -161,7 +161,8 @@ export function Nav({
           className="flex items-center gap-2.5 cursor-pointer"
           aria-label="PawBridge home"
         >
-          <BrandTile className="h-10 w-10 rounded-2xl" />
+          {/* Logo v5 — bare Duo Heart mark, no tile (option 5 of the tile variants) */}
+          <BrandMark tone="light" className="h-10 w-auto" />
           <span className="flex flex-col items-start leading-none">
             <span className="text-lg font-bold tracking-tight text-ink-800">PawBridge</span>
             <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-500">
@@ -221,7 +222,7 @@ export function Nav({
             </SheetTrigger>
             <SheetContent side="right" className="w-72 overflow-y-auto">
               <SheetTitle className="flex items-center gap-2">
-                <BrandTile className="h-8 w-8 rounded-lg" />
+                <BrandMark tone="light" className="h-8 w-auto" />
                 PawBridge
               </SheetTitle>
 
@@ -330,7 +331,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: Screen) => void }) {
         <div className="mt-9 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <BrandTile className="h-9 w-9 rounded-xl" />
+              <BrandMark tone="dark" className="h-9 w-auto" />
               <div className="flex flex-col leading-none">
                 <p className="font-bold tracking-tight text-white">PawBridge</p>
                 <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-300">

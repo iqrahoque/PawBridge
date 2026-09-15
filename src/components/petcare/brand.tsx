@@ -6,9 +6,12 @@
  * Vector source of truth: download/pawbridge-logos/concept-a-duo-heart*.svg
  *
  * tone="light" → forest cat + brown dog, for cream/white surfaces
- * tone="dark"  → cream cat + peach dog, for the brown brand tile / footer /
- *                dark surfaces. The rescue-red heart stays constant in both.
+ * tone="dark"  → cream cat + peach dog, for the forest footer / dark surfaces.
+ *                The rescue-red heart stays constant in both.
  * Echoes the favicon in src/app/layout.tsx and public/logo.svg.
+ *
+ * Logo v5 (current): the bare mark sits directly on the surface — no tile.
+ * BrandTile below is the v1 "cream badge" variant, kept for easy rollback.
  */
 
 const CAT_HEAD =
