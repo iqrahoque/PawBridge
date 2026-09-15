@@ -106,6 +106,8 @@ interface PetCareState {
   notifiedDonors: string[]; // blood bank "I can come in" per `${requestId}-${donorId}`
   karmaEarned: number; // session karma on top of the seeded persona total (goes negative when seeded points are redeemed)
   karmaLog: { action: string; points: number }[];
+  // notification center — ids the user has already seen (audit #26)
+  readNotifications: string[];
 
   addApplication: (a: Omit<MyApplication, "id" | "date" | "status">) => void;
   addDonation: (d: Omit<MyDonation, "id" | "date">) => void;
@@ -124,6 +126,7 @@ interface PetCareState {
   notifyDonor: (key: string) => void;
   earnKarma: (action: string, points: number) => void;
   spendKarma: (rewardTitle: string, points: number) => boolean;
+  markNotificationsRead: (ids: string[]) => void;
   resetDemo: () => void;
 }
 
@@ -155,6 +158,12 @@ export const usePetCare = create<PetCareState>()(
       notifiedDonors: [],
       karmaEarned: 0,
       karmaLog: [],
+      readNotifications: [],
+
+      markNotificationsRead: (ids) =>
+        set((s) => ({
+          readNotifications: [...new Set([...s.readNotifications, ...ids])],
+        })),
 
       addApplication: (a) => {
         const app: MyApplication = { ...a, id: uid(), date: today(), status: "submitted" };
@@ -357,6 +366,7 @@ export const usePetCare = create<PetCareState>()(
           notifiedDonors: [],
           karmaEarned: 0,
           karmaLog: [],
+          readNotifications: [],
         }),
     }),
     { name: "petcare-demo-v3", storage: createJSONStorage(() => localStorage) }

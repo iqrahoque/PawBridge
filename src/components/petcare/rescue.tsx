@@ -32,6 +32,8 @@ import {
 } from "@/data/seed";
 import { usePetCare, type MyRescueReport } from "@/lib/store";
 import { RescueDialog } from "./dialogs";
+import { RescueScenarios, RescueDecisionTree } from "./rescue-guide";
+import { RescueNetworkMap, type MapCase } from "./rescue-map";
 import { cn } from "@/lib/utils";
 
 const URGENCY_ORDER = { critical: 0, urgent: 1, standard: 2 } as const;
@@ -76,6 +78,19 @@ export function RescueScreen() {
   const needsResponders = alerts.filter((a) => a.status === "reported").length;
   const rescuedCount = alerts.filter((a) => a.status === "rescued").length;
   const closedCount = alerts.filter((a) => a.status === "closed").length;
+
+  // Map data (audit #22) — same unified alerts, reduced to what the map needs
+  const mapCases: MapCase[] = alerts.map((a) => ({
+    key: `${isMine(a) ? "m" : "s"}-${a.id}`,
+    situation: SITUATION_META[a.situation as keyof typeof SITUATION_META]?.label ?? "Rescue",
+    species: a.species,
+    area: a.area,
+    reportedAt: a.reportedAt,
+    urgency: a.urgency,
+    status: a.status,
+    responders: a.responders.length,
+    mine: isMine(a),
+  }));
 
   return (
     <div className="pb-4">
@@ -129,6 +144,7 @@ export function RescueScreen() {
 
       <div className="mx-auto max-w-6xl px-4 py-10">
         {/* Feed */}
+        <div id="rescue-feed">
         <Tabs value={tab} onValueChange={setTab}>
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -293,9 +309,37 @@ export function RescueScreen() {
             })}
           </TabsContent>
         </Tabs>
+        </div>
 
-        {/* Guide + emergency contacts */}
-        <section id="rescue-guide" className="mt-12 grid gap-4 lg:grid-cols-5">
+        {/* Rescue Network map (audit #22) */}
+        <section className="mt-12">
+          <RescueNetworkMap cases={mapCases} />
+          <p className="mt-2.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5 text-primary" />
+            Stylized demo map. In production each alert pins the reporter&apos;s
+            coordinates from the rescue_reports table; shelters and clinics come
+            from their own tables.
+          </p>
+        </section>
+
+        {/* Guide: triage tree + scenarios + do & don't + contacts (audit P3/#5) */}
+        <section id="rescue-guide" className="mt-12 scroll-mt-20">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div className="max-w-xl">
+              <h2 className="text-2xl font-bold tracking-tight">Rescue Guide</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Answer four questions and we&apos;ll tell you exactly what to do — or skim the
+                scenario cards and the do &amp; don&apos;t list.
+              </p>
+            </div>
+          </div>
+          <div className="mt-5">
+            <RescueDecisionTree onPost={() => setDialogOpen(true)} />
+          </div>
+          <div className="mt-8">
+            <RescueScenarios />
+          </div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-5">
           <Card className="shadow-soft lg:col-span-3">
             <CardContent className="p-6">
               <h3 className="flex items-center gap-2 text-lg font-bold tracking-tight">
@@ -328,7 +372,7 @@ export function RescueScreen() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-soft lg:col-span-2">
+          <Card id="rescue-contacts" className="scroll-mt-20 shadow-soft lg:col-span-2">
             <CardContent className="p-6">
               <h3 className="flex items-center gap-2 text-lg font-bold tracking-tight">
                 <PhoneCall className="h-5 w-5 text-danger-600" /> Emergency vet lines
@@ -372,6 +416,7 @@ export function RescueScreen() {
               </div>
             </CardContent>
           </Card>
+          </div>
         </section>
 
         {/* How it works */}

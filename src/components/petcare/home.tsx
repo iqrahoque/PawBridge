@@ -5,7 +5,6 @@ import {
   House,
   ArrowRight,
   Droplets,
-  SearchCheck,
   HeartHandshake,
   Stethoscope,
   HandCoins,
@@ -224,8 +223,51 @@ export function HomeScreen({
         </div>
       </section>
 
+      {/* What are you here to do? — 4-action strip (audit P5): the whole product
+          understandable in 5 seconds. Replaces the old situation-card grid. */}
+      <section className="mx-auto max-w-6xl px-4 pt-12">
+        <SectionHead
+          title="What are you here to do?"
+          sub="One platform, every kind of help — pick a door and we'll take you straight to it."
+        />
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ActionCard
+            icon={PawPrint}
+            tone="brown"
+            title="Adopt"
+            desc="Find a companion — dogs & cats from verified shelters"
+            cta="Meet the pets"
+            action={() => onNavigate("pets")}
+          />
+          <ActionCard
+            icon={Siren}
+            tone="red"
+            title="Rescue"
+            desc="Report an injured or trapped animal — responders are notified in minutes"
+            cta="Emergency Rescue"
+            action={() => onNavigate("rescue")}
+          />
+          <ActionCard
+            icon={Stethoscope}
+            tone="green"
+            title="Care"
+            desc="Find a vet, emergency lines and the pet blood bank"
+            cta="Find care"
+            action={() => onNavigate("vets")}
+          />
+          <ActionCard
+            icon={HandCoins}
+            tone="peach"
+            title="Help"
+            desc="Fund a treatment, sponsor a wish, foster virtually"
+            cta="Give help"
+            action={() => onNavigate("campaigns")}
+          />
+        </div>
+      </section>
+
       {/* Urgent right now (audit #33) */}
-      <section className="mx-auto max-w-6xl px-4 -mt-7 sm:-mt-8">
+      <section className="mx-auto max-w-6xl px-4 mt-12">
         <div className="rounded-3xl border border-danger-200 bg-rescue p-5 shadow-soft sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="flex items-center gap-2 text-lg font-bold tracking-tight text-danger-800">
@@ -358,51 +400,6 @@ export function HomeScreen({
               />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Situations */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <SectionHead
-          title="What do you need right now?"
-          sub="Real situations, one tap away — no forms, no jargon."
-        />
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <SituationCard
-            icon={Siren}
-            tone="red"
-            question="I found an animal in danger"
-            title="Rescue Network"
-            action={() => onNavigate("rescue")}
-          />
-          <SituationCard
-            icon={Droplets}
-            tone="rose"
-            question="A pet needs blood"
-            title="Pet Blood Bank"
-            action={() => onNavigate("blood")}
-          />
-          <SituationCard
-            icon={SearchCheck}
-            tone="gold"
-            question="My pet is missing"
-            title="Lost & Found"
-            action={() => onNavigate("lostfound")}
-          />
-          <SituationCard
-            icon={HeartHandshake}
-            tone="lav"
-            question="I need temporary foster care"
-            title="Safe Haven"
-            action={() => onNavigate("dashboard")}
-          />
-          <SituationCard
-            icon={PawPrint}
-            tone="brown"
-            question="I want to help"
-            title="Donate & Paw Points"
-            action={() => onNavigate("campaigns")}
-          />
         </div>
       </section>
 
@@ -558,39 +555,41 @@ function SectionHead({
 }
 
 /* ------------------------------------------------------------------ */
-/* Module card                                                         */
+/* Action card — the 4 doors (Adopt · Rescue · Care · Help)            */
 /* ------------------------------------------------------------------ */
 
-function SituationCard({
+function ActionCard({
   icon: Icon,
   tone,
-  question,
   title,
+  desc,
+  cta,
   action,
 }: {
   icon: React.ComponentType<{ className?: string }>;
-  tone: "red" | "rose" | "gold" | "lav" | "brown";
-  question: string;
+  tone: "brown" | "red" | "green" | "peach";
   title: string;
+  desc: string;
+  cta: string;
   action: () => void;
 }) {
   const tones = {
-    red: "bg-danger-50 text-danger-600",
-    rose: "bg-brand2-50 text-brand2-600",
-    gold: "bg-tint-yellow text-dog-yellow-deep",
-    lav: "bg-tint-lavender text-cat-lav-deep",
     brown: "bg-brand-50 text-brand-700",
+    red: "bg-danger-50 text-danger-600",
+    green: "bg-leaf-50 text-leaf-700",
+    peach: "bg-brand2-50 text-brand2-600",
   };
   return (
     <button onClick={action} className="cursor-pointer text-left">
       <Card className="h-full shadow-soft transition-shadow hover:shadow-lift">
         <CardContent className="p-5">
-          <span className={`inline-flex h-10 w-10 items-center justify-center rounded-2xl ${tones[tone]}`}>
+          <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${tones[tone]}`}>
             <Icon className="h-5 w-5" />
           </span>
-          <p className="mt-3 text-sm font-semibold text-ink-800">{question}</p>
-          <p className="mt-0.5 flex items-center gap-1 text-xs font-bold text-brand-600">
-            {title} <ArrowRight className="h-3 w-3" />
+          <p className="mt-3 text-base font-bold tracking-tight text-ink-800">{title}</p>
+          <p className="mt-1 min-h-10 text-sm leading-snug text-muted-foreground">{desc}</p>
+          <p className="mt-2.5 flex items-center gap-1 text-xs font-bold text-brand-600">
+            {cta} <ArrowRight className="h-3 w-3" />
           </p>
         </CardContent>
       </Card>

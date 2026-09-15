@@ -15,6 +15,11 @@ import {
   Search,
   HeartHandshake,
   Check,
+  LifeBuoy,
+  CalendarClock,
+  Home,
+  Camera,
+  ClipboardList,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -376,6 +381,9 @@ function PetDetail({
             </p>
           </div>
 
+          {/* Journey timeline — the animal's story as data (audit #27) */}
+          <JourneyTimeline pet={pet} />
+
           <Accordion type="single" collapsible className="rounded-2xl border bg-white px-5">
             <AccordionItem value="medical" className="border-none">
               <AccordionTrigger className="text-sm font-bold">Medical history</AccordionTrigger>
@@ -420,6 +428,144 @@ function Fact({ label, value }: { label: string; value: string }) {
     <div className="rounded-xl border bg-white p-3">
       <p className="text-[11px] uppercase tracking-wide text-ink-400">{label}</p>
       <p className="font-semibold capitalize">{value}</p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Journey timeline — every event mirrors a row the MySQL schema keeps */
+/* ------------------------------------------------------------------ */
+
+function JourneyTimeline({ pet }: { pet: Pet }) {
+  const adm = new Date(`${pet.admissionDate}T12:00:00`);
+  const addDays = (d: Date, n: number) => new Date(d.getTime() + n * 86400000);
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const shelter = shelters.find((s) => s.id === pet.shelterId);
+
+  type Ev = {
+    date: string;
+    title: string;
+    body: string;
+    Icon: React.ComponentType<{ className?: string }>;
+    future?: boolean;
+  };
+  const events: Ev[] = [];
+
+  events.push({
+    date: fmt(adm),
+    title: "Rescued & admitted",
+    body: `Taken in by ${shelterName(pet.shelterId)}${shelter ? `, ${shelter.area}` : ""}. Intake exam and temperament notes filed.`,
+    Icon: LifeBuoy,
+  });
+  if (pet.vaccinated)
+    events.push({
+      date: fmt(addDays(adm, 7)),
+      title: "Vaccinated",
+      body: "Rabies + combination vaccine — batch number and date recorded in vaccination_records.",
+      Icon: Syringe,
+    });
+  if (pet.neutered)
+    events.push({
+      date: fmt(addDays(adm, 21)),
+      title: pet.gender === "female" ? "Spayed" : "Neutered",
+      body: "Performed at the partner clinic; recovery in shelter care.",
+      Icon: Scissors,
+    });
+  events.push({
+    date: fmt(addDays(adm, 28)),
+    title: "Listed on PawBridge",
+    body: "Photos, personality tags and medical history published for adopters.",
+    Icon: Camera,
+  });
+
+  switch (pet.status) {
+    case "pending":
+      events.push({
+        date: "This week",
+        title: "Adoption application received",
+        body: "The shelter is reviewing an application — follow the pipeline in your dashboard.",
+        Icon: ClipboardList,
+      });
+      break;
+    case "adopted":
+      events.push({
+        date: "Recently",
+        title: "Found a family",
+        body: "Application approved — left the shelter for a new home. Outcome recorded in adoption_applications.",
+        Icon: Home,
+      });
+      break;
+    case "fostered":
+      events.push({
+        date: "Currently",
+        title: "Living with a foster family",
+        body: "Temporary care through the Safe Haven program while adoption stays open.",
+        Icon: Home,
+      });
+      break;
+    case "medical_hold":
+      events.push({
+        date: "Currently",
+        title: "On medical hold",
+        body: "Recovering from treatment — adoption resumes once the vet clears.",
+        Icon: Syringe,
+      });
+      break;
+    default:
+      events.push({
+        date: "Today",
+        title: "Waiting for the right person",
+        body: "Available for adoption — every application goes straight to the shelter team.",
+        Icon: HeartHandshake,
+      });
+  }
+
+  if (pet.vaccinated)
+    events.push({
+      date: fmt(addDays(adm, 365)),
+      title: "Next vaccine due",
+      body: "Rabies booster — the clinic gets a reminder from vaccination_records.next_due_date.",
+      Icon: CalendarClock,
+      future: true,
+    });
+
+  return (
+    <div className="rounded-2xl border bg-white p-5 shadow-soft">
+      <h2 className="flex items-center gap-2 font-bold">
+        <PawPrint className="h-4 w-4 text-primary" /> {pet.name}&apos;s journey
+      </h2>
+      <ol className="mt-4">
+        {events.map((e, i) => (
+          <li key={e.title} className="relative flex gap-4 pb-5 last:pb-0">
+            {i < events.length - 1 && (
+              <span
+                className="absolute left-[15px] top-9 h-[calc(100%-2.25rem)] w-px bg-brand-100"
+                aria-hidden
+              />
+            )}
+            <span
+              className={cn(
+                "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border",
+                e.future
+                  ? "border-dashed border-ink-300 bg-white text-ink-400"
+                  : "border-brand2-200 bg-brand2-50 text-brand2-700"
+              )}
+            >
+              <e.Icon className="h-4 w-4" />
+            </span>
+            <div className="min-w-0 pt-0.5">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-ink-400">{e.date}</p>
+              <p className="text-sm font-bold text-ink-800">{e.title}</p>
+              <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{e.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-3 rounded-xl bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
+        In the MySQL schema these events are rows in the status history and
+        vaccination_records tables — this timeline is a query, not a story.
+      </p>
     </div>
   );
 }

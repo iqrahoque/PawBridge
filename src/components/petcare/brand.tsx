@@ -60,11 +60,14 @@ export function BrandMark({
 }
 
 export function BrandTile({ className }: { className?: string }) {
+  // The original Duo Heart badge (Concept A, the one the user approved):
+  // cream tile + a hairline warm border so it also reads on the cream canvas,
+  // with the full-colour mark (forest cat + brown dog + red heart).
   return (
     <span
-      className={`flex items-center justify-center rounded-2xl bg-ink-900 ${className ?? "h-9 w-9"}`}
+      className={`flex items-center justify-center rounded-2xl border border-brand2-200 bg-[#fff9f2] shadow-soft ${className ?? "h-9 w-9"}`}
     >
-      <BrandMark tone="dark" className="h-[68%] w-[68%]" />
+      <BrandMark tone="light" className="h-[68%] w-[68%]" />
     </span>
   );
 }

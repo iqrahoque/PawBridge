@@ -26,6 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { BrandMark, BrandTile } from "./brand";
+import { NotificationsBell } from "./notifications";
 import { cn } from "@/lib/utils";
 import type { Screen } from "@/data/seed";
 
@@ -187,7 +188,12 @@ export function Nav({
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Emergency CTA — visually different from everything else (audit #4) */}
+          {/* Notification center (audit #26) — bell + live event feed */}
+          <NotificationsBell onNavigate={go} />
+
+          {/* Emergency CTA — visually different from everything else (audit #4).
+              Named "Emergency Rescue" so the promise is unambiguous (audit P2):
+              broader help lives under the Help menu and the homepage action strip. */}
           <Button
             className={cn(
               "hidden rounded-full bg-danger-500 text-white hover:bg-danger-600 md:inline-flex",
@@ -195,7 +201,7 @@ export function Nav({
             )}
             onClick={() => go("rescue")}
           >
-            <Siren className="h-4 w-4" /> Help an Animal
+            <Siren className="h-4 w-4" /> Emergency Rescue
           </Button>
 
           <Button
@@ -223,7 +229,7 @@ export function Nav({
                 className="mt-4 w-full rounded-xl bg-danger-500 text-white hover:bg-danger-600"
                 onClick={() => go("rescue")}
               >
-                <Siren className="h-4 w-4" /> Help an Animal Now
+                <Siren className="h-4 w-4" /> Emergency Rescue Now
               </Button>
 
               <nav className="mt-5 flex flex-col gap-4" aria-label="Mobile">
