@@ -1,0 +1,4 @@
+1:"$Sreact.fragment"
+2:I[90635,["/PawBridge/_next/static/chunks/7ee79cdfa1226e10.js","/PawBridge/_next/static/chunks/4eb591008287007d.js"],"default"]
+3:I[99836,["/PawBridge/_next/static/chunks/7ee79cdfa1226e10.js","/PawBridge/_next/static/chunks/4eb591008287007d.js"],"default"]
+0:{"buildId":"tqF25mpZHwubguzI3Lbbx","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
